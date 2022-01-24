@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Header,
@@ -7,15 +7,20 @@ import {
   Wrapper,
   MessageNotMealFound,
   DescriptionNotMealFound,
-  ButtonAddMeal
+  ButtonAddMeal,
+  ScrollCardMeal,
+  WrapperCardsMeals
 } from './styles';
 import IconAvatar from '../../assets/avatar.svg';
 import WeekList from '../../components/WeekList';
 import { GraphicMetricCalories } from '../../components/GraphicMetricCalories';
 import { Macro } from '../../components/GraphicMetricCalories/types';
 import { Entypo } from '@expo/vector-icons'; 
+import { CardMeal } from '../../components/CardMeal';
 
 export function Home () {
+
+  const [mealsStatus, setMealsStatus] = useState(true);
   
   const macros: Macro[] = [
     { name: 'Proteina', amount: 100, progress: 0.5},
@@ -40,16 +45,23 @@ export function Home () {
         <TitleToday>Hoje</TitleToday>
         <GraphicMetricCalories data={macros}/>
       </Wrapper>
-      <Wrapper marginTop={35} marginBottom={0} isCenter={true}>
-        <MessageNotMealFound>
-          Sem refeições adicionadas
-        </MessageNotMealFound>
-        <DescriptionNotMealFound>
-          Comece a adicionar refeições clicando no botão 
-          {`\n`}
-          a baixo
+      {!mealsStatus && (
+        <Wrapper marginTop={0} marginBottom={0} isCenter={true}>
+          <MessageNotMealFound>
+            Sem refeições adicionadas
+          </MessageNotMealFound>
+          <DescriptionNotMealFound>
+            Comece a adicionar refeições clicando no botão 
+            {`\n`}
+            a baixo
         </DescriptionNotMealFound>
-      </Wrapper>
+        </Wrapper>
+      )}
+      <ScrollCardMeal>
+        <WrapperCardsMeals>
+          <CardMeal />
+        </WrapperCardsMeals>
+      </ScrollCardMeal>
 
       <ButtonAddMeal>
         <Entypo 
