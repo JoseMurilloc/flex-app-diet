@@ -36,7 +36,7 @@ export function Pie ({data}: Props) {
   
   const caloriesTotal = useMemo(() => {
     return data.max - data.percentage
-  }, [])
+  }, [data.percentage])
 
   
   const animation = (toValue: number) => {
@@ -84,7 +84,7 @@ export function Pie ({data}: Props) {
             r="59"
             fill= "transparent"
             strokeWidth={13}
-            stroke= {data.color}
+            stroke="#8587E5"
             strokeOpacity={0.8}
             strokeDasharray={circleCircumference}
             strokeDashoffset={strokeDashoffset}
@@ -93,8 +93,8 @@ export function Pie ({data}: Props) {
           <Text 
             x="55" 
             y="70"
-            stroke="#494949"
-            fontSize={theme.sizes.default}
+            fill="#494949"
+            fontSize={theme.sizes.large}
             fontFamily={theme.fonts.bold}
           >
             {caloriesTotal}
@@ -102,10 +102,10 @@ export function Pie ({data}: Props) {
           <Text 
             x="32" 
             y="83"
-            stroke="#494949" 
+            fill="#494949" 
             fontSize={theme.sizes.small}
             fontFamily={theme.fonts.regular}
-            fontWeight="100"
+            fontWeight="50"
           >
             Calorias restantes
           </Text>

@@ -11,6 +11,7 @@ export const Container = styled.View`
   align-items: center;
   padding: 12px 23px 16px 19px;
   flex-direction: row;
+  margin-bottom: 12px;
 `;
 
 export const Content = styled.View`

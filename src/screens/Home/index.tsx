@@ -9,7 +9,6 @@ import {
   DescriptionNotMealFound,
   ButtonAddMeal,
   ScrollCardMeal,
-  WrapperCardsMeals
 } from './styles';
 import IconAvatar from '../../assets/avatar.svg';
 import WeekList from '../../components/WeekList';
@@ -17,10 +16,14 @@ import { GraphicMetricCalories } from '../../components/GraphicMetricCalories';
 import { Macro } from '../../components/GraphicMetricCalories/types';
 import { Entypo } from '@expo/vector-icons'; 
 import { CardMeal } from '../../components/CardMeal';
+import { meals } from '../../constants/meals';
+
+import IconDinner from '../../assets/dinner.svg';
 
 export function Home () {
 
   const [mealsStatus, setMealsStatus] = useState(true);
+  
   
   const macros: Macro[] = [
     { name: 'Proteina', amount: 100, progress: 0.5},
@@ -58,9 +61,24 @@ export function Home () {
         </Wrapper>
       )}
       <ScrollCardMeal>
-        <WrapperCardsMeals>
-          <CardMeal />
-        </WrapperCardsMeals>
+        {meals.map(meal => (
+          <CardMeal
+            key={meal.nameMeal} 
+            nameMeal={meal.nameMeal}
+            caloriesTotal={350}
+            Icon={meal.icon}
+          />
+        ))}
+        <CardMeal
+          nameMeal="{meal.nameMeal}"
+          caloriesTotal={350}
+          Icon={IconDinner}
+        />
+        <CardMeal
+          nameMeal="{meal.nameMeal}"
+          caloriesTotal={350}
+          Icon={IconDinner}
+        />
       </ScrollCardMeal>
 
       <ButtonAddMeal>

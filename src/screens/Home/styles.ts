@@ -66,7 +66,7 @@ export const ButtonAddMeal = styled.TouchableOpacity`
 
   position: absolute;
   right: 24px;
-  bottom: 150px;
+  bottom: 100px;
 
   background-color: ${({theme}) => theme.colors.primary};
   width: 80px;
@@ -76,14 +76,10 @@ export const ButtonAddMeal = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 `;
-export const WrapperCardsMeals = styled.View`
-  justify-content: space-between; 
-  height: 115%; 
-  padding-bottom: 6;
-`;
 
 export const ScrollCardMeal = styled.ScrollView.attrs(props => ({
   showsVerticalScrollIndicator: false,
 }))`
   width: 100%;
+  height: 100%;
 `;

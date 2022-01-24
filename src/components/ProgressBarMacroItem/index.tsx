@@ -21,7 +21,7 @@ export function ProgressBarMacroItem ({
       <Progress.Bar 
         progress={progress} 
         width={amount}
-        color='#8587E6'
+        color="#9a9beb"
         style={{
           backgroundColor: '#E3E3E3',
           borderColor: 'transparent',
