@@ -4,7 +4,8 @@ export default {
     background: '#FFFFFF',
     text: '#404040',
     description: '#787878',
-    card: '#F3F3F3',  
+    card: '#F3F3F3',
+    calorie: '#EEAC2B'  
   },
   sizes: {
     title: 18,
