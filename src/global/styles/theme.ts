@@ -15,6 +15,7 @@ export default {
     tiny: 8,
   },
   fonts: {
+    thin: 'Roboto_100Thin',
     regular: 'Roboto_400Regular',
     medium: 'Roboto_500Medium',
     bold: 'Roboto_700Bold',

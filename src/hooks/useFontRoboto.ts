@@ -1,5 +1,6 @@
 import {
   useFonts,
+  Roboto_100Thin,
   Roboto_400Regular,
   Roboto_500Medium,
   Roboto_700Bold
@@ -8,9 +9,10 @@ import {
 
 export function useFontRoboto(): boolean {
   const [fontsLoaded] = useFonts({
+    Roboto_100Thin,
     Roboto_400Regular,
     Roboto_500Medium,
-    Roboto_700Bold
+    Roboto_700Bold,
   });
 
   return fontsLoaded;
