@@ -1,7 +1,20 @@
 import { lighten } from 'polished';
 import styled from 'styled-components/native';
+import { MotiView } from 'moti'
 
-export const Container = styled.View`
+export const Container = styled(MotiView).attrs(props => {
+  // const widthCurrent = props.onLayout;
+  // console.log(widthCurrent)
+
+  return { 
+    from: { bottom: -261 },
+    animate: {  bottom: 0 },
+    transition: { type: 'timing', duration: 200 },
+  }
+})`
+  position: relative;
+  /* bottom: -261px; */
+
   background-color: ${({theme}) => theme.colors.card};
   width: 100%;
   padding: 0 16px;
@@ -9,7 +22,7 @@ export const Container = styled.View`
   border-top-right-radius: 16px;
   border-top-left-radius: 16px;
   border-color: ${({theme}) => lighten(0.3, theme.colors.primary)};
-  border-width: 1px;
+  border-width: 0.8px;
 `;
 
 export const Header = styled.View`

@@ -41,6 +41,10 @@ export function Home () {
     setOpenMenuMeal(state => !state)
   }
 
+  const handleMenuOptionsIsOpen = () => {
+    setOpenMenuMeal(state => !state);
+  }
+
   return (
     <WrapperScreen>
       <Container>
@@ -87,7 +91,7 @@ export function Home () {
 
       <MenuMeal>
         <ButtonAddMeal
-          onPress={() => setOpenMenuMeal(state => !state)}
+          onPress={() => handleMenuOptionsIsOpen()}
           style={!openMenuMeal && { marginBottom: 100 }}
         >
           {openMenuMeal ? (
