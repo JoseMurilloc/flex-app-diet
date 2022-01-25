@@ -1,9 +1,15 @@
+import { lighten } from 'polished';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
   background-color: ${({theme}) => theme.colors.card};
   width: 100%;
   padding: 0 16px;
+
+  border-top-right-radius: 16px;
+  border-top-left-radius: 16px;
+  border-color: ${({theme}) => lighten(0.3, theme.colors.primary)};
+  border-width: 1px;
 `;
 
 export const Header = styled.View`
