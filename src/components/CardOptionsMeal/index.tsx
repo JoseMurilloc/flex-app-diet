@@ -16,7 +16,7 @@ export function CardOptionsMeal() {
         <Title>Refeições</Title>
       </Header>
       {meals.map(({Icon, nameMeal}) => (
-        <Meal>
+        <Meal key={nameMeal}>
           <Icon width={24} height={24} />
           <Name>{nameMeal}</Name>
         </Meal>
