@@ -59,7 +59,7 @@ export function Home () {
           <TitleToday>Hoje</TitleToday>
           <GraphicMetricCalories data={macros}/>
         </Wrapper>
-        {!mealsStatus && (
+        {mealsStatus ? (
           <Wrapper marginTop={0} marginBottom={0} isCenter={true}>
             <MessageNotMealFound>
               Sem refeições adicionadas
@@ -70,8 +70,8 @@ export function Home () {
               a baixo
           </DescriptionNotMealFound>
           </Wrapper>
-        )}
-        <ScrollCardMeal>
+        ) : (
+          <ScrollCardMeal>
           {meals.map(meal => (
             <CardMeal
               key={meal.nameMeal} 
@@ -81,6 +81,8 @@ export function Home () {
             />
           ))}
         </ScrollCardMeal>
+        )}
+        
       </Container>
 
       <MenuMeal>
