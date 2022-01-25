@@ -14,9 +14,9 @@ export function GraphicMetricCalories ({data}: GraphicMetricCaloriesProps) {
           radius: 59,
           strokeWidth: 13,
           delay: 200,
-          percentage: 450,
+          percentage: 250,
           max: 2000,
-          duration: 500,
+          duration: 700,
           textColor: theme.colors.text,
         }}
       />

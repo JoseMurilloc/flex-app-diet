@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { Animated } from 'react-native';
-import { Svg, Circle, Path, Rect, Text, Defs, G, Use } from 'react-native-svg';
+import { Svg, Circle, Path, Rect, Text, Defs, G, Use, CircleProps } from 'react-native-svg';
 import theme from '../../global/styles/theme';
 
 // rotation='-90' origin={`${halfCircle}, ${halfCircle}`}
@@ -20,18 +20,14 @@ type Props = {
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-
 export function Pie ({data}: Props) {
 
   const animatedValue = useRef(new Animated.Value(0)).current;
-  const circleProgressRef= useRef(null);
 
   const circleCircumference = 370;
   const halfCircle = data.radius * data.strokeWidth;
 
   const maxPercent = 100 * data.percentage / data.max;
-  const strokeDashoffset = 
-    circleCircumference - (circleCircumference * maxPercent) / 100; 
 
   
   const caloriesTotal = useMemo(() => {
@@ -40,19 +36,20 @@ export function Pie ({data}: Props) {
 
   
   const animation = (toValue: number) => {
+    const strokeDashoffset = 
+      circleCircumference - (circleCircumference * maxPercent) / 100;    
+
     return Animated.timing(animatedValue, {
-      toValue,
+      toValue: strokeDashoffset,
       duration: data.duration,
       delay: data.delay,
       useNativeDriver: true, 
     }).start() 
   }
-
   
   useEffect(() => {
-    animation(data.percentage);
-    console.log('LOG EFFECT');
-  }, [])
+    animation(data.percentage); 
+  }, [data.percentage])
 
   return (
     <Svg 
@@ -78,7 +75,6 @@ export function Pie ({data}: Props) {
             strokeDashoffset={0}
           />
           <AnimatedCircle
-            ref={circleProgressRef} 
             cx="70"
             cy="75"
             r="59"
@@ -87,7 +83,7 @@ export function Pie ({data}: Props) {
             stroke="#8587E5"
             strokeOpacity={0.8}
             strokeDasharray={circleCircumference}
-            strokeDashoffset={strokeDashoffset}
+            strokeDashoffset={animatedValue}
             strokeLinecap="round"
           />
           <Text 
