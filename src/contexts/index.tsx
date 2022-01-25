@@ -4,6 +4,7 @@ import { useFontRoboto } from '../hooks/useFontRoboto';
 import AppLoading from 'expo-app-loading';
 
 import theme from '../global/styles/theme';
+import { NavigationContainer } from '@react-navigation/native';
 
 export const AppProvider: React.FC = ({children}) => {
   const fontsLoaded = useFontRoboto();
@@ -14,7 +15,9 @@ export const AppProvider: React.FC = ({children}) => {
 
   return (
     <ThemeProvider theme={theme}>
-      {children}
+      <NavigationContainer>
+        {children}
+      </NavigationContainer>
     </ThemeProvider>
   )
 }

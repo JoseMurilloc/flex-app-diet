@@ -27,6 +27,7 @@ import { CardOptionsMeal } from '../../components/CardOptionsMeal';
 
 export function Home () {
 
+  // mealsStatus State 🚨
   const [mealsStatus, setMealsStatus] = useState(true);
   const [openMenuMeal, setOpenMenuMeal] = useState(false);
   
@@ -109,7 +110,7 @@ export function Home () {
             />
           )}
         </ButtonAddMeal>
-        {openMenuMeal && <CardOptionsMeal />}
+        {openMenuMeal && <CardOptionsMeal setOpenMenuMeal={setOpenMenuMeal}/>}
       </MenuMeal>
     </WrapperScreen>
   );
