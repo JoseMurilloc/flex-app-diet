@@ -7,12 +7,17 @@ const marginStyles = (top: number, bottom: number) => css`
   margin-bottom: ${bottom}px;  
 `;
 
+export const WrapperScreen = styled.View`
+  flex: 1;
+  position: relative;
+  background: blue;
+`;
+
 export const Container = styled.View`
   flex: 1;
   align-items: center;
   padding: 0 24px;
-  position: relative;
-
+  
   background-color: ${({theme}) => theme.colors.background};
 `;
 
@@ -62,19 +67,25 @@ export const DescriptionNotMealFound = styled.Text`
   text-align: center;
 `;
 
-export const ButtonAddMeal = styled.TouchableOpacity`
-
-  position: absolute;
-  right: 24px;
-  bottom: 100px;
-
+export const ButtonAddMeal = styled.TouchableOpacity.attrs(props => {
+  activeOpacity: 0
+})`
   background-color: ${({theme}) => theme.colors.primary};
-  width: 80px;
-  height: 80px;
+  width: 65px;
+  height: 65px;
   border-radius: 40px;
 
   justify-content: center;
   align-items: center;
+  margin-right: 19px;
+`;
+
+export const MenuMeal = styled.View`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  align-items: flex-end;
 `;
 
 export const ScrollCardMeal = styled.ScrollView.attrs(props => ({

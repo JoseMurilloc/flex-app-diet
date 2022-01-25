@@ -12,7 +12,7 @@ import { SvgProps } from "react-native-svg";
 type CardMealProps = {
   nameMeal: string;
   caloriesTotal: number;
-  Icon: React.FC<SvgProps>
+  Icon: React.FC<SvgProps>;
 }
 
 export function CardMeal({ nameMeal, caloriesTotal, Icon }: CardMealProps) {
