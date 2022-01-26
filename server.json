@@ -1,0 +1,96 @@
+{
+  "foods": [
+    {
+      "id": 1,
+      "nameFood": "Feijão Carioca",
+      "gram": 100,
+      "caloriesTotalFood": 128
+    },
+    {
+      "id": 2,
+      "nameFood": "Arroz Integral",
+      "gram": 80,
+      "caloriesTotalFood": 85  
+    },
+    {
+      "id": 3,
+      "nameFood": "Atum",
+      "gram": 50,
+      "caloriesTotalFood": 152
+    },
+    {
+      "id": 4,
+      "nameFood": "Ovo branco",
+      "gram": 50,
+      "caloriesTotalFood": 35 
+    },
+    {
+      "id": 5,
+      "nameFood": "Feijão Verde",
+      "gram": 100,
+      "caloriesTotalFood": 128  
+    },
+    {
+      "id": 6,
+      "nameFood": "Arroz Parbonizado",
+      "gram": 100,
+      "caloriesTotalFood": 128  
+    },
+    {
+      "id": 7,
+      "nameFood": "Mortadela",
+      "gram": 100,
+      "caloriesTotalFood": 128  
+    },
+    {
+      "id": 8,
+      "nameFood": "Amêndoim",
+      "gram": 100,
+      "caloriesTotalFood": 128  
+    },
+    {
+      "id": 9,
+      "nameFood": "Açucar branco",
+      "gram": 100,
+      "caloriesTotalFood": 128  
+    },
+    {
+      "id": 10,
+      "nameFood": "Maça",
+      "gram": 100,
+      "caloriesTotalFood": 128  
+    }
+  ],
+  "meals": [
+    {
+      "id": "breakfast",
+      "nameMeal": "Café da manhã",
+      "caloriesTotal": 432,
+      "foods": []
+    },
+    {
+      "id": "morningSpeedboat",
+      "nameMeal": "Lanche da manha",
+      "caloriesTotal": 435,
+      "foods": []
+    },
+    {
+      "id": "lunch",
+      "nameMeal": "Almoço",
+      "caloriesTotal": 432,
+      "foods": []
+    },
+    {
+      "id": "afternoonSnack",
+      "nameMeal": "Lanche da tarde",
+      "caloriesTotal": 432,
+      "foods": []
+    },
+    {
+      "id": "dinner",
+      "nameMeal": "Jantar",
+      "caloriesTotal": 432,
+      "foods": []
+    }
+  ]
+}
