@@ -1,7 +1,7 @@
-import { lighten } from "polished";
 import styled from "styled-components/native";
+import { RectButton } from 'react-native-gesture-handler';
 
-export const Container = styled.View`
+export const Container = styled(RectButton)`
   width: 100%;
   background-color: ${({theme}) => theme.colors.card};
   height: 69px;

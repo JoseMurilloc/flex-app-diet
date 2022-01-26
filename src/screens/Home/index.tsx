@@ -8,7 +8,7 @@ import {
   MessageNotMealFound,
   DescriptionNotMealFound,
   ButtonAddMeal,
-  ScrollCardMeal,
+  WrapperCardsMeal,
   WrapperScreen,
   MenuMeal
 } from './styles';
@@ -24,6 +24,7 @@ import { CardMeal } from '../../components/CardMeal';
 import { meals } from '../../constants/meals';
 
 import { CardOptionsMeal } from '../../components/CardOptionsMeal';
+import { FlatList } from 'react-native';
 
 export function Home () {
 
@@ -64,7 +65,7 @@ export function Home () {
           <TitleToday>Hoje</TitleToday>
           <GraphicMetricCalories data={macros}/>
         </Wrapper>
-        {mealsStatus ? (
+        {!mealsStatus ? (
           <Wrapper marginTop={0} marginBottom={0} isCenter={true}>
             <MessageNotMealFound>
               Sem refeições adicionadas
@@ -76,16 +77,29 @@ export function Home () {
           </DescriptionNotMealFound>
           </Wrapper>
         ) : (
-          <ScrollCardMeal>
-          {meals.map(meal => (
+          <WrapperCardsMeal>
+          <FlatList 
+            data={meals}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={meal => meal.nameMeal}
+            renderItem={({item: meal}) => (
+              <CardMeal
+                key={meal.nameMeal} 
+                nameMeal={meal.nameMeal}
+                caloriesTotal={350}
+                Icon={meal.Icon}
+              />
+            )}
+          />
+          {/* {meals.map(meal => (
             <CardMeal
               key={meal.nameMeal} 
               nameMeal={meal.nameMeal}
               caloriesTotal={350}
               Icon={meal.Icon}
             />
-          ))}
-        </ScrollCardMeal>
+          ))} */}
+        </WrapperCardsMeal>
         )}
         
       </Container>

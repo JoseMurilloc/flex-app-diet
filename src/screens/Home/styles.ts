@@ -88,9 +88,7 @@ export const MenuMeal = styled.View`
   align-items: flex-end;
 `;
 
-export const ScrollCardMeal = styled.ScrollView.attrs(props => ({
-  showsVerticalScrollIndicator: false,
-}))`
+export const WrapperCardsMeal = styled.View`
+  flex: 1;
   width: 100%;
-  height: 100%;
 `;
