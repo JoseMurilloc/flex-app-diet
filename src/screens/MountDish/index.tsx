@@ -4,13 +4,15 @@ import {
   Container,
   ContentFoods,
   Line,
-  ScrollCardFood,
+  WrapperCardFood,
   Title,
   TitleJoinLine,
   WrapperInput,
 } from "./styles";
 import { Input } from "../../components/Form/Input";
 import { CardFood } from "../../components/CardFood";
+import { foods } from "../../commons/foods";
+import { FlatList } from "react-native";
 
 export function MountDish() {
   return (
@@ -26,16 +28,20 @@ export function MountDish() {
           <Line />
         </TitleJoinLine>
 
-        <ScrollCardFood>
-          {[0,1,2,3,4,5,6,7,8,9,10].map(item => (
-            <CardFood 
-              key={item}
-              nameFood="Feijão carioca" 
-              gram={100} 
-              caloriesTotalFood={128}
-            />
-          ))}
-        </ScrollCardFood>
+        <WrapperCardFood>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={foods}
+            keyExtractor={food => food.nameFood}
+            renderItem={({item: food}) => (
+              <CardFood 
+                nameFood={food.nameFood}
+                gram={food.gram} 
+                caloriesTotalFood={food.caloriesTotalFood}
+              />
+            )}
+          />
+        </WrapperCardFood>
 
 
       </ContentFoods>

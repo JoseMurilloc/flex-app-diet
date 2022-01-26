@@ -12,7 +12,9 @@ export const WrapperInput = styled.View`
   margin-top: 24px;
 `;
 
-export const ContentFoods = styled.View``;
+export const ContentFoods = styled.View`
+  flex: 1;
+`;
 
 
 export const Title = styled.Text`
@@ -34,11 +36,6 @@ export const Line = styled.View`
   background-color: #757575;
   margin-left: 2px;
 `
-
-
-export const ScrollCardFood = styled.ScrollView.attrs(props => ({
-  showsVerticalScrollIndicator: false,
-}))`
-  width: 100%;
-  height: 100%;
+export const WrapperCardFood = styled.View`
+  flex: 1;
 `;
