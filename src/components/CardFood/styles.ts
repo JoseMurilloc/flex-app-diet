@@ -1,11 +1,11 @@
 import styled from "styled-components/native";
 import { MotiView } from 'moti';
 
-
 export const Container = styled(MotiView).attrs(props => ({
   from: {opacity: 0, bottom: -100},
   animate: { opacity: 1, bottom: 0},
-  transition: { type: 'timing', duration: 500 }
+  transition: { type: 'timing', duration: 500 },
+  style: { elevation: 10 }
 }))`
   width: 100%;
   background-color: ${({theme}) => theme.colors.card};
