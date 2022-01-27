@@ -1,7 +1,12 @@
 import styled from "styled-components/native";
-import { RectButton } from 'react-native-gesture-handler';
+import { MotiView } from 'moti';
 
-export const Container = styled(RectButton)`
+
+export const Container = styled(MotiView).attrs(props => ({
+  from: {opacity: 0, bottom: -100},
+  animate: { opacity: 1, bottom: 0},
+  transition: { type: 'timing', duration: 500 }
+}))`
   width: 100%;
   background-color: ${({theme}) => theme.colors.card};
   height: 69px;
