@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { 
   Container,
@@ -22,18 +22,18 @@ export function MountDish() {
   const [foods, setFoods] = useState<Food[]>([]);
   const [loading, setLoading] = useState(false);
 
-  async function loadFoods() {
+
+  const loadFoods = useCallback(async() => {
     try {
       setLoading(true);
-      const response = await api.get('/foods');
+      const response = await api.get('/foods?_limit=3');
       setFoods(response.data);     
     } catch {
       console.log(`⭕ Tratar o error com alguma mensagem para o usuário final`)
     } finally {
       setLoading(false)
-    }
-      
-  }
+    }    
+  }, [])
 
   useEffect(() => {
     loadFoods()
@@ -43,12 +43,12 @@ export function MountDish() {
     <Container>
       <StatusBar style="light" />
       <WrapperInput>
-        <Input placeholder="pesquisar por alimento" />
+        <Input placeholder="Pesquisar por alimento..." />
       </WrapperInput>
 
       <ContentFoods>
         <TitleJoinLine>
-          <Title>Meu historico</Title>
+          <Title>Meu histórico</Title>
           <Line />
         </TitleJoinLine>
 
