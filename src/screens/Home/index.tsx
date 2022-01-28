@@ -27,7 +27,7 @@ import { WarnMessageScreen } from '../../components/WarnMessageScreen';
 
 export function Home () {
 
-  // mealsStatus State 🚨
+  // mealsStatus State 🚨FlatListFlatList
   const [mealsStatus, setMealsStatus] = useState(true);
   const [openMenuMeal, setOpenMenuMeal] = useState(false);
   

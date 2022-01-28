@@ -17,24 +17,31 @@ import {
 } from "./styles";
 import { Input } from "../../components/Form/Input";
 import { CardFood } from "../../components/CardFood";
-import { ActivityIndicator, FlatList } from "react-native";
-import { Food, MountDishProps, ParamsRouter } from "./types";
+import { ActivityIndicator, Alert, FlatList } from "react-native";
+import { Food, FormData, MountDishProps, ParamsRouter } from "./types";
 import { api } from "../../services/api";
 import theme from "../../global/styles/theme";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
+
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
+import Dish from '../../assets/dish.svg';
+
 import { useMeal } from "../../contexts/meals";
+import { useForm } from "react-hook-form";
+import { WarnMessageScreen } from "../../components/WarnMessageScreen";
+import { InfoFoodModal } from "../../components/InfoFoodModal";
 
 export function MountDish() {
 
+  const {control, handleSubmit} = useForm<FormData>();
+  const [modalInfoFood, setModalInfoFood] = useState(true);
+
   const {addKeyMeal} = useMeal();
 
-  const [foodsHistory, setFoodsHistory] = useState<Food[]>([]);
+  const [foodsOfSearch, setFoodsOfSearch] = useState<Food[]>([]);
   const [loading, setLoading] = useState(false);
-  const [foodsNotFound, setFoodsNotFound] = useState(false);
   const [title, setTitle] = useState('Meu histórico');
 
   const route = useRoute()
@@ -50,29 +57,45 @@ export function MountDish() {
     }
   }, [])
 
-  const loadFoods = useCallback(async() => {
-    try {
-      setLoading(true);
-      const response = await api.get('/foods?_limit=3');
-      setFoodsHistory(response.data);     
-      setFoodsNotFound(false);
-    } catch {
-      setFoodsNotFound(true)
-      console.log(`⭕ Tratar o error com alguma mensagem para o usuário final`)
-    } finally {
-      setLoading(false)
-    }    
+
+  const loadFoodsStoreHistory = useCallback(async() => {
+    return 'LocalStorage last search in App';   
   }, [])
 
-  useEffect(() => {
-    loadFoods()
-  }, [])
+  async function handleSearchFoods(form: FormData) {
+    const { search } = form;
+    if(!search) {
+      return Alert.alert('Digite um alimento para podemos procurar 😅')
+    }
+
+    try {
+      setFoodsOfSearch([])
+      setLoading(true);
+
+      const response = await api.get(`/foods?nameFood_like=${search}`);
+      
+      setFoodsOfSearch(response.data)
+      setTitle('Resultado da busca')
+    } catch {
+      console.log('🚨')
+    } finally {
+      setLoading(false);
+    }
+  }
+
 
   return (
     <Container>
       <StatusBar style="light" />
       <WrapperInput>
-        <Input placeholder="Pesquisar por alimento..." />
+        <Input 
+          name="search"
+          control={control}
+          placeholder="Pesquisar por alimento..."
+          onSubmitEditing={handleSubmit(handleSearchFoods)}
+          autoCapitalize="sentences"
+          autoCorrect={false}
+        />
       </WrapperInput>
 
 
@@ -90,7 +113,7 @@ export function MountDish() {
             onPress={() => navigation.navigate('MyDish')}
             type="dish"
           >
-            <MaterialIcons name="menu-book" size={24} color="#444" />
+            <Dish width={24} />
           </ButtonFunctionality>
         </WrapperButtons>
       </WrapperMenu>
@@ -101,14 +124,12 @@ export function MountDish() {
           <Line />
         </TitleJoinLine>
 
-        {foodsNotFound && (
+        {false && (
           <WrapperMessageNotFound>
-            <TitleNotFound>
-              Alimento não encontrado
-            </TitleNotFound>
-            <DescriptionNotFound>
-              Esse alimento não foi cadastrado, por favor inicie o processo de cadastramento clicando no botão a cima.
-            </DescriptionNotFound>
+            <WarnMessageScreen 
+              messageMain="Alimento não encontrado"
+              messageDescription="Esse alimento não foi cadastrado, por favor inicie o processo de cadastramento clicando no botão a cima."
+            />
           </WrapperMessageNotFound>
         )}
 
@@ -122,21 +143,27 @@ export function MountDish() {
           ): (
             <FlatList
               showsVerticalScrollIndicator={false}
-              data={foodsHistory}
+              data={foodsOfSearch}
               keyExtractor={food => food.nameFood}
               renderItem={({item: food}) => (
                 <CardFood 
                   nameFood={food.nameFood}
                   gram={food.gram} 
                   caloriesTotalFood={food.caloriesTotalFood}
+                  onPress={() => setModalInfoFood(true)}
                 />
               )}
             />
           )}
         </WrapperCardFood>
-
-
       </ContentFoods>
+
+      <InfoFoodModal 
+        state={{
+          isVisible: modalInfoFood,
+          setModalInfoFood: setModalInfoFood
+        }}
+      />
     </Container>
   )
 }

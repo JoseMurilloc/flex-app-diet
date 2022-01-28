@@ -3,8 +3,9 @@ import { TouchableOpacityProps } from "react-native"
 import { OptionsMeal } from "../../contexts/meals/types";
 import { RootStackParamList } from "../../routes/appRoutes";
 
-
 export type MountDishProps = NativeStackNavigationProp<RootStackParamList, 'MountDish'>;
+
+export type SetModalInfoFoodProps = React.Dispatch<React.SetStateAction<boolean>>
 
 export type Food = {
   id: number;
@@ -21,3 +22,6 @@ export interface ButtonFunctionalityProps extends TouchableOpacityProps {
   type: "barCode" | "plus" | "dish";
 }
 
+export interface FormData {
+  search: string;
+}

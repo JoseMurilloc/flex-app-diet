@@ -3,7 +3,6 @@ import { RootStackParamList } from "../../routes/appRoutes";
 
 export type HomeProps = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
-
 export type WrapperProps = {
   marginTop: number;
   marginBottom: number;
