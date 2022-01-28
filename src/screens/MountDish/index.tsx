@@ -8,8 +8,6 @@ import {
   Title,
   TitleJoinLine,
   WrapperInput,
-  TitleNotFound,
-  DescriptionNotFound,
   WrapperMessageNotFound,
   WrapperButtons,
   ButtonFunctionality,
@@ -44,6 +42,7 @@ export function MountDish() {
     useState<Food[]>([]);
 
   const [firstSearch, setFirstSearch] = useState(true)
+  const [foodSelected, setFoodSelected] = useState<Food>({} as Food)
 
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState('Meu histórico');
@@ -76,7 +75,7 @@ export function MountDish() {
       setFoodsOfSearch([])
       setLoading(true);
 
-      const response = await api.get(`/foods?nameFood_like=${search}`);
+      const response = await api.get<Food[]>(`/foods?nameFood_like=${search}`);
       
       setFoodsOfSearch(response.data)
       setTitle('Resultado da busca')
@@ -94,6 +93,11 @@ export function MountDish() {
     }
 
     return false
+  }
+
+  function handleOpenCardFoodInfo(food: Food) {
+    setModalInfoFood(true)
+    setFoodSelected(food)
   }
 
   return (
@@ -162,7 +166,7 @@ export function MountDish() {
                   nameFood={food.nameFood}
                   gram={food.gram} 
                   caloriesTotalFood={food.caloriesTotalFood}
-                  onPress={() => setModalInfoFood(true)}
+                  onPress={() => handleOpenCardFoodInfo(food)}
                 />
               )}
             />
@@ -175,6 +179,7 @@ export function MountDish() {
           isVisible: modalInfoFood,
           setModalInfoFood: setModalInfoFood
         }}
+        food={foodSelected}
       />
     </Container>
   )

@@ -12,6 +12,13 @@ export type Food = {
   nameFood: string;
   gram: number;
   caloriesTotalFood: number;
+  infoNutritional?: { 
+    servingSize: string,
+    numberServing: number,
+    carbs: number,
+    protein: number,
+    fat: number
+  }
 }
 
 export type ParamsRouter = {

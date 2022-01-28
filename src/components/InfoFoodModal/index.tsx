@@ -1,18 +1,22 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import Modal from "react-native-modal";
-import { SetModalInfoFoodProps } from '../../screens/MountDish/types';
-import { ContainerModal } from './styles';
+import { Food, SetModalInfoFoodProps } from '../../screens/MountDish/types';
+import { 
+  ContainerModal,
+  Header,
+  TitleHeader,
+} from './styles';
 
 type InfoFoodModalProps = {
   state: {
     isVisible: boolean;
     setModalInfoFood: SetModalInfoFoodProps;
   }
-  foods?: {}
+  food: Food;
 } 
 
-export function InfoFoodModal({ state }: InfoFoodModalProps) {
+export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
   return (
     <View>
       <Modal 
@@ -20,7 +24,9 @@ export function InfoFoodModal({ state }: InfoFoodModalProps) {
         isVisible={state.isVisible}
       >
         <ContainerModal>
-          <Text>I am the modal content!</Text>
+            <Header>
+              <TitleHeader>{food.nameFood}</TitleHeader>
+            </Header>
         </ContainerModal>
       </Modal>
     </View>
