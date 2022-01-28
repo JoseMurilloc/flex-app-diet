@@ -5,9 +5,15 @@ import { AntDesign } from '@expo/vector-icons';
 import { Container, WrapperInput } from './styles';
 import theme from '../../../global/styles/theme';
 
-export function Input ({...rest}: TextInputProps) {
-  const [isFocused, setIsFocused] = useState(false);
+import { Controller, Control } from "react-hook-form";
 
+interface InputProps extends TextInputProps {
+  control: Control | any;
+  name: string;
+}
+
+export function Input ({ name, control,...rest}: InputProps) {
+  const [isFocused, setIsFocused] = useState(false);
   const handleInputFocus = useCallback(() => setIsFocused(true), []);
   const handleInputBlur = useCallback(() => setIsFocused(false), []);
 
@@ -23,10 +29,18 @@ export function Input ({...rest}: TextInputProps) {
         color={isFocused ? theme.colors.primary : theme.colors.description}
         style={{marginRight: 5}} 
       />
-      <Container 
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
-        {...rest}
+      <Controller
+        control={control}
+        name={name}
+        render={({ field: { onChange, value}}) => (
+          <Container 
+            onChangeText={onChange}
+            value={value}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            {...rest}
+          />
+        )}
       />
     </WrapperInput>
   );
