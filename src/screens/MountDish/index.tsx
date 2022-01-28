@@ -30,11 +30,12 @@ import { useMeal } from "../../contexts/meals";
 
 export function MountDish() {
 
-  const {addKeyMeal, data} = useMeal();
+  const {addKeyMeal} = useMeal();
 
-  const [foods, setFoods] = useState<Food[]>([]);
+  const [foodsHistory, setFoodsHistory] = useState<Food[]>([]);
   const [loading, setLoading] = useState(false);
   const [foodsNotFound, setFoodsNotFound] = useState(false);
+  const [title, setTitle] = useState('Meu histórico');
 
   const route = useRoute()
   const navigation = useNavigation<MountDishProps>()
@@ -53,7 +54,8 @@ export function MountDish() {
     try {
       setLoading(true);
       const response = await api.get('/foods?_limit=3');
-      setFoods(response.data);     
+      setFoodsHistory(response.data);     
+      setFoodsNotFound(false);
     } catch {
       setFoodsNotFound(true)
       console.log(`⭕ Tratar o error com alguma mensagem para o usuário final`)
@@ -95,7 +97,7 @@ export function MountDish() {
 
       <ContentFoods>
         <TitleJoinLine>
-          <Title>Meu histórico</Title>
+          <Title>{`${title}`}</Title>
           <Line />
         </TitleJoinLine>
 
@@ -120,7 +122,7 @@ export function MountDish() {
           ): (
             <FlatList
               showsVerticalScrollIndicator={false}
-              data={foods}
+              data={foodsHistory}
               keyExtractor={food => food.nameFood}
               renderItem={({item: food}) => (
                 <CardFood 

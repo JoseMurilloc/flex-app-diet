@@ -32,9 +32,9 @@ export const TitleJoinLine = styled.View`
 `
 export const Line = styled.View`
   flex: 1;
-  height: 0.5px;
+  height: 0.6px;
   width: 100%;
-  background-color: #757575;
+  background-color: #999999;
   margin-left: 2px;
 `
 export const WrapperCardFood = styled.View`
