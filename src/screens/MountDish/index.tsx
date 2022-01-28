@@ -36,11 +36,15 @@ import { InfoFoodModal } from "../../components/InfoFoodModal";
 export function MountDish() {
 
   const {control, handleSubmit} = useForm<FormData>();
-  const [modalInfoFood, setModalInfoFood] = useState(true);
+  const [modalInfoFood, setModalInfoFood] = useState(false);
 
   const {addKeyMeal} = useMeal();
 
-  const [foodsOfSearch, setFoodsOfSearch] = useState<Food[]>([]);
+  const [foodsOfSearch, setFoodsOfSearch] = 
+    useState<Food[]>([]);
+
+  const [firstSearch, setFirstSearch] = useState(true)
+
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState('Meu histórico');
 
@@ -80,9 +84,17 @@ export function MountDish() {
       console.log('🚨')
     } finally {
       setLoading(false);
+      setFirstSearch(false);
     }
   }
 
+  const handleMessageWarn = () => {
+    if (foodsOfSearch.length === 0) {
+      return !firstSearch
+    }
+
+    return false
+  }
 
   return (
     <Container>
@@ -124,7 +136,7 @@ export function MountDish() {
           <Line />
         </TitleJoinLine>
 
-        {false && (
+        {(handleMessageWarn() && !loading) && (
           <WrapperMessageNotFound>
             <WarnMessageScreen 
               messageMain="Alimento não encontrado"
