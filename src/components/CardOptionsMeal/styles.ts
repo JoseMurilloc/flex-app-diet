@@ -2,13 +2,11 @@ import { lighten } from 'polished';
 import styled from 'styled-components/native';
 import { MotiView } from 'moti'
 
-export const Container = styled(MotiView).attrs(props => {
-  return { 
-    from: { bottom: -261 },
-    animate: {  bottom: 0 },
-    transition: { type: 'timing', duration: 150 },
-  }
-})`
+export const Container = styled(MotiView).attrs(props => ({
+  from: { bottom: -261 },
+  animate: {  bottom: 0 },
+  transition: { type: 'timing', duration: 100 },
+}))`
   position: relative;
   /* bottom: -261px; */
 

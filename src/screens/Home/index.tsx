@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Container,
   Header,
@@ -19,18 +19,31 @@ import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
 import { CardMeal } from '../../components/CardMeal';
-import { meals } from '../../constants/meals';
+// import { meals } from '../../constants/meals';
 
 import { CardOptionsMeal } from '../../components/CardOptionsMeal';
 import { FlatList } from 'react-native';
 import { WarnMessageScreen } from '../../components/WarnMessageScreen';
+import { Meal } from './types';
+import { api } from '../../services/api';
+import { iconsMeals } from '../../constants/meals';
 
 export function Home () {
-
-  // mealsStatus State 🚨FlatListFlatList
-  const [mealsStatus, setMealsStatus] = useState(true);
   const [openMenuMeal, setOpenMenuMeal] = useState(false);
+  const [meals, setMeals] = useState<Meal[]>([]);
   
+
+  useEffect(() => {
+    api.get('/meals')
+      .then(response => response.data)
+      .then(data => data.filter((meal: Meal) => meal.foods.length > 0))
+      .then(data => data.map((meal: Meal) => ({
+        ...meal,
+        Icon: iconsMeals.filter(icons => icons[meal.id])[0][meal.id]
+      })))
+      .then(data => setMeals(data))
+      .catch(error => console.log(error))
+  }, [])
   
   const macros: Macro[] = [
     { name: 'Proteina', amount: 100, progress: 0.6},
@@ -45,6 +58,8 @@ export function Home () {
   const handleMenuOptionsIsOpen = () => {
     setOpenMenuMeal(state => !state);
   }
+
+  const isWarnNotFoods = useCallback(()=> !(meals.length > 0), [meals])
 
   return (
     <WrapperScreen>
@@ -64,7 +79,7 @@ export function Home () {
           <TitleToday>Hoje</TitleToday>
           <GraphicMetricCalories data={macros}/>
         </Wrapper>
-        {!mealsStatus ? (
+        {isWarnNotFoods() ? (
           <Wrapper marginTop={0} marginBottom={0} isCenter={true}>
             <WarnMessageScreen 
               messageMain="Sem refeições adicionadas"
@@ -73,20 +88,20 @@ export function Home () {
           </Wrapper>
         ) : (
           <WrapperCardsMeal>
-          <FlatList 
-            data={meals}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={meal => meal.nameMeal}
-            renderItem={({item: meal}) => (
-              <CardMeal
-                key={meal.nameMeal} 
-                nameMeal={meal.nameMeal}
-                caloriesTotal={350}
-                Icon={meal.Icon}
-              />
-            )}
-          />
-        </WrapperCardsMeal>
+            <FlatList 
+              data={meals}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={meal => meal.nameMeal}
+              renderItem={({item: meal}) => (
+                <CardMeal
+                  key={meal.nameMeal} 
+                  nameMeal={meal.nameMeal}
+                  caloriesTotal={350}
+                  Icon={meal.Icon}
+                />
+              )}
+            />
+          </WrapperCardsMeal>
         )}
         
       </Container>
@@ -111,10 +126,7 @@ export function Home () {
             />
           )}
         </ButtonAddMeal>
-        {openMenuMeal && 
-          <CardOptionsMeal 
-            setOpenMenuMeal={setOpenMenuMeal}
-          />}
+        {openMenuMeal && <CardOptionsMeal setOpenMenuMeal={setOpenMenuMeal} />}
       </MenuMeal>
     </WrapperScreen>
   );

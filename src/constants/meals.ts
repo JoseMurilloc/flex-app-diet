@@ -12,6 +12,11 @@ type Meal = {
   nameMeal: string;
 } 
 
+
+type IconsMeal = {
+  [key: string]: React.FC<SvgProps>;
+} 
+
 export const meals : Meal[] = [
   {
     idMeal: "breakfast",
@@ -38,4 +43,13 @@ export const meals : Meal[] = [
     Icon: IconDinner,
     nameMeal: 'Jantar'
   }
+]
+
+
+export const iconsMeals : IconsMeal[] = [
+  {breakfast: IconBreakfast},
+  {morningSpeedboat: IconMorningSpeedboat},
+  {lunch: IconLunch},
+  {afternoonSnack: IconAfternoonSnack},
+  {dinner: IconDinner}
 ]
