@@ -14,9 +14,11 @@ import { CardOptionsMealProps } from './types';
 export function CardOptionsMeal({setOpenMenuMeal}: CardOptionsMealProps) {
   const navigation = useNavigation();
 
-  function handleNavigatedToMountDish() {
+
+  // 🔴 changed type string to [OPtionsType]
+  function handleNavigatedToMountDish(idMeal: string) {
     setOpenMenuMeal(state => !state);
-    navigation.navigate('MountDish')
+    navigation.navigate('MountDish', { idMeal })
   }
 
   return (
@@ -24,11 +26,11 @@ export function CardOptionsMeal({setOpenMenuMeal}: CardOptionsMealProps) {
       <Header style={styles.borderBt}>
         <Title>Refeições</Title>
       </Header>
-      {meals.map(({Icon, nameMeal}) => (
-        <Meal 
-          key={nameMeal}
-          onPress={() => handleNavigatedToMountDish()}
-        >
+        {meals.map(({Icon, nameMeal, idMeal}) => (
+          <Meal 
+            key={nameMeal}
+            onPress={() => handleNavigatedToMountDish(idMeal)}
+          >
           <Icon width={24} height={24} />
           <Name>{nameMeal}</Name>
         </Meal>

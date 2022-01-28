@@ -3,13 +3,10 @@ import styled from 'styled-components/native';
 import { MotiView } from 'moti'
 
 export const Container = styled(MotiView).attrs(props => {
-  // const widthCurrent = props.onLayout;
-  // console.log(widthCurrent)
-
   return { 
     from: { bottom: -261 },
     animate: {  bottom: 0 },
-    transition: { type: 'timing', duration: 200 },
+    transition: { type: 'timing', duration: 150 },
   }
 })`
   position: relative;
