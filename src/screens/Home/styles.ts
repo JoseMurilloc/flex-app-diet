@@ -53,19 +53,6 @@ export const TitleToday = styled.Text`
   color: ${({theme}) => theme.colors.description};
 `;
 
-export const MessageNotMealFound = styled.Text`
-  font-family: ${({theme}) => theme.fonts.medium};
-  font-size: ${({theme}) => theme.sizes.large}px;
-  color: ${({theme}) => theme.colors.text};
-`;
-
-export const DescriptionNotMealFound = styled.Text`
-  font-family: ${({theme}) => theme.fonts.regular};
-  font-size: ${({theme}) => theme.sizes.default}px;
-  color: ${({theme}) => theme.colors.description};
-
-  text-align: center;
-`;
 
 export const ButtonAddMeal = styled.TouchableOpacity.attrs(props => {
   activeOpacity: 0

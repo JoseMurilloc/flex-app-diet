@@ -5,8 +5,6 @@ import {
   TitleToday,
   WelcomeMessage,
   Wrapper,
-  MessageNotMealFound,
-  DescriptionNotMealFound,
   ButtonAddMeal,
   WrapperCardsMeal,
   WrapperScreen,
@@ -25,6 +23,7 @@ import { meals } from '../../constants/meals';
 
 import { CardOptionsMeal } from '../../components/CardOptionsMeal';
 import { FlatList } from 'react-native';
+import { WarnMessageScreen } from '../../components/WarnMessageScreen';
 
 export function Home () {
 
@@ -67,14 +66,10 @@ export function Home () {
         </Wrapper>
         {!mealsStatus ? (
           <Wrapper marginTop={0} marginBottom={0} isCenter={true}>
-            <MessageNotMealFound>
-              Sem refeições adicionadas
-            </MessageNotMealFound>
-            <DescriptionNotMealFound>
-              Comece a adicionar refeições clicando no botão 
-              {`\n`}
-              a baixo
-          </DescriptionNotMealFound>
+            <WarnMessageScreen 
+              messageMain="Sem refeições adicionadas"
+              messageDescription="Comece a adicionar refeições clicando no botão a baixo"
+            />
           </Wrapper>
         ) : (
           <WrapperCardsMeal>
@@ -91,14 +86,6 @@ export function Home () {
               />
             )}
           />
-          {/* {meals.map(meal => (
-            <CardMeal
-              key={meal.nameMeal} 
-              nameMeal={meal.nameMeal}
-              caloriesTotal={350}
-              Icon={meal.Icon}
-            />
-          ))} */}
         </WrapperCardsMeal>
         )}
         
@@ -124,7 +111,10 @@ export function Home () {
             />
           )}
         </ButtonAddMeal>
-        {openMenuMeal && <CardOptionsMeal setOpenMenuMeal={setOpenMenuMeal}/>}
+        {openMenuMeal && 
+          <CardOptionsMeal 
+            setOpenMenuMeal={setOpenMenuMeal}
+          />}
       </MenuMeal>
     </WrapperScreen>
   );
