@@ -1,4 +1,5 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
+import { ButtonFunctionalityProps } from './types';
 
 export const Container = styled.View`
   flex: 1;
@@ -31,7 +32,7 @@ export const TitleJoinLine = styled.View`
 `
 export const Line = styled.View`
   flex: 1;
-  height: 1px;
+  height: 0.5px;
   width: 100%;
   background-color: #757575;
   margin-left: 2px;
@@ -61,3 +62,39 @@ export const DescriptionNotFound = styled.Text`
   width: 275px;
 `;
 
+export const WrapperMenu = styled.View`
+  justify-content: center;
+  align-items: flex-end;
+`;
+
+export const WrapperButtons = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 9px;
+  /* background: red; */
+  width: 40%;
+`;
+
+export const ButtonFunctionality = styled.TouchableOpacity<ButtonFunctionalityProps>`
+  width: 35px;
+  height: 29px;
+  
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+
+  ${props => props.type === 'barCode' && css`
+    background: rgba(111, 193, 219, 0.3);
+  `}
+
+  ${props => props.type === 'plus' && css`
+    background: #DB6F964D;
+  `}
+
+  ${props => props.type === 'dish' && css`
+    background: #6668C633;
+  `}
+
+
+
+`;

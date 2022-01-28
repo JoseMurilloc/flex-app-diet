@@ -11,21 +11,43 @@ import {
   TitleNotFound,
   DescriptionNotFound,
   WrapperMessageNotFound,
+  WrapperButtons,
+  ButtonFunctionality,
+  WrapperMenu
 } from "./styles";
 import { Input } from "../../components/Form/Input";
 import { CardFood } from "../../components/CardFood";
-// import { foods } from "../../commons/foods";
-import { ActivityIndicator, FlatList, Text } from "react-native";
-import { Food } from "./types";
+import { ActivityIndicator, FlatList } from "react-native";
+import { Food, MountDishProps, ParamsRouter } from "./types";
 import { api } from "../../services/api";
 import theme from "../../global/styles/theme";
+import { useNavigation, useRoute } from "@react-navigation/native";
+
+import { Ionicons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import { useMeal } from "../../contexts/meals";
 
 export function MountDish() {
+
+  const {addKeyMeal, data} = useMeal();
 
   const [foods, setFoods] = useState<Food[]>([]);
   const [loading, setLoading] = useState(false);
   const [foodsNotFound, setFoodsNotFound] = useState(false);
 
+  const route = useRoute()
+  const navigation = useNavigation<MountDishProps>()
+  const { idMeal } =  route.params as ParamsRouter
+
+
+  useEffect(() => {
+    try {
+      addKeyMeal(idMeal);
+    } catch {
+      console.log(`⭕ Failed to add`);
+    }
+  }, [])
 
   const loadFoods = useCallback(async() => {
     try {
@@ -50,6 +72,26 @@ export function MountDish() {
       <WrapperInput>
         <Input placeholder="Pesquisar por alimento..." />
       </WrapperInput>
+
+
+      <WrapperMenu>
+        <WrapperButtons>
+          <ButtonFunctionality type="barCode">
+            <Ionicons name="ios-barcode-outline" size={24} color="#444" />
+          </ButtonFunctionality>
+
+          <ButtonFunctionality type="plus">
+            <Entypo name="plus" size={24} color="#444" />
+          </ButtonFunctionality>
+
+          <ButtonFunctionality 
+            onPress={() => navigation.navigate('MyDish')}
+            type="dish"
+          >
+            <MaterialIcons name="menu-book" size={24} color="#444" />
+          </ButtonFunctionality>
+        </WrapperButtons>
+      </WrapperMenu>
 
       <ContentFoods>
         <TitleJoinLine>
