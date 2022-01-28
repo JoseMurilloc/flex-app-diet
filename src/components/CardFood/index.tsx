@@ -4,6 +4,7 @@ import {
   NameFood,
   CalorieTotalFood, 
   CaloriesTotalFood,
+  WrapperContent
 } from "./styles";
 
 
@@ -16,13 +17,15 @@ type CardMealProps = {
 export function CardFood({ nameFood, gram, caloriesTotalFood }: CardMealProps) {
   return (
     <Container>
-      <Content>
-        <NameFood>{nameFood}</NameFood>
-        <CalorieTotalFood>{`${gram}g`}</CalorieTotalFood>
-      </Content>
-      <CaloriesTotalFood>
-        {`${caloriesTotalFood}cal`}
-      </CaloriesTotalFood>
+      <WrapperContent>
+        <Content>
+          <NameFood>{nameFood}</NameFood>
+          <CalorieTotalFood>{`${gram}g`}</CalorieTotalFood>
+        </Content>
+        <CaloriesTotalFood>
+          {`${caloriesTotalFood}cal`}
+        </CaloriesTotalFood>
+      </WrapperContent>
     </Container>
   )
 } 
