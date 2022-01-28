@@ -7,28 +7,34 @@ import React from 'react';
 import { SvgProps } from 'react-native-svg';
 
 type Meal = {
+  idMeal: string;
   Icon: React.FC<SvgProps>;
   nameMeal: string;
 } 
 
 export const meals : Meal[] = [
   {
+    idMeal: "breakfast",
     Icon: IconBreakfast,
     nameMeal: 'Café da manhã'
   },
   { 
+    idMeal: "morningSpeedboat",
     Icon: IconMorningSpeedboat,
     nameMeal: 'Lanche da manha',
   },
   { 
+    idMeal: "lunch",
     Icon: IconLunch,
     nameMeal: 'Almoço'
   },
   { 
+    idMeal: "afternoonSnack",
     Icon: IconAfternoonSnack,
     nameMeal: 'Lanche da tarde'
   },
   {
+    idMeal: "dinner",
     Icon: IconDinner,
     nameMeal: 'Jantar'
   }
