@@ -7,7 +7,7 @@ export const Content = styled.View`
   flex: 1;
 `;
 
-export const WrapperContent = styled(RectButton)`
+export const WrapperContent = styled.TouchableOpacity`
   width: 100%;
 
   background-color: ${({theme}) => theme.colors.card};

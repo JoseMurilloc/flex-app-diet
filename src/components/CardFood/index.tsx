@@ -1,3 +1,4 @@
+import { TouchableOpacityProps } from "react-native";
 import { 
   Container,
   Content,
@@ -8,16 +9,16 @@ import {
 } from "./styles";
 
 
-type CardMealProps = {
+interface CardMealProps extends TouchableOpacityProps {
   nameFood: string;
   gram: number;
   caloriesTotalFood: number;
 }
 
-export function CardFood({ nameFood, gram, caloriesTotalFood }: CardMealProps) {
+export function CardFood({ nameFood, gram, caloriesTotalFood, ...rest }: CardMealProps) {
   return (
     <Container>
-      <WrapperContent>
+      <WrapperContent {...rest}>
         <Content>
           <NameFood>{nameFood}</NameFood>
           <CalorieTotalFood>{`${gram}g`}</CalorieTotalFood>
