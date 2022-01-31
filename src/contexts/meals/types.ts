@@ -7,6 +7,13 @@ export interface Food {
   nameFood: string;
   gram: number;
   caloriesTotalFood: number;
+  infoNutritional: { 
+    servingSize: string,
+    numberServing: number,
+    carbs: number,
+    protein: number,
+    fat: number
+  }
 }
 
 export interface Data {

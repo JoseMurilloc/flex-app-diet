@@ -41,11 +41,10 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
     },
     [food.infoNutritional]
   )
-
   
 
   const handleSearchFoods = useCallback(()=> {
-    
+    console.log('handleSearchFoods')
   }, [])
 
   return (

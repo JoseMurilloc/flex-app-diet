@@ -42,7 +42,7 @@ export function MountDish() {
     useState<Food[]>([]);
 
   const [firstSearch, setFirstSearch] = useState(true)
-  const [foodSelected, setFoodSelected] = useState<Food>({} as Food)
+  const [foodSelected, setFoodSelected] = useState<Food|null>(null)
 
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState('Meu histórico');
@@ -174,13 +174,15 @@ export function MountDish() {
         </WrapperCardFood>
       </ContentFoods>
 
-      <InfoFoodModal 
+      {!!foodSelected && (
+        <InfoFoodModal 
         state={{
-          isVisible: modalInfoFood,
-          setModalInfoFood: setModalInfoFood
-        }}
-        food={foodSelected}
-      />
+            isVisible: modalInfoFood,
+            setModalInfoFood: setModalInfoFood
+          }}
+          food={foodSelected}
+        />
+      )}
     </Container>
   )
 }
