@@ -12,7 +12,7 @@ export type Food = {
   nameFood: string;
   gram: number;
   caloriesTotalFood: number;
-  infoNutritional?: { 
+  infoNutritional: { 
     servingSize: string,
     numberServing: number,
     carbs: number,
