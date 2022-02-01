@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef } from 'react';
-import { Animated, ViewProps } from 'react-native';
-import { Svg, Circle, Path, Rect, Text, Defs, G, Use } from 'react-native-svg';
+import { Animated } from 'react-native';
+import { Svg, Circle, Text, Defs, G, Use } from 'react-native-svg';
 import theme from '../../global/styles/theme';
 
 // rotation='-90' origin={`${halfCircle}, ${halfCircle}`}
@@ -25,7 +25,8 @@ export function Pie ({data}: Props) {
   const animatedValue = useRef(new Animated.Value(0)).current;
 
   const circleCircumference = 370;
-  const halfCircle = data.radius * data.strokeWidth;
+  // const halfCircle = data.radius * data.strokeWidth;
+  const halfCircle = 59 * 13;
 
   const maxPercent = 100 * data.percentage / data.max;
 

@@ -1,18 +1,18 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { FlatList } from "react-native";
 import { Button } from "../../components/Button";
 import { CalorieTotal } from "../../components/CalorieTotal";
 import { CardFood } from "../../components/CardFood";
 import { WarnMessageScreen } from "../../components/WarnMessageScreen";
 import { useMeal } from "../../contexts/meals";
-import { Food } from "../MountDish/types";
 import { 
   Container,
   DescriptionHeader,
   Header,
   TitleHeader,
   Main,
-  WrapperButton
+  WrapperButton,
+  ContainerMessageWrapper
 } from "./styles";
 
 
@@ -26,6 +26,7 @@ export function MyDish() {
       return accumulate + food.caloriesTotalFood;
     }, 0)
   }, [foods])
+
   
   return (
     <Container>
@@ -38,12 +39,14 @@ export function MyDish() {
 
       <Main>
 
-        <WarnMessageScreen 
-          messageMain="Sem alimentos adicionadas"
-          messageDescription="Comece a adicionar alimentos para podemos compor seu prato"
-        />
-        
-        {foods.length > 0 && (
+        {foods.length < 1 ? (
+          <ContainerMessageWrapper>
+            <WarnMessageScreen 
+              messageMain="Sem alimentos adicionadas"
+              messageDescription="Comece a adicionar alimentos para podemos compor seu prato"
+            />
+          </ContainerMessageWrapper>
+        ) : (
           <FlatList 
             data={foods}
             showsVerticalScrollIndicator={false}
@@ -56,7 +59,7 @@ export function MyDish() {
               />
             )}
           />
-        )}
+        )} 
       </Main>
       <CalorieTotal caloriesTotal={caloriesTotal} />
       <WrapperButton>

@@ -27,9 +27,7 @@ export const DescriptionHeader = styled.Text`
 
 export const Main = styled.View`
   width: 100%;
-  height: 140px;
-  justify-content: center;
-  align-items: center;
+  padding: 16px 0 17px 0;
 `;
 
 
@@ -37,4 +35,9 @@ export const  WrapperButton = styled.View`
   width: 100%;
   align-items: flex-end;
   margin-top: 18px;
+`;
+
+export const ContainerMessageWrapper = styled.View`
+  justify-content: center;
+  align-items: center;
 `;

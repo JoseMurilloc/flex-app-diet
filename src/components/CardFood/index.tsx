@@ -15,7 +15,12 @@ interface CardMealProps extends TouchableOpacityProps {
   caloriesTotalFood: number;
 }
 
-export function CardFood({ nameFood, gram, caloriesTotalFood, ...rest }: CardMealProps) {
+export function CardFood({ 
+  nameFood,
+  gram,
+  caloriesTotalFood,
+  ...rest
+}: CardMealProps) {
   return (
     <Container>
       <WrapperContent {...rest}>
