@@ -19,7 +19,7 @@ export const Title = styled.Text`
 export const WrapperInput = styled.View<WrapperInputProps>`
   width: 100%;
   height: 50px;
-  border-radius: 30px;
+  border-radius: 4px;
   padding: 7px 0px 7px 12px;
   background-color: ${({theme}) => theme.colors.card};
   
