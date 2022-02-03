@@ -9,13 +9,13 @@ export const Container = styled.View`
 
 export const CalorieTotalText = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
-  font-size: ${({theme}) => theme.sizes.default}px;
+  font-size: ${({theme}) => theme.sizes.large}px;
   color: ${({theme}) => theme.colors.text};
 `;
 
 export const Line = styled.View`
   flex: 1;
-  height: 0.5px;
+  height: 1px;
   width: 100%;
   background-color: #757575;
   margin-left: 3px;
