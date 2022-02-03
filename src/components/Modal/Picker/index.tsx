@@ -3,43 +3,72 @@ import {Picker, PickerProps} from '@react-native-picker/picker';
 
 import { 
   Container,
-  WrapperInput,
+  WrapperPicker,
   Title
 } from './styles';
 
 import { Controller, Control, useForm } from "react-hook-form";
+import { StyleSheet } from 'react-native';
+import theme from '../../../global/styles/theme';
 
 interface Props extends PickerProps {
   control: Control | any;
   name: string;
   title: string;
+  enabled: boolean;
+  setValue?: any
 }
 
-export function PickerMetric ({ name, control, title, ...rest}: Props) {
-  const { setValue } = useForm();
+const itens = [
+  { label: "Grama", value: "gram" },
+  { label: "Unidade", value: "unit" }
+]
 
+export function PickerMetric ({
+  name,
+  control,
+  title,
+  enabled,
+  setValue,
+  ...rest
+}: Props) {
   return (
     <Container>
       <Title>Medida</Title>
-      <WrapperInput>
+      <WrapperPicker enabledPicker={enabled}>
         <Controller
           control={control}
           name={name}
-          render={({ field: { onChange, value}}) => (
+          render={({ field: { value }}) => (
             <Picker
               {...rest}
               selectedValue={value}
-              onValueChange={(itemValue, itemIndex) => {
-                setValue(name, itemValue)}
-              }
-              style={{height: '100%', width: '100%'}}
+              onValueChange={(itemValue) => setValue(name, itemValue)}
+              enabled={enabled}
+              style={[styles.containerPicker, 
+                enabled ? styles.colorEnabled : styles.colorDisabled
+              ]}
             >
-              <Picker.Item label="Grama" value="gram" />
-              <Picker.Item label="Unidade" value="unit" />
+              {itens.map((item) => (
+                <Picker.Item label={item.label} value={item.value} />
+              ))}
             </Picker>
           )}
         />
-      </WrapperInput>
+      </WrapperPicker>
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  containerPicker: {
+    height: '100%',
+    width: '100%',
+  },
+  colorEnabled: {
+    color: theme.colors.text,
+  },
+  colorDisabled: {
+    color: theme.colors.description,
+  },
+})

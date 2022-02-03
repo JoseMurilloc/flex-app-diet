@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components/native';
 
-type WrapperInputProps = {
-  isFocused: boolean;
-  isErrored: boolean;
+export type WrapperPickerProps = {
+  enabledPicker: boolean
 }
 
 
@@ -12,12 +11,20 @@ export const Title = styled.Text`
   color: ${({theme}) => theme.colors.text};
 `;
 
-export const WrapperInput = styled.View`
+export const WrapperPicker = styled.View<WrapperPickerProps>`
   width: 130px;
-  border-radius: 20px;
+  border-radius: 5px;
   height: 50px;
-  background-color: ${({theme}) => theme.colors.card};
   border-color: ${({theme}) => theme.colors.card};
+
+  ${({enabledPicker}) => enabledPicker ? css`
+    background-color: ${({theme}) => theme.colors.card}; 
+  `: css`
+    background-color: ${({theme}) => theme.colors.card};
+    opacity: 0.5;
+  `}
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Container = styled.View`
