@@ -10,13 +10,15 @@ import {
 import { Controller, Control, useForm } from "react-hook-form";
 import { StyleSheet } from 'react-native';
 import theme from '../../../global/styles/theme';
+import { Food } from '../../../contexts/meals/types';
 
-interface Props extends PickerProps {
+interface PickerMetricProps extends PickerProps {
   control: Control | any;
   name: string;
   title: string;
   enabled: boolean;
-  setValue?: any
+  onValueChange?: (itemValue: any, itemIndex: number) => void;
+  food?: Food;
 }
 
 const itens = [
@@ -29,9 +31,10 @@ export function PickerMetric ({
   control,
   title,
   enabled,
-  setValue,
+  onValueChange,
+  food,
   ...rest
-}: Props) {
+}: PickerMetricProps) {
   return (
     <Container>
       <Title>Medida</Title>
@@ -39,15 +42,16 @@ export function PickerMetric ({
         <Controller
           control={control}
           name={name}
-          render={({ field: { value }}) => (
+          render={({ field: { value, onChange }}) => (
             <Picker
               {...rest}
               selectedValue={value}
-              onValueChange={(itemValue) => setValue(name, itemValue)}
+              onValueChange={onValueChange}
               enabled={enabled}
               style={[styles.containerPicker, 
                 enabled ? styles.colorEnabled : styles.colorDisabled
               ]}
+              // selectedValue={""}
             >
               {itens.map((item) => (
                 <Picker.Item label={item.label} value={item.value} />
