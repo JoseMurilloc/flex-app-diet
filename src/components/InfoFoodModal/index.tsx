@@ -19,12 +19,10 @@ import {
   WrapperAmountMetric,
   ContainerMacro,
   ContainerCalorieTotal,
-  ContainerButton,
-  ButtonCancel,
-  ButtonCancelText,
   ContentForm
 } from './styles';
 import { FormData, InfoFoodModalProps } from './types';
+import { Footer } from '../Modal/Footer';
 
 
 export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
@@ -49,7 +47,7 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
   //   [amount]
   // )
 
-  const handleAddFoodInMeal = useCallback(async (data: FormData) => {
+  const handleConfirmMeal = useCallback(async (data: FormData) => {
     console.log(data);
     // console.log(food);
     // try {
@@ -122,17 +120,10 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
                 </ContainerCalorieTotal>
               </ContentForm>
 
-              <ContainerButton>
-                <ButtonCancel>
-                  <ButtonCancelText>
-                    Cancelar
-                  </ButtonCancelText>
-                </ButtonCancel>
-                <Button
-                  onPress={handleSubmit(handleAddFoodInMeal)}
-                  buttonText="Adicionar" 
-                />
-              </ContainerButton>
+              <Footer 
+                handleSubmit={handleSubmit} 
+                handleConfirmMeal={handleConfirmMeal} 
+              />
             </Form>
         </ContainerModal>
       </Modal>

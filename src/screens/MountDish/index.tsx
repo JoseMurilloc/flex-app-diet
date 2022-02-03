@@ -30,11 +30,13 @@ import { useMeal } from "../../contexts/meals";
 import { useForm } from "react-hook-form";
 import { WarnMessageScreen } from "../../components/WarnMessageScreen";
 import { InfoFoodModal } from "../../components/InfoFoodModal";
+import { RegisterFoodModal } from "../../components/RegisterFoodModal";
 
 export function MountDish() {
 
   const {control, handleSubmit} = useForm<FormData>();
   const [modalInfoFood, setModalInfoFood] = useState(false);
+  const [modalRegisterFood, setModalRegisterFood] = useState(false);
 
   const {addKeyMeal} = useMeal();
 
@@ -100,6 +102,10 @@ export function MountDish() {
     setFoodSelected(food)
   }
 
+  function handleRegisterFood() {
+    setModalRegisterFood(true);
+  }
+
   return (
     <Container>
       <StatusBar style="light" />
@@ -121,7 +127,10 @@ export function MountDish() {
             <Ionicons name="ios-barcode-outline" size={24} color="#444" />
           </ButtonFunctionality>
 
-          <ButtonFunctionality type="plus">
+          <ButtonFunctionality 
+            onPress={() => handleRegisterFood()}
+            type="plus"
+          >
             <Entypo name="plus" size={24} color="#444" />
           </ButtonFunctionality>
 
@@ -183,6 +192,13 @@ export function MountDish() {
           food={foodSelected}
         />
       )}
+
+      <RegisterFoodModal 
+        state={{
+          isVisible: modalRegisterFood,
+          setModalRegisterFood: setModalRegisterFood
+        }}
+      />
     </Container>
   )
 }

@@ -16,7 +16,6 @@ export const Header = styled.View`
 export const Form = styled.View`
   flex: 1;
   width: 100%;
-  /* padding: 20px 19px 16px 16px; */
 `;
 
 export const ContentForm = styled.View`
@@ -44,35 +43,8 @@ export const ContainerMacro = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  /* background-color: rgba(255, 32, 255, 0.4); */
 `;
 
 export const  ContainerCalorieTotal = styled.View`
   margin-top: 16px;
-`;
-
-export const ContainerButton = styled.View`
-  width: 100%;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  margin-top: 20px;
-  background-color: ${({theme}) => theme.colors.card};
-  height: 80px;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-  padding: 0 14px;
-`;
-
-export const ButtonCancel = styled.TouchableOpacity`
-  justify-content: center;
-  align-items: center;
-  height: 35px;
-  padding: 8px 23px;
-  margin-right: 10px;
-`;
-export const ButtonCancelText = styled.Text`
-  color: ${({theme}) => theme.colors.description};
-  font-size: ${({theme}) => theme.sizes.default}px;
-  font-family: ${({theme}) => theme.fonts.regular};
 `;
