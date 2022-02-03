@@ -3,7 +3,8 @@ import styled from 'styled-components/native';
 export const ContainerModal = styled.View`
   background-color: #FFF; 
   width: 100%;
-  height: 350px;
+  min-height: 400px;
+  border-radius: 15px;
 `;
 
 export const Header = styled.View`
@@ -15,7 +16,13 @@ export const Header = styled.View`
 export const Form = styled.View`
   flex: 1;
   width: 100%;
-  padding: 20px 19px 16px 16px;
+  /* padding: 20px 19px 16px 16px; */
+`;
+
+export const ContentForm = styled.View`
+  flex: 1;
+  width: 100%;
+  padding: 20px 19px 0px 16px;
 `;
 
 export const TitleHeader = styled.Text` 
@@ -48,7 +55,13 @@ export const ContainerButton = styled.View`
   width: 100%;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: center;
   margin-top: 20px;
+  background-color: ${({theme}) => theme.colors.card};
+  height: 80px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 0 14px;
 `;
 
 export const ButtonCancel = styled.TouchableOpacity`
@@ -59,7 +72,7 @@ export const ButtonCancel = styled.TouchableOpacity`
   margin-right: 10px;
 `;
 export const ButtonCancelText = styled.Text`
-  color: ${({theme}) => theme.colors.text};
+  color: ${({theme}) => theme.colors.description};
   font-size: ${({theme}) => theme.sizes.default}px;
   font-family: ${({theme}) => theme.fonts.regular};
 `;

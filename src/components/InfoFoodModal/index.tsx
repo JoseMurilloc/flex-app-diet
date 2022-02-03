@@ -1,7 +1,9 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import Modal from "react-native-modal";
+import { useMeal } from '../../contexts/meals';
 import { Food, SetModalInfoFoodProps } from '../../screens/MountDish/types';
 import { Button } from '../Button';
 import { CalorieTotal } from '../CalorieTotal';
@@ -19,20 +21,17 @@ import {
   ContainerCalorieTotal,
   ContainerButton,
   ButtonCancel,
-  ButtonCancelText
+  ButtonCancelText,
+  ContentForm
 } from './styles';
+import { FormData, InfoFoodModalProps } from './types';
 
-type InfoFoodModalProps = {
-  state: {
-    isVisible: boolean;
-    setModalInfoFood: SetModalInfoFoodProps;
-  }
-  food: Food;
-} 
 
 export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
 
-  const {control, handleSubmit} = useForm<any>();
+  const {control, handleSubmit, setValue} = useForm<any>();
+  // const [amount, setAmount] = useState(0);
+  // const {addFood} = useMeal();
 
   const caloriesTotalFood = useMemo(
     () => {
@@ -41,10 +40,27 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
     },
     [food.infoNutritional]
   )
-  
 
-  const handleSearchFoods = useCallback(()=> {
-    console.log('handleSearchFoods')
+  // 🔺 Implement logic of OnChangeText Input amount 🔺
+  // const handleCaloriesTotalFoodConsume = useCallback(
+  //   () => {
+  //     return (caloriesTotalFood * amount) / food.gram;
+  //   },
+  //   [amount]
+  // )
+
+  const handleAddFoodInMeal = useCallback(async (data: FormData) => {
+    console.log(data);
+    // console.log(food);
+    // try {
+    //   addFood(food)
+    //   const dataKey = "@dietFlex:logFoods";
+    //   await AsyncStorage.setItem(dataKey, JSON.stringify(food))
+
+    //   state.setModalInfoFood(false);
+    // } catch {
+    //   console.log(`🔺Error`)
+    // }
   }, [])
 
   return (
@@ -58,45 +74,53 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
               <TitleHeader>{food.nameFood}</TitleHeader>
             </Header>
             <Form>
-              <WrapperAmountMetric>
-                <GenericWrapperInput style={{width: 144, marginRight: 16}}>
-                  <Input
-                    title="Quantidade"
-                    name="amount"
-                    control={control}
-                    placeholder="Digite aqui"
-                    keyboardType="numeric"
-                    autoCorrect={false}
-                  />
-                </GenericWrapperInput>
-
+              <ContentForm>
+                <WrapperAmountMetric>
                 <GenericWrapperInput style={{width: 144}}>
                   <PickerMetric
                     title="Métrica"
                     name="metric"
                     control={control}
+                    enabled={false}
+                    setValue={setValue}
                   />
                 </GenericWrapperInput>
-              </WrapperAmountMetric>
 
-              <ContainerMacro>
-                <CardMacro 
-                  name="Protein"
-                  value={food.infoNutritional.protein}
-                />
-                <CardMacro  
-                  name="Carbo"
-                  value={food.infoNutritional.carbs}
-                />
-                <CardMacro  
-                  name="Fat" 
-                  value={food.infoNutritional.fat}
-                />
-              </ContainerMacro>
+                <GenericWrapperInput style={{width: 144, marginRight: 16}}>
+                    <Input
+                      title="Porção"
+                      name="amount"
+                      control={control}
+                      placeholder="Digite aqui"
+                      keyboardType="numeric"
+                      autoCorrect={false}
+                    />
+                  </GenericWrapperInput>
 
-              <ContainerCalorieTotal>
-                <CalorieTotal caloriesTotal={caloriesTotalFood} />
-              </ContainerCalorieTotal>
+                </WrapperAmountMetric>
+
+                <ContainerMacro>
+                  <CardMacro 
+                    name="Protein"
+                    type="protein"
+                    value={food.infoNutritional.protein}
+                  />
+                  <CardMacro  
+                    name="Carbo"
+                    type="cabos"
+                    value={food.infoNutritional.carbs}
+                  />
+                  <CardMacro  
+                    name="Fat"
+                    type="fat" 
+                    value={food.infoNutritional.fat}
+                  />
+                </ContainerMacro>
+
+                <ContainerCalorieTotal>
+                  <CalorieTotal caloriesTotal={caloriesTotalFood} />
+                </ContainerCalorieTotal>
+              </ContentForm>
 
               <ContainerButton>
                 <ButtonCancel>
@@ -104,7 +128,10 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
                     Cancelar
                   </ButtonCancelText>
                 </ButtonCancel>
-                <Button buttonText="Adicionar" />
+                <Button
+                  onPress={handleSubmit(handleAddFoodInMeal)}
+                  buttonText="Adicionar" 
+                />
               </ContainerButton>
             </Form>
         </ContainerModal>
