@@ -1,6 +1,12 @@
 import React, { useCallback, useContext, useState } from 'react';
 import { createContext } from "react";
-import { CartProviderProps, Data, Food, MealContextData, OptionsMeal } from "./types";
+import {
+  CartProviderProps,
+  Data,
+  Food,
+  MealContextData,
+  OptionsMeal
+} from "./types";
 
 const MealContext = createContext<MealContextData>({} as MealContextData);
 
@@ -14,12 +20,15 @@ export function MealProvider({ children }: CartProviderProps) {
     setData({foods: [...data.foods], idMeal })
   }, [])
   
-  const addFood =  useCallback(async(foodId: number) => {
-    console.log(`🤪 add Food`)
+  const addFood =  useCallback(async(food: Food) => {
+    console.log(`🔺 add Food`)
+    setData({ ...data, foods: [...data.foods, food] })
   }, []);
 
   const removeFood =  useCallback((foodId: number) => {
-    console.log(`🤪 remove Food`)
+    console.log(`🔻 remove Food`)
+    const foodsUpdated = data.foods.filter(food => food.id !== foodId)
+    setData({ ...data, foods: [...foodsUpdated] })
   }, []);
 
 

@@ -27,7 +27,7 @@ export interface CartProviderProps {
 
 export interface MealContextData {
   data: Data;
-  addFood: (foodId: number) => Promise<void>;
+  addFood: (food: Food) => Promise<void>;
   removeFood: (foodId: number) => void;
   addKeyMeal: (idMeal: OptionsMeal) => void;
 }
