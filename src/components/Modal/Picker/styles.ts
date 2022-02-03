@@ -12,7 +12,7 @@ export const Title = styled.Text`
 `;
 
 export const WrapperPicker = styled.View<WrapperPickerProps>`
-  width: 130px;
+  width: 100%;
   border-radius: 5px;
   height: 50px;
   border-color: ${({theme}) => theme.colors.card};
