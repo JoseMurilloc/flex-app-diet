@@ -5,7 +5,12 @@ export default {
     text: '#404040',
     description: '#787878',
     card: '#F3F3F3',
-    calorie: '#EEAC2B'  
+    calorie: '#EEAC2B',
+    nutritional: {
+      cabos: '#EB462B',
+      protein: '#214EC0',
+      fat: '#EE962E'
+    }
   },
   sizes: {
     title: 18,
