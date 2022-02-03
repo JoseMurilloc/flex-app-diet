@@ -1,10 +1,8 @@
 import React, { useCallback } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Modal from "react-native-modal";
-import { useMeal } from '../../contexts/meals';
-import { Food, SetModalInfoFoodProps } from '../../screens/MountDish/types';
 import { Input } from '../Modal/Input';
 import { PickerMetric } from '../Modal/Picker';
 import { 
@@ -22,21 +20,43 @@ import {
   InfoNutritionalLine,
 } from './styles';
 import { Footer } from '../Modal/Footer';
+import { FormRegisterData, RegisterFoodModalProps } from './type';
+import { api } from '../../services/api';
+import { getTotalCaloriesInMacros } from '../../commons/getTotalCaloriesInMacros';
 
-type RegisterFoodModalProps = {
-  state: {
-    isVisible: boolean;
-    setModalRegisterFood: SetModalInfoFoodProps;
-  }
-} 
 
 export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
 
   const {control, handleSubmit, setValue} = useForm<any>();
-  const {addFood} = useMeal();
 
-  const handleAddFoodInMeal = useCallback(async (food: Food) => {
-    console.log(food)
+  const handleAddFoodInMeal = useCallback(async(data: FormRegisterData) => {
+    
+    const {cabos, protein, fat} = data;
+    const caloriesTotalFood = getTotalCaloriesInMacros({
+      cabos,
+      protein,
+      fat
+    });
+
+    const food = {
+      nameFood: data.description,
+      gram: data.numberServing,
+      caloriesTotalFood,
+      infoNutritional: {
+        servingSize: data.metric,
+        numberServing: data.numberServing,
+        carbs: cabos,
+        protein,
+        fat
+      }
+    }
+
+    try {
+      await api.post('/foods', { ...food })
+      state.setModalRegisterFood(false);
+    } catch {
+      console.log(`Error API`);
+    }
   }, [])
 
   return (
@@ -52,10 +72,18 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
             <Form>
               <ContentForm>
                 <WrapperInputDescription>
-                  <InputDescription 
-                    placeholder="Descrição"
-                    autoCorrect={false} 
-                  />
+                <Controller
+                  control={control}
+                  name="description"
+                  render={({ field: { onChange, value }}) => (
+                    <InputDescription 
+                      placeholder="Descrição"
+                      autoCorrect={false} 
+                      value={value}
+                      onChangeText={onChange}
+                   />
+                  )}
+                />
                 </WrapperInputDescription>
 
                 <WrapperInputsLine>
@@ -75,14 +103,16 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
                       name="metric"
                       control={control}
                       enabled={true}
-                      setValue={setValue}
+                      onValueChange={((itemValue: any, itemIndex: number) => {
+                        setValue("metric", itemValue)
+                      })}
                     />
                   </GenericWrapperInput>
 
                   <GenericWrapperInput style={{width: 100}}>
                     <Input
                       title="Porção"
-                      name="amount"
+                      name="numberServing"
                       control={control}
                       placeholder="Digite aqui"
                       keyboardType="numeric"
@@ -132,8 +162,6 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
                     />
                   </GenericWrapperInput>
                 </WrapperInputsLine>
-
-
               </ContentForm>
 
               <Footer 

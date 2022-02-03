@@ -8,7 +8,7 @@
       "infoNutritional": {
         "servingSize": "gram",
         "numberServing": 15,
-        "carbs": 12.0,
+        "carbs": 12,
         "protein": 20.5,
         "fat": 9.56
       }
@@ -21,7 +21,7 @@
       "infoNutritional": {
         "servingSize": "gram",
         "numberServing": 15,
-        "carbs": 12.0,
+        "carbs": 12,
         "protein": 10.5,
         "fat": 9.56
       }
@@ -34,7 +34,7 @@
       "infoNutritional": {
         "servingSize": "gram",
         "numberServing": 15,
-        "carbs": 12.0,
+        "carbs": 12,
         "protein": 10.5,
         "fat": 9.56
       }
@@ -47,7 +47,7 @@
       "infoNutritional": {
         "servingSize": "gram",
         "numberServing": 15,
-        "carbs": 12.0,
+        "carbs": 12,
         "protein": 10.5,
         "fat": 9.56
       }
@@ -60,7 +60,7 @@
       "infoNutritional": {
         "servingSize": "gram",
         "numberServing": 15,
-        "carbs": 12.0,
+        "carbs": 12,
         "protein": 10.5,
         "fat": 9.56
       }
@@ -73,7 +73,7 @@
       "infoNutritional": {
         "servingSize": "gram",
         "numberServing": 15,
-        "carbs": 12.0,
+        "carbs": 12,
         "protein": 10.5,
         "fat": 9.56
       }
@@ -86,7 +86,7 @@
       "infoNutritional": {
         "servingSize": "gram",
         "numberServing": 15,
-        "carbs": 12.0,
+        "carbs": 12,
         "protein": 10.5,
         "fat": 9.56
       }
@@ -99,7 +99,7 @@
       "infoNutritional": {
         "servingSize": "gram",
         "numberServing": 15,
-        "carbs": 12.0,
+        "carbs": 12,
         "protein": 10.5,
         "fat": 9.56
       }
@@ -112,7 +112,7 @@
       "infoNutritional": {
         "servingSize": "gram",
         "numberServing": 15,
-        "carbs": 12.0,
+        "carbs": 12,
         "protein": 10.5,
         "fat": 9.56
       }
@@ -125,10 +125,36 @@
       "infoNutritional": {
         "servingSize": "gram",
         "numberServing": 15,
-        "carbs": 12.0,
+        "carbs": 12,
         "protein": 10.5,
         "fat": 9.56
       }
+    },
+    {
+      "nameFood": "Goiaba",
+      "gram": "100",
+      "caloriesTotalFood": 75.4,
+      "infoNutritional": {
+        "servingSize": "gram",
+        "numberServing": "100",
+        "carbs": "14",
+        "protein": "2.6",
+        "fat": "1"
+      },
+      "id": 11
+    },
+    {
+      "nameFood": "Goiaba 2",
+      "gram": "100",
+      "caloriesTotalFood": 87.4,
+      "infoNutritional": {
+        "servingSize": "gram",
+        "numberServing": "100",
+        "carbs": "17",
+        "protein": "2.6",
+        "fat": "1"
+      },
+      "id": 12
     }
   ],
   "meals": [

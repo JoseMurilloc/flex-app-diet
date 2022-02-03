@@ -54,9 +54,7 @@ export const TitleToday = styled.Text`
 `;
 
 
-export const ButtonAddMeal = styled.TouchableOpacity.attrs(props => {
-  activeOpacity: 0
-})`
+export const ButtonAddMeal = styled.TouchableOpacity`
   background-color: ${({theme}) => theme.colors.primary};
   width: 65px;
   height: 65px;
