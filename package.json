@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "server": "json-server --watch server.json --port 3333 --host 192.168.1.11 --delay 800",
+    "server:delay": "json-server --watch server.json --port 3333 --host 192.168.1.11 --delay 300",
+    "server": "json-server --watch server.json --port 3333 --host 192.168.1.1",
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",
