@@ -41,7 +41,7 @@ export const Container = styled.View.attrs(props => ({
     shadowRadius: 11.95,
 
   },
-  elevation: 18,
+  elevation: 12,
 }))`
   width: 71px;
   height: 71px;
