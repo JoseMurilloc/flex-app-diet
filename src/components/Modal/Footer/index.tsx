@@ -21,14 +21,14 @@ export function Footer({
         </ButtonCancel>
         {handleConfirmRegisterFood && (
           <Button
-            onPress={handleConfirmRegisterFood}
+            onPress={handleSubmit(handleConfirmRegisterFood)}
             buttonText="Adicionar" 
           />
         )}
 
         {handleAddFoodInMeal && (
           <Button
-            onPress={handleAddFoodInMeal}
+            onPress={handleSubmit(handleAddFoodInMeal)}
             buttonText="Adicionar" 
           />
         )}
