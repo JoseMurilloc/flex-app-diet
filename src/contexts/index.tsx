@@ -15,12 +15,12 @@ export const AppProvider: React.FC = ({children}) => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <MealProvider>
-        <NavigationContainer>
-          {children}
-        </NavigationContainer>
-      </MealProvider>
-    </ThemeProvider>
+    <MealProvider>
+      <ThemeProvider theme={theme}>
+          <NavigationContainer>
+            {children}
+          </NavigationContainer>
+      </ThemeProvider>
+    </MealProvider>
   )
 }

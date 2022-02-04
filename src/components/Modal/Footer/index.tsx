@@ -4,12 +4,14 @@ import { ButtonCancel, ButtonCancelText, Container, ContainerButtons } from './s
 import { FooterProps } from './types';
 
 export function Footer({ 
-  handleSubmit, handleAddFoodInMeal, handleConfirmMeal
+  handleSubmit, handleAddFoodInMeal, handleConfirmMeal, setModalInfoFood
 }: FooterProps) {
   return (
     <Container>
       <ContainerButtons>
-        <ButtonCancel>
+        <ButtonCancel
+          onPress={() => setModalInfoFood(false)}
+        >
           <ButtonCancelText>
             Cancelar
           </ButtonCancelText>

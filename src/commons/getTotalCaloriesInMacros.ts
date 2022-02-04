@@ -9,9 +9,10 @@ type MacrosParams = {
 export function getTotalCaloriesInMacros({
   cabos, protein, fat
 }: MacrosParams) {
-  return (
-    (cabos*macrosGramForCalories.CABOS) 
-    + (protein*macrosGramForCalories.PROTEIN) 
-    + (fat*macrosGramForCalories.FAT)
-  )
+  const carboCalorie = cabos * macrosGramForCalories.CABOS;
+  const proteinCalorie = protein * macrosGramForCalories.PROTEIN;
+  const fatCalorie = fat * macrosGramForCalories.FAT;
+  const totalCalories = carboCalorie + proteinCalorie + fatCalorie;
+
+  return totalCalories.toFixed(2)
 }

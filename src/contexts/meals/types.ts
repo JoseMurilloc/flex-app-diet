@@ -16,15 +16,20 @@ export interface Food {
   }
 }
 
-export interface Data {
-  foods: Food[],
+export interface MealData {
   idMeal: OptionsMeal | null;
 }
+
+export type FoodData = Food[]
 
 export interface CartProviderProps {
   children: ReactNode;
 }
 
+type Data = {
+  foods: FoodData;
+  meal: MealData;
+}
 export interface MealContextData {
   data: Data;
   addFood: (food: Food) => Promise<void>;

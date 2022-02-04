@@ -1,7 +1,8 @@
 import { Food } from "../../contexts/meals/types"
+import { SetModalInfoFoodProps } from "../../screens/MountDish/types"
 
-export type FormData = {
-  amount: number;
+export type FormInfoFoodData = {
+  numberServing: number;
   metric: string;
 }
 

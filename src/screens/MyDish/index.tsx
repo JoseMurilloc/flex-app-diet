@@ -1,4 +1,5 @@
-import { useEffect, useMemo } from "react";
+
+import React, { useMemo } from "react";
 import { FlatList } from "react-native";
 import { Button } from "../../components/Button";
 import { CalorieTotal } from "../../components/CalorieTotal";
@@ -22,11 +23,12 @@ export function MyDish() {
   const {data: {foods}} = useMeal();
 
   const caloriesTotal = useMemo(() => {
-    return foods.reduce((accumulate: number, food: any) => {
+    let total = foods.reduce((accumulate: number, food: any) => {
       return accumulate + food.caloriesTotalFood;
     }, 0)
-  }, [foods])
 
+    return total.toFixed(2)
+  }, [foods])
   
   return (
     <Container>
