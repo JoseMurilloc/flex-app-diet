@@ -4,7 +4,7 @@ import { FormRegisterData } from '../../RegisterFoodModal/type';
 
 export type FooterProps = {
   handleSubmit:  UseFormHandleSubmit<any>;
-  handleAddFoodInMeal?: (food: FormRegisterData) => Promise<void>;
-  handleConfirmMeal?:  (data: any) => Promise<void>;
+  handleAddFoodInMeal?: (food: any) => Promise<void>;
+  handleConfirmRegisterFood?:  (data: any) => Promise<void>;
   setModalInfoFood: SetModalInfoFoodProps;
 }

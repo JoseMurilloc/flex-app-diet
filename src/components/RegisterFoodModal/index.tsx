@@ -29,7 +29,8 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
 
   const {control, handleSubmit, setValue} = useForm<any>();
 
-  const handleAddFoodInMeal = useCallback(async(data: FormRegisterData) => {
+  const handleConfirmRegisterFood = useCallback(
+    async(data: FormRegisterData) => {
     
     const {cabos, protein, fat} = data;
     const caloriesTotalFood = getTotalCaloriesInMacros({
@@ -166,7 +167,8 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
 
               <Footer 
                 handleSubmit={handleSubmit} 
-                handleAddFoodInMeal={handleAddFoodInMeal} 
+                handleConfirmRegisterFood={handleConfirmRegisterFood}
+                setModalInfoFood={state.setModalRegisterFood} 
               />
             </Form>
         </ContainerModal>
