@@ -93,6 +93,7 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
                 <GenericWrapperInput style={{width: 144}}>
                   <Input
                     title="Porção"
+                    autoFocus
                     name="numberServing"
                     control={control}
                     placeholder="Digite aqui"

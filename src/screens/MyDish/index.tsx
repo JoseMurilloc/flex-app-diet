@@ -6,6 +6,7 @@ import { CalorieTotal } from "../../components/CalorieTotal";
 import { CardFood } from "../../components/CardFood";
 import { WarnMessageScreen } from "../../components/WarnMessageScreen";
 import { useMeal } from "../../contexts/meals";
+import { Food } from "../../contexts/meals/types";
 import { 
   Container,
   DescriptionHeader,
@@ -23,10 +24,10 @@ export function MyDish() {
   const {data: {foods}} = useMeal();
 
   const caloriesTotal = useMemo(() => {
-    let total = foods.reduce((accumulate: number, food: any) => {
-      return accumulate + food.caloriesTotalFood;
+    let total = foods.reduce((accumulate: number, food: Food) => {
+      return accumulate + Number(food.caloriesTotalFood);
     }, 0)
-
+    
     return Number(total).toFixed(2)
   }, [foods])
   
