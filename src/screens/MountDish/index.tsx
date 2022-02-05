@@ -15,6 +15,8 @@ import {
 } from "./styles";
 import { Input } from "../../components/Form/Input";
 import { CardFood } from "../../components/CardFood";
+import { Header } from '../../components/Header';
+
 import { ActivityIndicator, Alert, FlatList } from "react-native";
 import { Food, FormData, MountDishProps, ParamsRouter } from "./types";
 import { api } from "../../services/api";
@@ -107,8 +109,9 @@ export function MountDish() {
   }
 
   return (
+   <>
+    <Header titleHeader="Montar prato" />
     <Container>
-      <StatusBar style="light" />
       <WrapperInput>
         <Input 
           name="search"
@@ -200,5 +203,6 @@ export function MountDish() {
         }}
       />
     </Container>
+   </> 
   )
 }

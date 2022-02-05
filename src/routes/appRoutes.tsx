@@ -21,45 +21,21 @@ export function AppRoutes() {
     <Stack.Navigator
       screenOptions={{
         title: 'Aligned Center',
-        headerTitleAlign: 'center'
+        headerTitleAlign: 'center',
+        headerShown: false
       }}
     >
       <Stack.Screen 
         name="Home" 
         component={Home} 
-        options={{ headerShown: false }}
       />
       <Stack.Screen 
         name="MountDish" 
         component={MountDish}
-        options={{ 
-          title: "Montar prato",
-          headerTintColor: '#FFF',
-          headerTitleStyle: { 
-            fontFamily: theme.fonts.bold,
-            fontSize: theme.sizes.large,
-            fontWeight: '700'
-          },
-          headerStyle: {
-            backgroundColor: theme.colors.primary,
-          },
-        }}
       />
       <Stack.Screen 
         name="MyDish" 
         component={MyDish}
-        options={{ 
-          title: "Meu prato",
-          headerTintColor: '#FFF',
-          headerTitleStyle: { 
-            fontFamily: theme.fonts.bold,
-            fontSize: theme.sizes.large,
-            fontWeight: '700'
-          },
-          headerStyle: {
-            backgroundColor: theme.colors.primary,
-          },
-        }}
       />
     </Stack.Navigator>
   )

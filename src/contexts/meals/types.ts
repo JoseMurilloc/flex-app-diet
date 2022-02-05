@@ -33,6 +33,6 @@ type Data = {
 export interface MealContextData {
   data: Data;
   addFood: (food: Food) => Promise<void>;
-  removeFood: (foodId: number) => void;
+  removeAllFoodsOfMeal: () => void;
   addKeyMeal: (idMeal: OptionsMeal) => void;
 }

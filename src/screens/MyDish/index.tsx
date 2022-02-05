@@ -16,7 +16,9 @@ import {
   WrapperButton,
   ContainerMessageWrapper
 } from "./styles";
-
+import {StatusBar} from 'expo-status-bar';
+import theme from "../../global/styles/theme";
+import {Header as AppHeader} from '../../components/Header'
 
 
 export function MyDish() {
@@ -32,42 +34,45 @@ export function MyDish() {
   }, [foods])
   
   return (
-    <Container>
-      <Header>
-        <TitleHeader>Minha lista de alimentos</TitleHeader>
-        <DescriptionHeader>
-          Visualização dos alimentos que estão no prato da refeição.
-        </DescriptionHeader>
-      </Header>
+    <>
+      <AppHeader titleHeader="Meu prato" />
+      <Container>
+        <Header>
+          <TitleHeader>Minha lista de alimentos</TitleHeader>
+          <DescriptionHeader>
+            Visualização dos alimentos que estão no prato da refeição.
+          </DescriptionHeader>
+        </Header>
 
-      <Main>
+        <Main>
 
-        {foods.length < 1 ? (
-          <ContainerMessageWrapper>
-            <WarnMessageScreen 
-              messageMain="Sem alimentos adicionadas"
-              messageDescription="Comece a adicionar alimentos para podemos compor seu prato"
-            />
-          </ContainerMessageWrapper>
-        ) : (
-          <FlatList 
-            data={foods}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={food => food.nameFood}
-            renderItem={({item: food}) => (
-              <CardFood 
-                nameFood={food.nameFood}
-                gram={food.gram} 
-                caloriesTotalFood={food.caloriesTotalFood}
+          {foods.length < 1 ? (
+            <ContainerMessageWrapper>
+              <WarnMessageScreen 
+                messageMain="Sem alimentos adicionadas"
+                messageDescription="Comece a adicionar alimentos para podemos compor seu prato"
               />
-            )}
-          />
-        )} 
-      </Main>
-      <CalorieTotal caloriesTotal={caloriesTotal} />
-      <WrapperButton>
-        <Button buttonText="Adicionar refeição"/>
-      </WrapperButton>
-    </Container>
+            </ContainerMessageWrapper>
+          ) : (
+            <FlatList 
+              data={foods}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={food => food.nameFood}
+              renderItem={({item: food}) => (
+                <CardFood 
+                  nameFood={food.nameFood}
+                  gram={food.gram} 
+                  caloriesTotalFood={food.caloriesTotalFood}
+                />
+              )}
+            />
+          )} 
+        </Main>
+        <CalorieTotal caloriesTotal={caloriesTotal} />
+        <WrapperButton>
+          <Button buttonText="Adicionar refeição"/>
+        </WrapperButton>
+      </Container>
+    </>
   )
 }

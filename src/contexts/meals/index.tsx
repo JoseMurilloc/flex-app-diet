@@ -25,13 +25,13 @@ export function MealProvider({ children }: CartProviderProps) {
     setFoods([...foods, food])
   }, [foods]);
 
-  const removeFood =  useCallback((foodId: number) => {
-    console.log(`🔻 remove Food ${foodId}`)
+  const removeAllFoodsOfMeal =  useCallback(() => {
+    setFoods([])
   }, []);
 
 
   return (
-    <MealContext.Provider value={{data: {foods, meal}, addFood, removeFood, addKeyMeal}}>
+    <MealContext.Provider value={{data: {foods, meal}, addFood, removeAllFoodsOfMeal, addKeyMeal}}>
       {children}
     </MealContext.Provider>
   )
