@@ -24,6 +24,7 @@ import {Header as AppHeader} from '../../components/Header'
 export function MyDish() {
 
   const {data: {foods}} = useMeal();
+  const IS_FOODS = useMemo(() => foods.length < 1, [foods]);
 
   const caloriesTotal = useMemo(() => {
     let total = foods.reduce((accumulate: number, food: Food) => {
@@ -46,7 +47,7 @@ export function MyDish() {
 
         <Main>
 
-          {foods.length < 1 ? (
+          {IS_FOODS ? (
             <ContainerMessageWrapper>
               <WarnMessageScreen 
                 messageMain="Sem alimentos adicionadas"
@@ -68,10 +69,14 @@ export function MyDish() {
             />
           )} 
         </Main>
-        <CalorieTotal caloriesTotal={caloriesTotal} />
-        <WrapperButton>
-          <Button buttonText="Adicionar refeição"/>
-        </WrapperButton>
+        {!IS_FOODS && (
+          <>
+            <CalorieTotal caloriesTotal={caloriesTotal} />
+            <WrapperButton>
+              <Button buttonText="Adicionar refeição"/>
+            </WrapperButton>
+          </>
+        )}
       </Container>
     </>
   )

@@ -40,4 +40,5 @@ export const  WrapperButton = styled.View`
 export const ContainerMessageWrapper = styled.View`
   justify-content: center;
   align-items: center;
+  padding: 50px 0;
 `;
