@@ -10,8 +10,6 @@ export type SetModalInfoFoodProps = React.Dispatch<React.SetStateAction<boolean>
 export type Food = {
   id: number;
   nameFood: string;
-  gram: number;
-  caloriesTotalFood: number;
   infoNutritional: { 
     servingSize: string,
     numberServing: number,

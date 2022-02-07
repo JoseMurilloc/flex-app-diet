@@ -96,7 +96,7 @@ export function Home () {
                 <CardMeal
                   key={meal.nameMeal} 
                   nameMeal={meal.nameMeal}
-                  caloriesTotal={350}
+                  caloriesTotal={meal.caloriesTotal}
                   Icon={meal.Icon}
                 />
               )}

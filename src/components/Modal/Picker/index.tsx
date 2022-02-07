@@ -10,7 +10,7 @@ import {
 import { Controller, Control, useForm } from "react-hook-form";
 import { StyleSheet } from 'react-native';
 import theme from '../../../global/styles/theme';
-import { Food } from '../../../contexts/meals/types';
+import { Food } from '../../../screens/MountDish/types';
 
 interface PickerMetricProps extends PickerProps {
   control: Control | any;

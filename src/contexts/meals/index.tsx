@@ -21,7 +21,6 @@ export function MealProvider({ children }: CartProviderProps) {
   }, [])
   
   const addFood =  useCallback(async(food: Food) => {
-    console.log(`🔺 add Food ${food.nameFood}`)
     setFoods([...foods, food])
   }, [foods]);
 

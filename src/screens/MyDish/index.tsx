@@ -1,5 +1,5 @@
 
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { FlatList } from "react-native";
 import { Button } from "../../components/Button";
 import { CalorieTotal } from "../../components/CalorieTotal";
@@ -16,23 +16,47 @@ import {
   WrapperButton,
   ContainerMessageWrapper
 } from "./styles";
-import {StatusBar} from 'expo-status-bar';
-import theme from "../../global/styles/theme";
 import {Header as AppHeader} from '../../components/Header'
+import { useState } from "react";
 
+
+interface FoodFormatted extends Food {
+  totalCaloriesConsumePortion: string;
+}
 
 export function MyDish() {
 
   const {data: {foods}} = useMeal();
   const IS_FOODS = useMemo(() => foods.length < 1, [foods]);
+  const [foodFormatted, setFoodFormatted] = useState<FoodFormatted[]>([])
 
   const caloriesTotal = useMemo(() => {
-    let total = foods.reduce((accumulate: number, food: Food) => {
-      return accumulate + Number(food.caloriesTotalFood);
+    let total = foodFormatted.reduce((accumulate: number, food: FoodFormatted) => {
+      return accumulate + Number(food.totalCaloriesConsumePortion);
     }, 0)
     
     return Number(total).toFixed(2)
   }, [foods])
+
+  const handleCaloriesTotal = (food: Food) => {
+    const {protein, fat, carbs, numberServing} = food.infoNutritional;
+    return (
+      (((protein * 4) + (fat * 9) + (carbs * 4)) * food.amount) 
+      / (numberServing)).toFixed(2)
+  }
+
+  useEffect(() => {
+    const parserFood = foods.map(food => {
+      return {
+        ...food,
+        totalCaloriesConsumePortion: handleCaloriesTotal(food)
+      }
+    })
+
+    console.log(parserFood)
+
+    setFoodFormatted(parserFood)
+  } , [])
   
   return (
     <>
@@ -56,16 +80,17 @@ export function MyDish() {
             </ContainerMessageWrapper>
           ) : (
             <FlatList 
-              data={foods}
+              data={foodFormatted}
               showsVerticalScrollIndicator={false}
               keyExtractor={food => food.nameFood}
               renderItem={({item: food}) => (
                 <CardFood 
                   nameFood={food.nameFood}
-                  gram={food.gram} 
-                  caloriesTotalFood={food.caloriesTotalFood}
+                  numberServing={food.infoNutritional.numberServing} 
+                  caloriesTotalFood={food.totalCaloriesConsumePortion}
                 />
-              )}
+              )
+            }
             />
           )} 
         </Main>

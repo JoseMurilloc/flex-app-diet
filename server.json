@@ -3,8 +3,6 @@
     {
       "id": 1,
       "nameFood": "Feijão Carioca",
-      "gram": 100,
-      "caloriesTotalFood": 128,
       "infoNutritional": {
         "servingSize": "gram",
         "numberServing": 15,
@@ -16,11 +14,9 @@
     {
       "id": 2,
       "nameFood": "Arroz Integral",
-      "gram": 80,
-      "caloriesTotalFood": 85,
       "infoNutritional": {
         "servingSize": "gram",
-        "numberServing": 15,
+        "numberServing": 30,
         "carbs": 12,
         "protein": 10.5,
         "fat": 9.56
@@ -29,8 +25,6 @@
     {
       "id": 3,
       "nameFood": "Atum",
-      "gram": 50,
-      "caloriesTotalFood": 1,
       "infoNutritional": {
         "servingSize": "gram",
         "numberServing": 15,
@@ -42,8 +36,6 @@
     {
       "id": 4,
       "nameFood": "Ovo branco",
-      "gram": 50,
-      "caloriesTotalFood": 3,
       "infoNutritional": {
         "servingSize": "gram",
         "numberServing": 15,
@@ -51,110 +43,6 @@
         "protein": 10.5,
         "fat": 9.56
       }
-    },
-    {
-      "id": 5,
-      "nameFood": "Feijão Verde",
-      "gram": 100,
-      "caloriesTotalFood": 128,
-      "infoNutritional": {
-        "servingSize": "gram",
-        "numberServing": 15,
-        "carbs": 12,
-        "protein": 10.5,
-        "fat": 9.56
-      }
-    },
-    {
-      "id": 6,
-      "nameFood": "Arroz Parbonizado",
-      "gram": 100,
-      "caloriesTotalFood": 128,
-      "infoNutritional": {
-        "servingSize": "gram",
-        "numberServing": 15,
-        "carbs": 12,
-        "protein": 10.5,
-        "fat": 9.56
-      }
-    },
-    {
-      "id": 7,
-      "nameFood": "Mortadela",
-      "gram": 100,
-      "caloriesTotalFood": 128,
-      "infoNutritional": {
-        "servingSize": "gram",
-        "numberServing": 15,
-        "carbs": 12,
-        "protein": 10.5,
-        "fat": 9.56
-      }
-    },
-    {
-      "id": 8,
-      "nameFood": "Amendoim",
-      "gram": 100,
-      "caloriesTotalFood": 128,
-      "infoNutritional": {
-        "servingSize": "gram",
-        "numberServing": 15,
-        "carbs": 12,
-        "protein": 10.5,
-        "fat": 9.56
-      }
-    },
-    {
-      "id": 9,
-      "nameFood": "Açúcar branco",
-      "gram": 100,
-      "caloriesTotalFood": 128,
-      "infoNutritional": {
-        "servingSize": "gram",
-        "numberServing": 15,
-        "carbs": 12,
-        "protein": 10.5,
-        "fat": 9.56
-      }
-    },
-    {
-      "id": 10,
-      "nameFood": "Maça",
-      "gram": 100,
-      "caloriesTotalFood": 128,
-      "infoNutritional": {
-        "servingSize": "gram",
-        "numberServing": 15,
-        "carbs": 12,
-        "protein": 10.5,
-        "fat": 9.56
-      }
-    },
-    {
-      "nameFood": "Goiaba",
-      "gram": "100",
-      "caloriesTotalFood": 75.4,
-      "infoNutritional": {
-        "servingSize": "gram",
-        "numberServing": "100",
-        "carbs": "14",
-        "protein": "2.6",
-        "fat": "1"
-      },
-      "id": 11
-    },
-    {
-      "nameFood": "Goiaba 2",
-      "gram": "100",
-      "caloriesTotalFood": 87.4,
-      "infoNutritional": {
-        "servingSize": "gram",
-        "numberServing": "100",
-        "carbs": "17",
-        "protein": "2.6",
-        "fat": "1"
-      },
-      "id": 12
     }
   ],
   "meals": [

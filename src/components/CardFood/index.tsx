@@ -11,13 +11,13 @@ import {
 
 interface CardMealProps extends TouchableOpacityProps {
   nameFood: string;
-  gram: number;
-  caloriesTotalFood: number;
+  numberServing: number;
+  caloriesTotalFood:  string;
 }
 
 export function CardFood({ 
   nameFood,
-  gram,
+  numberServing,
   caloriesTotalFood,
   ...rest
 }: CardMealProps) {
@@ -26,7 +26,7 @@ export function CardFood({
       <WrapperContent {...rest}>
         <Content>
           <NameFood>{nameFood}</NameFood>
-          <CalorieTotalFood>{`${gram}g`}</CalorieTotalFood>
+          <CalorieTotalFood>{`${numberServing}g`}</CalorieTotalFood>
         </Content>
         <CaloriesTotalFood>
           {`${caloriesTotalFood}cal`}

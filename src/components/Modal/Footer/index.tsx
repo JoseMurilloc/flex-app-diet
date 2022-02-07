@@ -9,7 +9,10 @@ import {
 import { FooterProps } from './types';
 
 export function Footer({ 
-  handleSubmit, handleAddFoodInMeal, handleConfirmRegisterFood, setModalInfoFood
+  handleSubmit, 
+  handleAddFoodInMeal,
+  handleConfirmRegisterFood,
+  setModalInfoFood
 }: FooterProps) {
   return (
     <Container>

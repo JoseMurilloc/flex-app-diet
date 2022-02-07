@@ -33,6 +33,7 @@ import { useForm } from "react-hook-form";
 import { WarnMessageScreen } from "../../components/WarnMessageScreen";
 import { InfoFoodModal } from "../../components/InfoFoodModal";
 import { RegisterFoodModal } from "../../components/RegisterFoodModal";
+import { getTotalCaloriesInMacros } from "../../commons/getTotalCaloriesInMacros";
 
 export function MountDish() {
 
@@ -177,8 +178,12 @@ export function MountDish() {
               renderItem={({item: food}) => (
                 <CardFood 
                   nameFood={food.nameFood}
-                  gram={food.gram} 
-                  caloriesTotalFood={food.caloriesTotalFood}
+                  numberServing={food.infoNutritional.numberServing} 
+                  caloriesTotalFood={getTotalCaloriesInMacros({
+                    protein:  food.infoNutritional.protein, 
+                    fat: food.infoNutritional.fat, 
+                    cabos: food.infoNutritional.carbs, 
+                  })}
                   onPress={() => handleOpenCardFoodInfo(food)}
                 />
               )}

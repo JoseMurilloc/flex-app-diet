@@ -5,8 +5,7 @@ export type OptionsMeal = "breakfast" | "morningSpeedboat" | "lunch" | "afternoo
 export interface Food {
   id: number;
   nameFood: string;
-  gram: number;
-  caloriesTotalFood: number;
+  amount: number;
   infoNutritional: { 
     servingSize: string,
     numberServing: number,

@@ -27,36 +27,36 @@ import { Footer } from '../Modal/Footer';
 export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
 
   const {control, handleSubmit, setValue} = useForm<any>();
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState(String(food.infoNutritional.numberServing));
   const {addFood} = useMeal();
 
   const caloriesTotalFood = useMemo(
     () => {
       const {protein, fat, carbs, numberServing} = food.infoNutritional
       if (amount) {
-        return (((protein + fat + carbs) * Number(amount)) / (numberServing)).toFixed(2)
+        return (
+          (((protein * 4) + (fat * 9) + (carbs * 4)) * Number(amount)) 
+          / (numberServing)
+        ).toFixed(2)
       }
       return  ((protein + fat + carbs) * 0) / (numberServing)
     },
     [amount]
   )
 
-
-  const handleAddFoodInMeal = useCallback(async (data: FormInfoFoodData) => {
+  const handleAddFoodInMeal = useCallback(async (data: any) => {
     if (!amount) {
       Alert.alert(`😅 Coloque a porção que irá comer`)
       return;
     }
 
-    data.numberServing = Number(amount)
-
     try {
-      await addFood(food)
+      await addFood({...food, amount: Number(amount)})
       state.setModalInfoFood(false);
     } catch {
       console.log(`🔺Error`)
     }
-  }, [food])
+  }, [food, amount])
 
   return (
     <View>
