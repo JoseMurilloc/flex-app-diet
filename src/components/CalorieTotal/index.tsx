@@ -8,7 +8,7 @@ import {
 } from './styles';
 
 type CalorieTotalProps = {
-  caloriesTotal: string;
+  caloriesTotal: string | number;
 }
 
 export function CalorieTotal({caloriesTotal}: CalorieTotalProps) {

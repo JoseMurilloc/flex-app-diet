@@ -79,7 +79,8 @@ export function MountDish() {
       setFoodsOfSearch([])
       setLoading(true);
 
-      const response = await api.get<Food[]>(`/foods?nameFood_like=${search}`);
+      const response = await api
+        .get<Food[]>(`/foods?nameFood_like=${search}`);
       
       setFoodsOfSearch(response.data)
       setTitle('Resultado da busca')
@@ -188,10 +189,10 @@ export function MountDish() {
 
       {!!foodSelected && (
         <InfoFoodModal 
-        state={{
-            isVisible: modalInfoFood,
-            setModalInfoFood: setModalInfoFood
-          }}
+          state={{
+              isVisible: modalInfoFood,
+              setModalInfoFood: setModalInfoFood
+            }}
           food={foodSelected}
         />
       )}

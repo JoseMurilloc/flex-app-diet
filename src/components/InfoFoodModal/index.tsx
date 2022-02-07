@@ -4,11 +4,10 @@ import { Alert, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Modal from "react-native-modal";
 import { useMeal } from '../../contexts/meals';
-import { Food, SetModalInfoFoodProps } from '../../screens/MountDish/types';
 
 import { CalorieTotal } from '../CalorieTotal';
 import { CardMacro } from '../Modal/CardMacro';
-import { Input } from '../Modal/Input';
+import { Input } from '../Input';
 import { PickerMetric } from '../Modal/Picker';
 import { 
   ContainerModal,
@@ -23,42 +22,37 @@ import {
 } from './styles';
 import { FormInfoFoodData, InfoFoodModalProps } from './types';
 import { Footer } from '../Modal/Footer';
-import { getTotalCaloriesInMacros } from '../../commons/getTotalCaloriesInMacros';
 
 
 export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
 
-  const {control, handleSubmit, setValue, reset} = useForm<any>();
-  // const [amount, setAmount] = useState(0);
+  const {control, handleSubmit, setValue} = useForm<any>();
+  const [amount, setAmount] = useState('');
   const {addFood} = useMeal();
 
   const caloriesTotalFood = useMemo(
     () => {
-      const {carbs, protein, fat} = food.infoNutritional
-      return getTotalCaloriesInMacros({cabos: carbs, protein, fat})
+      const {protein, fat, carbs, numberServing} = food.infoNutritional
+      if (amount) {
+        return (((protein + fat + carbs) * Number(amount)) / (numberServing)).toFixed(2)
+      }
+      return  ((protein + fat + carbs) * 0) / (numberServing)
     },
-    [food.infoNutritional]
+    [amount]
   )
-
-  // 🔺 Implement logic of OnChangeText Input amount 🔺
-  // const handleCaloriesTotalFoodConsume = useCallback(
-  //   () => {
-  //     return (caloriesTotalFood * amount) / food.gram;
-  //   },
-  //   [amount]
-  // )
 
 
   const handleAddFoodInMeal = useCallback(async (data: FormInfoFoodData) => {
-    if (!data.numberServing) {
+    if (!amount) {
       Alert.alert(`😅 Coloque a porção que irá comer`)
       return;
     }
 
+    data.numberServing = Number(amount)
+
     try {
       await addFood(food)
       state.setModalInfoFood(false);
-      reset();
     } catch {
       console.log(`🔺Error`)
     }
@@ -77,31 +71,30 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
             <Form>
               <ContentForm>
                 <WrapperAmountMetric>
-                <GenericWrapperInput style={{width: 144,  marginRight: 16}}>
-                  <PickerMetric
-                    title="Métrica"
-                    name="metric"
-                    control={control}
-                    enabled={false}
-                    food={food}
-                    onValueChange={((itemValue: any, itemIndex: number) => {
-                      setValue("metric", itemValue)
-                    })}
-                  />
-                </GenericWrapperInput>
+                  <GenericWrapperInput style={{width: 144,  marginRight: 16}}>
+                    <PickerMetric
+                      title="Métrica"
+                      name="metric"
+                      control={control}
+                      enabled={false}
+                      food={food}
+                      onValueChange={((itemValue: any, itemIndex: number) => {
+                        setValue("metric", itemValue)
+                      })}
+                    />
+                  </GenericWrapperInput>
 
-                <GenericWrapperInput style={{width: 144}}>
-                  <Input
-                    title="Porção"
-                    autoFocus
-                    name="numberServing"
-                    control={control}
-                    placeholder="Digite aqui"
-                    keyboardType="numeric"
-                    autoCorrect={false}
-                  />
-                </GenericWrapperInput>
-
+                  <GenericWrapperInput style={{width: 144}}>
+                    <Input
+                      autoFocus
+                      value={amount}
+                      title="Porção"
+                      onChangeText={value => setAmount(value)}
+                      placeholder="Digite a Porção aqui..."
+                      keyboardType="numeric"
+                      autoCorrect={false}
+                    />
+                  </GenericWrapperInput>
                 </WrapperAmountMetric>
 
                 <ContainerMacro>
