@@ -86,7 +86,7 @@ export function MyDish() {
               renderItem={({item: food}) => (
                 <CardFood 
                   nameFood={food.nameFood}
-                  numberServing={food.infoNutritional.numberServing} 
+                  numberServing={food.amount} 
                   caloriesTotalFood={food.totalCaloriesConsumePortion}
                 />
               )
