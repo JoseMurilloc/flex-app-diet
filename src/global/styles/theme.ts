@@ -6,6 +6,11 @@ export default {
     description: '#787878',
     card: '#F3F3F3',
     calorie: '#EEAC2B',
+    status: {
+      error: '#F93131',
+      success: '#31F943',
+      warn: '#F0F931',
+    },
     nutritional: {
       cabos: '#EB462B',
       protein: '#214EC0',

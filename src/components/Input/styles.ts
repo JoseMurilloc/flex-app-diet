@@ -10,6 +10,7 @@ export const WrapperGlobal = styled.View`
   height: 50px;
 `;
 
+
 export const Title = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${({theme}) => theme.sizes.large}px;
@@ -26,12 +27,17 @@ export const WrapperInput = styled.View<WrapperInputProps>`
   flex-direction: row;
   align-items: center;
   
-  ${props => props.isFocused ? css`
+  border-color: ${({theme}) => theme.colors.card};
+  border-width: 0.5px;
+  
+  ${props => props.isFocused && css`
     border-color: ${({theme}) => theme.colors.primary};
     border-width: 0.5px;
-  ` : css`
-    border-color: ${({theme}) => theme.colors.card};
-    border-width: 0.5px;
+  `}
+
+  ${props => props.isErrored && css`
+    border-color: ${({theme}) => theme.colors.status.error};
+    border-width: 1px;
   `}
 `;
 

@@ -90,9 +90,10 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
                       value={amount}
                       title="Porção"
                       onChangeText={value => setAmount(value)}
-                      placeholder="Digite a Porção aqui..."
+                      placeholder="ex: 150"
                       keyboardType="numeric"
                       autoCorrect={false}
+                      error={!amount}
                     />
                   </GenericWrapperInput>
                 </WrapperAmountMetric>
