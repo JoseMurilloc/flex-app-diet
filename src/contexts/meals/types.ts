@@ -21,7 +21,7 @@ export interface MealData {
 
 export type FoodData = Food[]
 
-export interface CartProviderProps {
+export interface MealProviderProps {
   children: ReactNode;
 }
 

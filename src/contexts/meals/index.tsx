@@ -1,18 +1,18 @@
 import React, { useCallback, useContext, useState } from 'react';
 import { createContext } from "react";
 import {
-  CartProviderProps,
   Food,
   FoodData,
   MealContextData,
   MealData,
+  MealProviderProps,
   OptionsMeal
 } from "./types";
 
 const MealContext = createContext<MealContextData>({} as MealContextData);
 
 
-export function MealProvider({ children }: CartProviderProps) {
+export function MealProvider({ children }: MealProviderProps) {
   const [meal, setMeal] = useState<MealData>(() => ({idMeal: null}));
   const [foods, setFoods] = useState<FoodData>([]);
 
