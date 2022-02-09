@@ -1,12 +1,16 @@
 
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { FlatList } from "react-native";
+
 import { Button } from "../../components/Button";
 import { CalorieTotal } from "../../components/CalorieTotal";
 import { CardFood } from "../../components/CardFood";
 import { WarnMessageScreen } from "../../components/WarnMessageScreen";
+import {Header as AppHeader} from '../../components/Header'
+
 import { useMeal } from "../../contexts/meals";
 import { Food } from "../../contexts/meals/types";
+
 import { 
   Container,
   DescriptionHeader,
@@ -16,8 +20,7 @@ import {
   WrapperButton,
   ContainerMessageWrapper
 } from "./styles";
-import {Header as AppHeader} from '../../components/Header'
-import { useState } from "react";
+import { getTotalCaloriesInMacros } from "../../commons/getTotalCaloriesInMacros";
 
 
 interface FoodFormatted extends Food {
@@ -27,22 +30,31 @@ interface FoodFormatted extends Food {
 export function MyDish() {
 
   const {data: {foods}} = useMeal();
-  const IS_FOODS = useMemo(() => foods.length < 1, [foods]);
+  const IS_FOODS = useMemo(
+    () => foods.length < 1,
+    [foods]
+  );
   const [foodFormatted, setFoodFormatted] = useState<FoodFormatted[]>([])
 
   const caloriesTotal = useMemo(() => {
-    let total = foodFormatted.reduce((accumulate: number, food: FoodFormatted) => {
-      return accumulate + Number(food.totalCaloriesConsumePortion);
-    }, 0)
+    let total = 
+      foodFormatted.reduce((accumulate: number, food: FoodFormatted) => {
+        return accumulate + Number(food.totalCaloriesConsumePortion);
+      }, 0)
     
     return Number(total).toFixed(2)
-  }, [foods])
+  }, [foodFormatted])
 
   const handleCaloriesTotal = (food: Food) => {
-    const {protein, fat, carbs, numberServing} = food.infoNutritional;
+    const {protein, fat, carbs, numberServing} = 
+      food.infoNutritional;
+
+    const getTotalCalories = 
+      getTotalCaloriesInMacros({protein, fat, cabos: carbs})
+    
     return (
-      (((protein * 4) + (fat * 9) + (carbs * 4)) * food.amount) 
-      / (numberServing)).toFixed(2)
+      (Number(getTotalCalories) * food.amount) / numberServing
+    ).toFixed(2)
   }
 
   useEffect(() => {
@@ -53,10 +65,8 @@ export function MyDish() {
       }
     })
 
-    console.log(parserFood)
-
     setFoodFormatted(parserFood)
-  } , [])
+  } , [foods])
   
   return (
     <>
@@ -102,7 +112,7 @@ export function MyDish() {
             </WrapperButton>
           </>
         )}
-      </Container>
+      </Container> 
     </>
   )
 }

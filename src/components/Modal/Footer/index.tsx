@@ -25,7 +25,7 @@ export function Footer({
         {handleConfirmRegisterFood && (
           <Button
             onPress={handleSubmit(handleConfirmRegisterFood)}
-            buttonText="Adicionar" 
+            buttonText="Cadastrar" 
           />
         )}
 
