@@ -5,10 +5,9 @@ import { MotiView } from 'moti'
 export const Container = styled(MotiView).attrs(props => ({
   from: { bottom: -261 },
   animate: {  bottom: 0 },
-  transition: { type: 'timing', duration: 100 },
+  transition: { type: 'timing', duration: 50 },
 }))`
   position: relative;
-  /* bottom: -261px; */
 
   background-color: ${({theme}) => theme.colors.card};
   width: 100%;

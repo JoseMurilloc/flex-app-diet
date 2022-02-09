@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import { meals } from '../../constants/meals';
 import { 
