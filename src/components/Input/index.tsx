@@ -23,7 +23,6 @@ export function Input ({ title, error = false, ...rest}: InputProps) {
 
   useEffect(() => {
     setIsErrored(error)
-    console.log(`⭐ ${error}`)
   }, [error])
 
   return (

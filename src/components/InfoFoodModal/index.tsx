@@ -27,8 +27,10 @@ import { Footer } from '../Modal/Footer';
 export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
 
   const {control, handleSubmit, setValue} = useForm<any>();
-  const [amount, setAmount] = useState(String(food.infoNutritional.numberServing));
-  const {addFood} = useMeal();
+  const [amount, setAmount] = useState(
+    String(food.infoNutritional.numberServing)
+  );
+  const {addFood, data: {foods}} = useMeal();
 
   const caloriesTotalFood = useMemo(
     () => {
@@ -51,12 +53,21 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
     }
 
     try {
+      
+      const existInDish = foods.find(foodInDish => foodInDish.id === food.id)
+
+      if (existInDish) {
+        Alert.alert(`${food.nameFood} Já esta no seu prato 😬`)
+        return;
+      }
+
+
       await addFood({...food, amount: Number(amount)})
       state.setModalInfoFood(false);
     } catch {
       console.log(`🔺Error`)
     }
-  }, [food, amount])
+  }, [food, amount, foods])
 
   return (
     <View>
