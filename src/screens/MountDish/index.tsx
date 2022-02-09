@@ -1,5 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
-import { StatusBar } from 'expo-status-bar';
+import React, { useEffect, useState } from "react";
 import { 
   Container,
   ContentFoods,
@@ -34,23 +33,26 @@ import { WarnMessageScreen } from "../../components/WarnMessageScreen";
 import { InfoFoodModal } from "../../components/InfoFoodModal";
 import { RegisterFoodModal } from "../../components/RegisterFoodModal";
 import { getTotalCaloriesInMacros } from "../../commons/getTotalCaloriesInMacros";
+import { useToast } from "../../contexts/toast";
 
 export function MountDish() {
 
   const {control, handleSubmit} = useForm<FormData>();
+
   const [modalInfoFood, setModalInfoFood] = useState(false);
   const [modalRegisterFood, setModalRegisterFood] = useState(false);
+  const [firstSearch, setFirstSearch] = useState(true)
+  const [foodSelected, setFoodSelected] = useState<Food|null>(null)
+  const [loading, setLoading] = useState(false);
+  const [title, setTitle] = useState('Meu histórico');
+ 
 
   const {addKeyMeal} = useMeal();
+  const {showToast} = useToast()
 
   const [foodsOfSearch, setFoodsOfSearch] = 
     useState<Food[]>([]);
 
-  const [firstSearch, setFirstSearch] = useState(true)
-  const [foodSelected, setFoodSelected] = useState<Food|null>(null)
-
-  const [loading, setLoading] = useState(false);
-  const [title, setTitle] = useState('Meu histórico');
 
   const route = useRoute()
   const navigation = useNavigation<MountDishProps>()
@@ -61,14 +63,10 @@ export function MountDish() {
     try {
       addKeyMeal(idMeal);
     } catch {
-      console.log(`⭕ Failed to add`);
+      showToast("error", "Problema interno")
     }
   }, [])
 
-
-  const loadFoodsStoreHistory = useCallback(async() => {
-    return 'LocalStorage last search in App';   
-  }, [])
 
   async function handleSearchFoods(form: FormData) {
     const { search } = form;
@@ -86,7 +84,7 @@ export function MountDish() {
       setFoodsOfSearch(response.data)
       setTitle('Resultado da busca')
     } catch {
-      console.log('🚨')
+      showToast("error", `Problema interno`)
     } finally {
       setLoading(false);
       setFirstSearch(false);

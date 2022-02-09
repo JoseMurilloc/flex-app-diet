@@ -10,6 +10,7 @@ export default {
       error: '#F93131',
       success: '#31F943',
       warn: '#F0F931',
+      default: 'rgba(0,0,0,0.5)',
     },
     nutritional: {
       cabos: '#EB462B',
