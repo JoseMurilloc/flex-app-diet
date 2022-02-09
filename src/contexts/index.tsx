@@ -6,6 +6,7 @@ import AppLoading from 'expo-app-loading';
 import theme from '../global/styles/theme';
 import { NavigationContainer } from '@react-navigation/native';
 import { MealProvider } from './meals';
+import { ToastProvider } from './toast';
 
 export const AppProvider: React.FC = ({children}) => {
   const fontsLoaded = useFontRoboto();
@@ -18,7 +19,9 @@ export const AppProvider: React.FC = ({children}) => {
     <MealProvider>
       <ThemeProvider theme={theme}>
           <NavigationContainer>
-            {children}
+            <ToastProvider>
+              {children}
+            </ToastProvider>
           </NavigationContainer>
       </ThemeProvider>
     </MealProvider>

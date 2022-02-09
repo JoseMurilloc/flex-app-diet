@@ -21,18 +21,18 @@ import { Footer } from '../Modal/Footer';
 import { FormRegisterData, RegisterFoodModalProps } from './type';
 import { Input } from '../Modal/Input';
 import { api } from '../../services/api';
-
+import { useToast } from '../../contexts/toast';
 
 export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
 
   const {control, handleSubmit, setValue, reset} = useForm<any>();
   const [isFocused, setIsFocused] = useState(false);
+  const {showToast} = useToast()
 
   const handleInputFocus = useCallback(() => setIsFocused(true), []);
   const handleInputBlur = useCallback(() => setIsFocused(false), []);
 
-  const handleConfirmRegisterFood = useCallback(
-    async(data: FormRegisterData) => {
+  const handleConfirmRegisterFood = useCallback(async(data: FormRegisterData) => {
     
     const {cabos, protein, fat} = data;
 
@@ -49,10 +49,11 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
 
     try {
       await api.post('/foods', { ...food });
-      state.setModalRegisterFood(false);
+      showToast("success", "Alimento cadastrado com sucesso")
     } catch {
-      console.log(`Error API`);
+      showToast('error', 'Error interno tente novamente');
     } finally {
+      state.setModalRegisterFood(false);
       reset();
     }
   }, [])

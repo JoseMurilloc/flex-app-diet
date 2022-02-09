@@ -5,7 +5,7 @@ export type RegisterFoodModalProps = {
   state: {
     isVisible: boolean;
     setModalRegisterFood: SetModalInfoFoodProps;
-  }
+  },
 } 
 
 export type FormRegisterData = {
