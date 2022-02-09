@@ -26,8 +26,8 @@ export function Header({titleHeader}: HeaderProps) {
 
 
   const alertUnmountDish = () => Alert.alert(
-    'Descartar prato',
-    'Tem comida no prato seu arrombado vai estruir?',
+    'Descartar prato atual',
+    'Caso confirme todos os alimentos do prato serão removidos',
     [
       {
         text: 'Não', 
@@ -47,7 +47,7 @@ export function Header({titleHeader}: HeaderProps) {
 
 
   function handleBackStack() {
-    if (titleHeader === 'Montar prato') {
+    if (titleHeader === 'Montar prato' && foods.length > 0) {
       alertUnmountDish();
     } else {
       navigation.goBack()
