@@ -1,4 +1,5 @@
-import styled from 'styled-components/native';
+import { TextInputProps } from 'react-native';
+import styled, { css } from 'styled-components/native';
 
 export const ContainerModal = styled.View`
   background-color: #FFF; 
@@ -22,11 +23,22 @@ export const WrapperInputDescription = styled.View`
   margin: 0 0 15px 0;
 `;
 
-export const InputDescription = styled.TextInput`
+
+interface InputDescriptionProps extends TextInputProps {
+  isFocused: boolean;
+  isErrored?: boolean;  
+}
+
+export const InputDescription = styled.TextInput<InputDescriptionProps>`
   width: 100%;
   border-bottom-width: 1px;
-  border-bottom-color:  ${({theme}) => theme.colors.card};
   padding-bottom: 3px;
+  
+  ${({isFocused}) => isFocused ? css`
+    border-bottom-color:  ${({theme}) => theme.colors.primary};  
+  ` : css`
+    border-bottom-color:  ${({theme}) => theme.colors.card};
+  `}
 `;
 
 export const TitleHeader = styled.Text` 

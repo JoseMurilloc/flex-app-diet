@@ -126,7 +126,8 @@ export function Home () {
             />
           )}
         </ButtonAddMeal>
-        {openMenuMeal && <CardOptionsMeal setOpenMenuMeal={setOpenMenuMeal} />}
+        {openMenuMeal 
+          && <CardOptionsMeal setOpenMenuMeal={setOpenMenuMeal} />}
       </MenuMeal>
     </WrapperScreen>
   );

@@ -1,9 +1,7 @@
-import React, { useCallback } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import React, { useCallback, useState } from 'react';
 import { View } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Controller, useForm } from 'react-hook-form';
 import Modal from "react-native-modal";
-import { Input } from '../Modal/Input';
 import { PickerMetric } from '../Modal/Picker';
 import { 
   ContainerModal,
@@ -21,28 +19,25 @@ import {
 } from './styles';
 import { Footer } from '../Modal/Footer';
 import { FormRegisterData, RegisterFoodModalProps } from './type';
+import { Input } from '../Modal/Input';
 import { api } from '../../services/api';
-import { getTotalCaloriesInMacros } from '../../commons/getTotalCaloriesInMacros';
 
 
 export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
 
-  const {control, handleSubmit, setValue} = useForm<any>();
+  const {control, handleSubmit, setValue, reset} = useForm<any>();
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleInputFocus = useCallback(() => setIsFocused(true), []);
+  const handleInputBlur = useCallback(() => setIsFocused(false), []);
 
   const handleConfirmRegisterFood = useCallback(
     async(data: FormRegisterData) => {
     
     const {cabos, protein, fat} = data;
-    const caloriesTotalFood = getTotalCaloriesInMacros({
-      cabos,
-      protein,
-      fat
-    });
 
     const food = {
       nameFood: data.description,
-      gram: data.numberServing,
-      caloriesTotalFood,
       infoNutritional: {
         servingSize: data.metric,
         numberServing: data.numberServing,
@@ -53,10 +48,12 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
     }
 
     try {
-      await api.post('/foods', { ...food })
+      await api.post('/foods', { ...food });
       state.setModalRegisterFood(false);
     } catch {
       console.log(`Error API`);
+    } finally {
+      reset();
     }
   }, [])
 
@@ -82,6 +79,9 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
                       autoCorrect={false} 
                       value={value}
                       onChangeText={onChange}
+                      isFocused={isFocused}
+                      onFocus={handleInputFocus}
+                      onBlur={handleInputBlur}
                    />
                   )}
                 />
