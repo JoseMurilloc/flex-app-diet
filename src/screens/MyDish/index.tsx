@@ -30,7 +30,7 @@ interface FoodFormatted extends Food {
 export function MyDish() {
 
   const {data: {foods}} = useMeal();
-  const IS_FOODS = useMemo(
+  const existFoodInDish = useMemo(
     () => foods.length < 1,
     [foods]
   );
@@ -81,7 +81,7 @@ export function MyDish() {
 
         <Main>
 
-          {IS_FOODS ? (
+          {existFoodInDish ? (
             <ContainerMessageWrapper>
               <WarnMessageScreen 
                 messageMain="Sem alimentos adicionadas"
@@ -104,7 +104,7 @@ export function MyDish() {
             />
           )} 
         </Main>
-        {!IS_FOODS && (
+        {!existFoodInDish && (
           <>
             <CalorieTotal caloriesTotal={caloriesTotal} />
             <WrapperButton>
