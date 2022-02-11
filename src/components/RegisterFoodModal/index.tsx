@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import Modal from "react-native-modal";
 import { PickerMetric } from '../Modal/Picker';
-import { 
+import {
   ContainerModal,
   Header,
   TitleHeader,

@@ -22,6 +22,7 @@ import {
 } from './styles';
 import { FormInfoFoodData, InfoFoodModalProps } from './types';
 import { Footer } from '../Modal/Footer';
+import { useToast } from '../../contexts/toast';
 
 
 export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
@@ -31,6 +32,7 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
     String(food.infoNutritional.numberServing)
   );
   const {addFood, data: {foods}} = useMeal();
+  const {showToast} = useToast();
 
   const caloriesTotalFood = useMemo(
     () => {
@@ -64,8 +66,10 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
 
       await addFood({...food, amount: Number(amount)})
       state.setModalInfoFood(false);
+      showToast('success', `${food.nameFood} já está no prato`)
+
     } catch {
-      console.log(`🔺Error`)
+      showToast('error', 'Alimento não inserido, por favor tente novamente')
     }
   }, [food, amount, foods])
 
