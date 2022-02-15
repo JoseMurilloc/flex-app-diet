@@ -1,6 +1,6 @@
 
 import React, { useEffect, useMemo, useState } from "react";
-import { FlatList } from "react-native";
+import { Alert, FlatList } from "react-native";
 
 import { Button } from "../../components/Button";
 import { CalorieTotal } from "../../components/CalorieTotal";
@@ -21,6 +21,10 @@ import {
   ContainerMessageWrapper
 } from "./styles";
 import { getTotalCaloriesInMacros } from "../../commons/getTotalCaloriesInMacros";
+import { api } from "../../services/api";
+import { useNavigation } from "@react-navigation/native";
+import { MountDishProps } from "../MountDish/types";
+import { useToast } from "../../contexts/toast";
 
 
 interface FoodFormatted extends Food {
@@ -29,7 +33,11 @@ interface FoodFormatted extends Food {
 
 export function MyDish() {
 
-  const {data: {foods}} = useMeal();
+  const {data: {foods, meal}, removeAllFoodsOfMeal} = useMeal();
+  const {showToast} = useToast();
+
+  const navigation = useNavigation<MountDishProps>();
+
   const existFoodInDish = useMemo(
     () => foods.length < 1,
     [foods]
@@ -67,6 +75,27 @@ export function MyDish() {
 
     setFoodFormatted(parserFood)
   } , [foods])
+
+
+  
+  async function handleSubmitMeal() {
+    try { 
+      const id = meal.idMeal
+      const {data: Meal} = await api.get(`/meals/${id}`)   
+      await api.put(`/meals/${id}`, {
+        ...Meal, 
+        caloriesTotal, 
+        foods: [...foods]
+      })
+
+      removeAllFoodsOfMeal()
+
+      navigation.navigate("Home")
+      showToast("success", "Refeição feita com sucesso")
+    } catch {
+      console.log('error')
+    }
+  }
   
   return (
     <>
@@ -108,7 +137,10 @@ export function MyDish() {
           <>
             <CalorieTotal caloriesTotal={caloriesTotal} />
             <WrapperButton>
-              <Button buttonText="Adicionar refeição"/>
+              <Button 
+                buttonText="Adicionar refeição"
+                onPress={handleSubmitMeal}
+              />
             </WrapperButton>
           </>
         )}

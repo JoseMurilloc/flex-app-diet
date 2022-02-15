@@ -37,13 +37,17 @@ export function Home () {
     api.get('/meals')
       .then(response => response.data)
       .then(data => data.filter((meal: Meal) => meal.foods.length > 0))
+      .then(data => {
+        console.log(data);
+        return data
+      })
       .then(data => data.map((meal: Meal) => ({
         ...meal,
         Icon: iconsMeals.filter(icons => icons[meal.id])[0][meal.id]
       })))
       .then(data => setMeals(data))
       .catch(error => console.log(error))
-  }, [])
+  }, [meals])
   
   const macros: Macro[] = [
     { name: 'Proteina', amount: 100, progress: 0.6},
