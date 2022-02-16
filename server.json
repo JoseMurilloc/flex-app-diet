@@ -114,54 +114,6 @@
         "fat": "12"
       },
       "id": 11
-    },
-    {
-      "nameFood": "Arroz",
-      "infoNutritional": {
-        "numberServing": "100",
-        "carbs": "40",
-        "protein": "5",
-        "fat": "7"
-      },
-      "id": 12
-    },
-    {
-      "nameFood": "Arroz 2",
-      "infoNutritional": {
-        "numberServing": "100",
-        "carbs": "70",
-        "protein": "8",
-        "fat": "8"
-      },
-      "id": 13
-    },
-    {
-      "infoNutritional": {},
-      "id": 14
-    },
-    {
-      "infoNutritional": {},
-      "id": 15
-    },
-    {
-      "nameFood": "Arroz",
-      "infoNutritional": {
-        "numberServing": "150",
-        "carbs": "32",
-        "protein": "8",
-        "fat": "22"
-      },
-      "id": 16
-    },
-    {
-      "nameFood": "Doce de leite",
-      "infoNutritional": {
-        "numberServing": "30",
-        "carbs": "32",
-        "protein": "8",
-        "fat": "25"
-      },
-      "id": 17
     }
   ],
   "meals": [
@@ -169,130 +121,31 @@
       "id": "breakfast",
       "nameMeal": "Café da manhã",
       "caloriesTotal": 432,
-      "foods": [
-        {
-          "id": 1,
-          "nameFood": "Feijão Carioca",
-          "infoNutritional": {
-            "servingSize": "gram",
-            "numberServing": 15,
-            "carbs": 12,
-            "protein": 20.5,
-            "fat": 9.56
-          },
-          "amount": 15
-        }
-      ]
+      "foods": []
     },
     {
       "id": "morningSpeedboat",
       "nameMeal": "Lanche da manha",
       "caloriesTotal": "216.04",
-      "foods": [
-        {
-          "id": 1,
-          "nameFood": "Feijão Carioca",
-          "infoNutritional": {
-            "servingSize": "gram",
-            "numberServing": 15,
-            "carbs": 12,
-            "protein": 20.5,
-            "fat": 9.56
-          },
-          "amount": 15
-        }
-      ]
+      "foods": []
     },
     {
       "id": "lunch",
       "nameMeal": "Almoço",
       "caloriesTotal": 432,
-      "foods": [
-        {
-          "id": 3,
-          "nameFood": "Atum",
-          "infoNutritional": {
-            "servingSize": "gram",
-            "numberServing": 15,
-            "carbs": 12,
-            "protein": 10.5,
-            "fat": 9.56
-          },
-          "amount": 19
-        },
-        {
-          "nameFood": "Frango",
-          "infoNutritional": {
-            "numberServing": "100",
-            "carbs": "0",
-            "protein": "27",
-            "fat": "14"
-          },
-          "id": 6,
-          "amount": 19
-        }
-      ]
+      "foods": []
     },
     {
       "id": "afternoonSnack",
       "nameMeal": "Lanche da tarde",
       "caloriesTotal": 432,
-      "foods": [
-        {
-          "id": 3,
-          "nameFood": "Atum",
-          "infoNutritional": {
-            "servingSize": "gram",
-            "numberServing": 15,
-            "carbs": 12,
-            "protein": 10.5,
-            "fat": 9.56
-          },
-          "amount": 15
-        }
-      ]
+      "foods": []
     },
     {
       "id": "dinner",
       "nameMeal": "Jantar",
       "caloriesTotal": "424.98",
-      "foods": [
-        {
-          "id": 3,
-          "nameFood": "Atum",
-          "infoNutritional": {
-            "servingSize": "gram",
-            "numberServing": 15,
-            "carbs": 12,
-            "protein": 10.5,
-            "fat": 9.56
-          },
-          "amount": 15
-        },
-        {
-          "id": 2,
-          "nameFood": "Arroz Integral",
-          "infoNutritional": {
-            "servingSize": "gram",
-            "numberServing": 30,
-            "carbs": 12,
-            "protein": 10.5,
-            "fat": 9.56
-          },
-          "amount": 30
-        },
-        {
-          "nameFood": "Arroz",
-          "infoNutritional": {
-            "numberServing": "100",
-            "carbs": "40",
-            "protein": "5",
-            "fat": "7"
-          },
-          "id": 12,
-          "amount": 30
-        }
-      ]
+      "foods": []
     }
   ]
 }

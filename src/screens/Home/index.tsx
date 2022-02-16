@@ -19,15 +19,13 @@ import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
 import { CardMeal } from '../../components/CardMeal';
-// import { meals } from '../../constants/meals';
 
 import { CardOptionsMeal } from '../../components/CardOptionsMeal';
-import { FlatList } from 'react-native';
+import { FlatList, Image } from 'react-native';
 import { WarnMessageScreen } from '../../components/WarnMessageScreen';
 import { Meal } from './types';
-import { api } from '../../services/api';
-import { iconsMeals } from '../../constants/meals';
 import { fetchingMealOnlyFood } from '../../commons/fetchingMealOnlyFood';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 export function Home () {
   const [openMenuMeal, setOpenMenuMeal] = useState(false);
@@ -63,8 +61,19 @@ export function Home () {
     <WrapperScreen>
       <Container>
         <Header>
-          <IconAvatar width={24} height={24} />
-          <WelcomeMessage>Olá, Geissy 👏</WelcomeMessage>
+          <TouchableWithoutFeedback>
+            <Image 
+              source={require("../../assets/profile.jpeg")}
+              width={24}
+              height={24}
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 20,
+              }}
+            />
+          </TouchableWithoutFeedback>
+          <WelcomeMessage>Olá, Murillo 👏</WelcomeMessage>
           <Wrapper 
             marginTop={21} 
             marginBottom={11} 
