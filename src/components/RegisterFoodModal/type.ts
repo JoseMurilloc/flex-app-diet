@@ -11,7 +11,7 @@ export type RegisterFoodModalProps = {
 export type FormRegisterData = {
   numberServing: number,
   description: string,
-  brand: string,
+  nameBrand: string,
   cabos: number,
   fat: number,
   metric: string,

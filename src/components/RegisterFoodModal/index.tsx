@@ -38,6 +38,7 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
 
     const food = {
       nameFood: data.description,
+      nameBrand: data.nameBrand,
       infoNutritional: {
         servingSize: data.metric,
         numberServing: data.numberServing,
