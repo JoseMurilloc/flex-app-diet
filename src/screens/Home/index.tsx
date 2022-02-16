@@ -27,27 +27,21 @@ import { WarnMessageScreen } from '../../components/WarnMessageScreen';
 import { Meal } from './types';
 import { api } from '../../services/api';
 import { iconsMeals } from '../../constants/meals';
+import { fetchingMealOnlyFood } from '../../commons/fetchingMealOnlyFood';
 
 export function Home () {
   const [openMenuMeal, setOpenMenuMeal] = useState(false);
   const [meals, setMeals] = useState<Meal[]>([]);
   
 
+  async function handleLoadAllMeal() {
+    const mealsFetching = await fetchingMealOnlyFood()
+    setMeals(mealsFetching)
+  }
+
   useEffect(() => {
-    api.get('/meals')
-      .then(response => response.data)
-      .then(data => data.filter((meal: Meal) => meal.foods.length > 0))
-      .then(data => {
-        console.log(data);
-        return data
-      })
-      .then(data => data.map((meal: Meal) => ({
-        ...meal,
-        Icon: iconsMeals.filter(icons => icons[meal.id])[0][meal.id]
-      })))
-      .then(data => setMeals(data))
-      .catch(error => console.log(error))
-  }, [meals])
+    handleLoadAllMeal();
+  }, [])
   
   const macros: Macro[] = [
     { name: 'Proteina', amount: 100, progress: 0.6},
