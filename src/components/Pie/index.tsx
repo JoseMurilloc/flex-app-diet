@@ -81,7 +81,7 @@ export function Pie ({data}: Props) {
             r="59"
             fill= "transparent"
             strokeWidth={13}
-            stroke="#8587E5"
+            stroke={data.color}
             strokeOpacity={0.8}
             strokeDasharray={circleCircumference}
             strokeDashoffset={animatedValue}
