@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
 import { getHeightStatusBar } from '../../../commons/getHeightStatusBar';
@@ -16,6 +17,8 @@ import {
 
 export function Login() {
   const {STATUSBAR_HEIGHT} = getHeightStatusBar()
+  const navigation = useNavigation();
+
   return (
     <Container statusBarHeight={STATUSBAR_HEIGHT}>
       <Header>
@@ -40,12 +43,11 @@ export function Login() {
 
         <View style={{width: '100%', marginBottom: 50}}>
           <Input
-            autoFocus
             value=""
             title="Senha"
             onChangeText={() => {}}
             placeholder="Digite seu senha aqui"
-            keyboardType="numeric"
+            keyboardType="visible-password"
             autoCorrect={false}
             error={false}
           />
@@ -55,7 +57,9 @@ export function Login() {
           <ButtonLoginText>Login</ButtonLoginText>
         </ButtonLogin>
 
-        <ButtonSignUp>
+        <ButtonSignUp 
+          onPress={() => navigation.navigate({ name: 'Register'})}
+        >
           <ButtonSignUpText>Criar uma conta</ButtonSignUpText>
         </ButtonSignUp>
       </Form>

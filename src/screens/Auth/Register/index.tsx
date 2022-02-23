@@ -55,7 +55,9 @@ export function Register() {
           />
         </View>
 
-        <ButtonContinue>
+        <ButtonContinue 
+          onPress={() => navigation.navigate({ name: 'AboutYou'})}
+        >
           <ButtonContinueText>Continuar</ButtonContinueText>
           <FontAwesome5 
             name="long-arrow-alt-right" 

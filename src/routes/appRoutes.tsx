@@ -3,18 +3,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Home } from '../screens/Home';
 import { MountDish } from '../screens/MountDish';
-import theme from '../global/styles/theme';
 import { MyDish } from '../screens/MyDish';
 
-export type RootStackParamList = {
-  Home: undefined;
-  MountDish: undefined;
-  MyDish: undefined;
-};
-
-
-const Stack = createNativeStackNavigator<RootStackParamList>();
-
+const Stack = createNativeStackNavigator();
 
 export function AppRoutes() {
   return (

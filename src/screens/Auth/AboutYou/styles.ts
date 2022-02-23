@@ -68,3 +68,26 @@ export const ButtonFinallyText = styled.Text`
   color: ${({theme}) => theme.colors.background};
   margin-right: 8px;
 `; 
+
+export const HeaderSection = styled.View`
+  flex-direction: row;
+  width: 100%; 
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const UnitWeight = styled.View`
+  width: 55px;
+  height: 25px;
+  border: 1px solid rgba(64, 64, 64, 0.3);
+  border-radius: 30px;
+
+  justify-content: center;
+  align-items: center;
+`;
+
+export const UnitWeightText = styled.Text`
+  font-size: ${({theme}) => theme.sizes.default}px;
+  font-family: ${({theme}) => theme.fonts.regular};
+  color: ${({theme}) => theme.colors.description};
+`;

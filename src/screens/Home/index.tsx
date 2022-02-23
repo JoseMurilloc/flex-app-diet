@@ -10,7 +10,6 @@ import {
   WrapperScreen,
   MenuMeal
 } from './styles';
-import IconAvatar from '../../assets/avatar.svg';
 import WeekList from '../../components/WeekList';
 import { GraphicMetricCalories } from '../../components/GraphicMetricCalories';
 import { Macro } from '../../components/GraphicMetricCalories/types';

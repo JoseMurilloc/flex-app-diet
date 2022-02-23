@@ -11,13 +11,18 @@ import {
   TitleSection,
   ContentSection,
   ButtonFinally,
-  ButtonFinallyText
+  ButtonFinallyText,
+  HeaderSection,
+  UnitWeight,
+  UnitWeightText,
 } from './styles'
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { SelectedGenre } from '../../../components/Form/SelectedGenre';
+import { Text, View } from 'react-native';
+import { SelectedWeight } from '../../../components/Form/SelectedWeight';
 
-export default function AboutYou() {
+export function AboutYou() {
   const {STATUSBAR_HEIGHT} = getHeightStatusBar()
   const navigation = useNavigation();
 
@@ -48,8 +53,15 @@ export default function AboutYou() {
         </Section>
 
         <Section>
-          <TitleSection>Peso</TitleSection>
-          <ContentSection />
+          <HeaderSection>
+            <TitleSection>Peso</TitleSection>
+            <UnitWeight>
+              <UnitWeightText>KG</UnitWeightText>
+            </UnitWeight>
+          </HeaderSection>
+          <ContentSection>
+            <SelectedWeight />
+          </ContentSection>
         </Section>
 
         <ButtonFinally>

@@ -1,8 +1,4 @@
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { SvgProps } from "react-native-svg";
-import { RootStackParamList } from "../../routes/appRoutes";
-
-export type HomeProps = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
 export type WrapperProps = {
   marginTop: number;

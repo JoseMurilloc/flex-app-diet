@@ -23,7 +23,6 @@ import {
 import { getTotalCaloriesInMacros } from "../../commons/getTotalCaloriesInMacros";
 import { api } from "../../services/api";
 import { useNavigation } from "@react-navigation/native";
-import { MountDishProps } from "../MountDish/types";
 import { useToast } from "../../contexts/toast";
 
 
@@ -36,7 +35,7 @@ export function MyDish() {
   const {data: {foods, meal}, removeAllFoodsOfMeal} = useMeal();
   const {showToast} = useToast();
 
-  const navigation = useNavigation<MountDishProps>();
+  const navigation = useNavigation();
 
   const existFoodInDish = useMemo(
     () => foods.length < 1,
@@ -90,7 +89,7 @@ export function MyDish() {
 
       removeAllFoodsOfMeal()
 
-      navigation.navigate("Home")
+      navigation.navigate({ name: "Home"})
       showToast("success", "Refeição feita com sucesso")
     } catch {
       console.log('error')

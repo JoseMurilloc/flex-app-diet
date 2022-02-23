@@ -1,9 +1,5 @@
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { TouchableOpacityProps } from "react-native"
 import { OptionsMeal } from "../../contexts/meals/types";
-import { RootStackParamList } from "../../routes/appRoutes";
-
-export type MountDishProps = NativeStackNavigationProp<RootStackParamList, 'MountDish'>;
 
 export type SetModalInfoFoodProps = React.Dispatch<React.SetStateAction<boolean>>
 

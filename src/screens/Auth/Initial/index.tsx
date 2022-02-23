@@ -15,9 +15,11 @@ import {
   ButtonSignUp,
   ButtonSignUpText,
 } from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
 export function Initial() {
   const {STATUSBAR_HEIGHT} = getHeightStatusBar()
+  const navigation = useNavigation();
 
   return (
     <>
@@ -35,11 +37,15 @@ export function Initial() {
             </Description>
           </HeaderForm>
 
-          <ButtonLogin>
+          <ButtonLogin  
+            onPress={() => navigation.navigate({ name: 'Login'})}
+          >
             <ButtonLoginText>Login</ButtonLoginText>
           </ButtonLogin>
 
-          <ButtonSignUp>
+          <ButtonSignUp
+            onPress={() => navigation.navigate({ name: 'Register'})}
+          >
             <ButtonSignUpText>Cadastrar-se</ButtonSignUpText>
           </ButtonSignUp>
         </Form>

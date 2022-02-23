@@ -17,7 +17,7 @@ import { CardFood } from "../../components/CardFood";
 import { Header } from '../../components/Header';
 
 import { ActivityIndicator, Alert, FlatList } from "react-native";
-import { Food, FormData, MountDishProps, ParamsRouter } from "./types";
+import { Food, FormData, ParamsRouter } from "./types";
 import { api } from "../../services/api";
 import theme from "../../global/styles/theme";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -55,7 +55,7 @@ export function MountDish() {
 
 
   const route = useRoute()
-  const navigation = useNavigation<MountDishProps>()
+  const navigation = useNavigation()
   const { idMeal } =  route.params as ParamsRouter
 
 
@@ -138,7 +138,7 @@ export function MountDish() {
           </ButtonFunctionality>
 
           <ButtonFunctionality 
-            onPress={() => navigation.navigate('MyDish')}
+            onPress={() => navigation.navigate({ name: 'MyDish'})}
             type="dish"
           >
             <Dish width={24} />

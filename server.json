@@ -120,8 +120,21 @@
     {
       "id": "breakfast",
       "nameMeal": "Café da manhã",
-      "caloriesTotal": 432,
-      "foods": []
+      "caloriesTotal": "259.25",
+      "foods": [
+        {
+          "id": 1,
+          "nameFood": "Feijão Carioca",
+          "infoNutritional": {
+            "servingSize": "gram",
+            "numberServing": 15,
+            "carbs": 12,
+            "protein": 20.5,
+            "fat": 9.56
+          },
+          "amount": 18
+        }
+      ]
     },
     {
       "id": "morningSpeedboat",
