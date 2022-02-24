@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
 import { getHeightStatusBar } from '../../../commons/getHeightStatusBar';
-import { Input } from '../../../components/Input';
+import { Input } from '../../../components/Form/Input';
 import { 
   Container,
   Header,
@@ -14,13 +14,24 @@ import {
   ButtonSignUpText,
   DescriptionHeader,
 } from './styles';
+import { useForm } from "react-hook-form";
+
+export type FormLoginData = {
+  email: string,
+  password: string,
+}
 
 export function Login() {
-  const {STATUSBAR_HEIGHT} = getHeightStatusBar()
   const navigation = useNavigation();
 
+  const { control, handleSubmit } = useForm<any>();
+
+  async function handleLogin(formData: FormLoginData) {
+    console.log(formData)
+  }
+
   return (
-    <Container statusBarHeight={STATUSBAR_HEIGHT}>
+    <Container>
       <Header>
         <TitleHeader>Bem-vindo</TitleHeader>
         <DescriptionHeader>
@@ -29,35 +40,34 @@ export function Login() {
       </Header>
 
       <Form>
-
         <View style={{width: '100%', marginBottom: 30}}>
           <Input
-            value=""
+            control={control}
+            name="email"
             title="E-mail"
-            onChangeText={() => {}}
             placeholder="john@gmail.com"
             autoCorrect={false}
-            error={false}
+            keyboardType="email-address"
           /> 
         </View>
 
         <View style={{width: '100%', marginBottom: 50}}>
           <Input
-            value=""
+            control={control}
+            name="password"
             title="Senha"
-            onChangeText={() => {}}
-            placeholder="Digite seu senha aqui"
-            keyboardType="visible-password"
+            placeholder="Senha"
+            secureTextEntry={true}
             autoCorrect={false}
-            error={false}
           />
         </View>
 
-        <ButtonLogin>
+        <ButtonLogin onPress={handleSubmit(handleLogin)}>
           <ButtonLoginText>Login</ButtonLoginText>
         </ButtonLogin>
 
         <ButtonSignUp 
+          //@ts-ignore
           onPress={() => navigation.navigate({ name: 'Register'})}
         >
           <ButtonSignUpText>Criar uma conta</ButtonSignUpText>

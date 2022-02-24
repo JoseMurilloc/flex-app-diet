@@ -38,12 +38,14 @@ export function Initial() {
           </HeaderForm>
 
           <ButtonLogin  
+            //@ts-ignore
             onPress={() => navigation.navigate({ name: 'Login'})}
           >
             <ButtonLoginText>Login</ButtonLoginText>
           </ButtonLogin>
 
           <ButtonSignUp
+            //@ts-ignore
             onPress={() => navigation.navigate({ name: 'Register'})}
           >
             <ButtonSignUpText>Cadastrar-se</ButtonSignUpText>

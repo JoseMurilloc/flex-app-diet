@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { getHeightStatusBar } from '../../../commons/getHeightStatusBar';
-import { Input } from '../../../components/Input';
+import { Input } from '../../../components/Form/Input';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { 
@@ -14,19 +14,35 @@ import {
   ButtonBack,
 } from './styles';
 import { useNavigation } from '@react-navigation/native';
+import { useForm } from 'react-hook-form';
+import { useTheme } from 'styled-components/native';
+
+type FormRegisterUser = {
+  confirmationPassword: string;
+  email: string;
+  password: string;
+}
 
 export function Register() {
   const navigation = useNavigation();
+  const {control, handleSubmit} = useForm()
 
-  const {STATUSBAR_HEIGHT} = getHeightStatusBar()
+  const themes = useTheme(); 
+
+  const onSubmitRegisterUser = (formData: FormRegisterUser) => {
+    console.log(formData)
+    //@ts-ignore
+    navigation.navigate({ name: "AboutYou"})
+  };
+
   return (
-    <Container statusBarHeight={STATUSBAR_HEIGHT}>
+    <Container>
       <Header>
         <ButtonBack onPress={() => navigation.goBack()}>
           <Ionicons 
             name="chevron-back" 
             size={25}
-            color="#1D115C"
+            color={themes.colors.primary}
           />
         </ButtonBack>
         <TitleHeader>Crie sua conta</TitleHeader>
@@ -35,28 +51,42 @@ export function Register() {
       <Form>
         <View style={{width: '100%', marginBottom: 30}}>
           <Input
-            value=""
             title="E-mail"
-            onChangeText={() => {}}
             placeholder="john@gmail.com"
             autoCorrect={false}
-            error={false}
+            control={control}
+            name="email"
+            keyboardType="email-address"
           /> 
         </View>
 
-        <View style={{width: '100%', marginBottom: 50}}>
+        <View style={{width: '100%', marginBottom: 30}}>
           <Input
-            value=""
             title="Senha"
-            onChangeText={() => {}}
+            name="password"
+            secureTextEntry={true}
             placeholder="Digite seu senha aqui"
             autoCorrect={false}
-            error={false}
+            control={control}
           />
         </View>
 
+        <View style={{width: '100%'}}>
+          <Input
+            title="Confirmação de senha"
+            name="confirmationPassword"
+            secureTextEntry={true}
+            placeholder="Digite seu senha aqui"
+            autoCorrect={false}
+            control={control}
+          />
+        </View>
+
+
+
         <ButtonContinue 
-          onPress={() => navigation.navigate({ name: 'AboutYou'})}
+          //@ts-ignore
+          onPress={handleSubmit(onSubmitRegisterUser)}
         >
           <ButtonContinueText>Continuar</ButtonContinueText>
           <FontAwesome5 

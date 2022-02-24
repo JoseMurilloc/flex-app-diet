@@ -12,7 +12,7 @@ import {
   ButtonFunctionality,
   WrapperMenu
 } from "./styles";
-import { Input } from "../../components/Form/Input";
+import { InputSearch } from "../../components/Form/InputSearch";
 import { CardFood } from "../../components/CardFood";
 import { Header } from '../../components/Header';
 
@@ -30,8 +30,8 @@ import Dish from '../../assets/dish.svg';
 import { useMeal } from "../../contexts/meals";
 import { useForm } from "react-hook-form";
 import { WarnMessageScreen } from "../../components/WarnMessageScreen";
-import { InfoFoodModal } from "../../components/InfoFoodModal";
-import { RegisterFoodModal } from "../../components/RegisterFoodModal";
+import { InfoFoodModal } from "../../components/Modal/InfoFoodModal";
+import { RegisterFoodModal } from "../../components/Modal/RegisterFoodModal";
 import { getTotalCaloriesInMacros } from "../../commons/getTotalCaloriesInMacros";
 import { useToast } from "../../contexts/toast";
 
@@ -113,7 +113,7 @@ export function MountDish() {
     <Header titleHeader="Montar prato" />
     <Container>
       <WrapperInput>
-        <Input 
+        <InputSearch 
           name="search"
           control={control}
           placeholder="Pesquisar por alimento..."
@@ -138,6 +138,7 @@ export function MountDish() {
           </ButtonFunctionality>
 
           <ButtonFunctionality 
+            // @ts-ignore
             onPress={() => navigation.navigate({ name: 'MyDish'})}
             type="dish"
           >

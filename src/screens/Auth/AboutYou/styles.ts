@@ -1,14 +1,11 @@
 import styled from 'styled-components/native';
 import theme from '../../../global/styles/theme';
 
-type ContainerProps = {
-  statusBarHeight: number;
-} 
 
-export const Container = styled.View<ContainerProps>`
+export const Container = styled.SafeAreaView`
   flex: 1;
   padding: 0 24px;
-  padding-top: ${({statusBarHeight}) => statusBarHeight}px;
+  padding-top: 37px;
   width: 100%;
   align-items:center;
   position: relative;
@@ -26,7 +23,7 @@ export const Header = styled.View`
 export const TitleHeader = styled.Text`
   font-family: ${({theme}) => theme.fonts.bold};
   font-size: ${({theme}) => theme.sizes.large + 4}px;
-  color: #1D115C;
+  color: ${({theme}) => theme.colors.primary};
 `;
 
 

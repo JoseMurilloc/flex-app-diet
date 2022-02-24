@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { View } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import Modal from "react-native-modal";
-import { PickerMetric } from '../Modal/Picker';
+import { PickerMetric } from '../../Modal/Picker';
 import {
   ContainerModal,
   Header,
@@ -17,11 +17,11 @@ import {
   InfoNutritionalText,
   InfoNutritionalLine,
 } from './styles';
-import { Footer } from '../Modal/Footer';
+import { Footer } from '../../Modal/Footer';
 import { FormRegisterData, RegisterFoodModalProps } from './type';
-import { Input } from '../Modal/Input';
-import { api } from '../../services/api';
-import { useToast } from '../../contexts/toast';
+import { Input } from '../../Modal/Input';
+import { api } from '../../../services/api';
+import { useToast } from '../../../contexts/toast';
 
 export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
 

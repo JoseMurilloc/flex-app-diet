@@ -114,6 +114,16 @@
         "fat": "12"
       },
       "id": 11
+    },
+    {
+      "nameFood": "Batata doce",
+      "infoNutritional": {
+        "numberServing": "100",
+        "carbs": "77",
+        "protein": "7",
+        "fat": "1"
+      },
+      "id": 12
     }
   ],
   "meals": [
@@ -139,8 +149,20 @@
     {
       "id": "morningSpeedboat",
       "nameMeal": "Lanche da manha",
-      "caloriesTotal": "216.04",
-      "foods": []
+      "caloriesTotal": "362.25",
+      "foods": [
+        {
+          "nameFood": "Batata doce",
+          "infoNutritional": {
+            "numberServing": "100",
+            "carbs": "77",
+            "protein": "7",
+            "fat": "1"
+          },
+          "id": 12,
+          "amount": 105
+        }
+      ]
     },
     {
       "id": "lunch",

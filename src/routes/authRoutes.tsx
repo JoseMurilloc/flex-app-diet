@@ -17,7 +17,6 @@ export function AuthRoutes() {
         headerTitleAlign: 'center',
         headerShown: false,
       }}
-      initialRouteName="Login"
     >
       <Stack.Screen 
         name="Initial" 

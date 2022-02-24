@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "589982302258",
+    "project_id": "dietflex-b3a6d",
+    "storage_bucket": "dietflex-b3a6d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589982302258:android:e3d69985f37f1b813e7c2b",
+        "android_client_info": {
+          "package_name": "com.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589982302258-upliajaqjaugta048upnod95n8qgikgv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1l7MAeqdllTZ80JV1L8JrO-Fryp9Iw0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589982302258-upliajaqjaugta048upnod95n8qgikgv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

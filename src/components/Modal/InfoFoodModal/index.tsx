@@ -1,14 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Alert, View } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import Modal from "react-native-modal";
-import { useMeal } from '../../contexts/meals';
+import { useMeal } from '../../../contexts/meals';
 
-import { CalorieTotal } from '../CalorieTotal';
-import { CardMacro } from '../Modal/CardMacro';
-import { Input } from '../Input';
-import { PickerMetric } from '../Modal/Picker';
+import { CalorieTotal } from '../../CalorieTotal';
+import { CardMacro } from '../../Modal/CardMacro';
+import { Input } from '../../Form/Input';
+import { PickerMetric } from '../../Modal/Picker';
 import { 
   ContainerModal,
   Header,
@@ -20,9 +19,9 @@ import {
   ContainerCalorieTotal,
   ContentForm
 } from './styles';
-import { FormInfoFoodData, InfoFoodModalProps } from './types';
-import { Footer } from '../Modal/Footer';
-import { useToast } from '../../contexts/toast';
+import { InfoFoodModalProps } from './types';
+import { Footer } from '../../Modal/Footer';
+import { useToast } from '../../../contexts/toast';
 
 
 export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
@@ -101,14 +100,15 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
 
                   <GenericWrapperInput style={{width: 144}}>
                     <Input
+                      control={control}
+                      name="numberServing"
                       autoFocus
                       value={amount}
                       title="Porção"
-                      onChangeText={value => setAmount(value)}
+                      onChangeText={(value: any) => setAmount(value)}
                       placeholder="ex: 150"
                       keyboardType="numeric"
                       autoCorrect={false}
-                      error={!amount}
                     />
                   </GenericWrapperInput>
                 </WrapperAmountMetric>

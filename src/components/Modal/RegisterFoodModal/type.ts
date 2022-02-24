@@ -1,4 +1,4 @@
-import { Food, SetModalInfoFoodProps } from '../../screens/MountDish/types';
+import { SetModalInfoFoodProps } from '../../../screens/MountDish/types';
 
 
 export type RegisterFoodModalProps = {

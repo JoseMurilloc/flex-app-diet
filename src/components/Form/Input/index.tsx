@@ -1,47 +1,54 @@
-import React, { useCallback, useRef, useState } from 'react';
-import { TextInputProps, View } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Control, Controller, useForm } from 'react-hook-form';
+import { TextInputProps } from 'react-native';
 
-import { Container, WrapperInput } from './styles';
-import theme from '../../../global/styles/theme';
+import { 
+  Container,
+  WrapperInput,
+  WrapperGlobal,
+  Title
+} from './styles';
 
-import { Controller, Control } from "react-hook-form";
 
 interface InputProps extends TextInputProps {
   control: Control | any;
   name: string;
+  title: string;
 }
 
-export function Input ({ name, control,...rest}: InputProps) {
+
+export function Input ({ control, title, name, ...rest}: InputProps) {
   const [isFocused, setIsFocused] = useState(false);
+  const [isErrored, setIsErrored] = useState(false);
+  
   const handleInputFocus = useCallback(() => setIsFocused(true), []);
   const handleInputBlur = useCallback(() => setIsFocused(false), []);
 
+  const { formState: { errors } } = useForm()
+
+  const haveError = useMemo(() => errors.length > 0, [errors])
 
   return (
-    <WrapperInput 
-      isFocused={isFocused}
-      isErrored={false}
-    >
-      <AntDesign 
-        name="search1" 
-        size={15} 
-        color={isFocused ? theme.colors.primary : theme.colors.description}
-        style={{marginRight: 5}} 
+    <WrapperGlobal>
+      <Title>{haveError ? `${title} *` : title}</Title>
+      <WrapperInput 
+        isFocused={isFocused}
+        isErrored={isErrored}
+      >
+        <Controller
+          control={control}
+          name={name}
+          render={({ field: { onChange, value}}) => (
+            <Container
+              onChangeText={onChange}
+              value={value} 
+              onFocus={handleInputFocus}
+              onBlur={handleInputBlur}
+              {...rest}
+            />
+          )}
       />
-      <Controller
-        control={control}
-        name={name}
-        render={({ field: { onChange, value}}) => (
-          <Container 
-            onChangeText={onChange}
-            value={value}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            {...rest}
-          />
-        )}
-      />
-    </WrapperInput>
+      </WrapperInput>
+    </WrapperGlobal>
   );
 }

@@ -17,25 +17,24 @@ import {
   UnitWeightText,
 } from './styles'
 import { useNavigation } from '@react-navigation/native';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { SelectedGenre } from '../../../components/Form/SelectedGenre';
-import { Text, View } from 'react-native';
 import { SelectedWeight } from '../../../components/Form/SelectedWeight';
+import { TouchableOpacity } from 'react-native';
+import theme from '../../../global/styles/theme';
 
 export function AboutYou() {
-  const {STATUSBAR_HEIGHT} = getHeightStatusBar()
   const navigation = useNavigation();
 
   return (
-    <Container statusBarHeight={STATUSBAR_HEIGHT}>
+    <Container>
       <Header>
-        <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons 
             name="chevron-back" 
             size={25}
-            color="#1D115C"
+            color={theme.colors.primary}
           />
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
         <TitleHeader>Sobre você</TitleHeader>
       </Header>
 
