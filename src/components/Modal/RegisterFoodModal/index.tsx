@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef } from 'react';
+import React, { useCallback, useState, useRef, useEffect } from 'react';
 import { TextInput, View } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import Modal from "react-native-modal";
@@ -77,6 +77,10 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
       })
      
   }, [])
+
+  useEffect(() => {
+    if (!state.isVisible) reset()
+  }, [state.isVisible])
 
   return (
     <View>
