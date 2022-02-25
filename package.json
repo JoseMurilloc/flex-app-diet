@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "server:delay": "json-server --watch server.json --port 3333 --host 192.168.1.11 --delay 300",
-    "server": "json-server --watch server.json --port 3333 --host 192.168.1.1",
+    "server": "json-server --watch server.json --port 3333 --host 192.168.1.11 --delay 300",
     "start": "expo start --dev-client",
+    "start:native": "react-native start",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web"
@@ -14,6 +14,7 @@
     "@expo-google-fonts/roboto": "^0.2.2",
     "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-firebase/app": "^14.5.0",
+    "@react-native-firebase/auth": "^14.5.0",
     "@react-native-picker/picker": "^2.2.1",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",

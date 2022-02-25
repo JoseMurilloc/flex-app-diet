@@ -19,7 +19,7 @@ export const Header = styled.View`
 
 export const TitleHeader = styled.Text`
   font-family: ${({theme}) => theme.fonts.bold};
-  font-size: ${({theme}) => theme.sizes.large + 4}px;
+  font-size: ${({theme}) => theme.sizes.large + 10}px;
   color: ${({theme}) => theme.colors.primary};
 `;
 

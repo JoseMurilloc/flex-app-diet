@@ -15,6 +15,8 @@ import {
   DescriptionHeader,
 } from './styles';
 import { useForm } from "react-hook-form";
+import auth from '@react-native-firebase/auth';
+import { useToast } from '../../../contexts/toast';
 
 export type FormLoginData = {
   email: string,
@@ -25,9 +27,17 @@ export function Login() {
   const navigation = useNavigation();
 
   const { control, handleSubmit } = useForm<any>();
+  const { showToast } = useToast()
 
   async function handleLogin(formData: FormLoginData) {
-    console.log(formData)
+    const {email, password} = formData
+
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        showToast('success', 'Login realizado com sucesso!')
+      })
+      .catch((err) => console.log(err))
   }
 
   return (
@@ -43,6 +53,7 @@ export function Login() {
         <View style={{width: '100%', marginBottom: 30}}>
           <Input
             control={control}
+            nameIcon="mail"
             name="email"
             title="E-mail"
             placeholder="john@gmail.com"
@@ -54,6 +65,7 @@ export function Login() {
         <View style={{width: '100%', marginBottom: 50}}>
           <Input
             control={control}
+            nameIcon="lock"
             name="password"
             title="Senha"
             placeholder="Senha"
