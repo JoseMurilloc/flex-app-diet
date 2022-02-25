@@ -1,4 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { 
+  useCallback, 
+  useMemo,
+  useState 
+} from 'react';
 import { Control, Controller, useForm } from 'react-hook-form';
 import { TextInputProps } from 'react-native';
 
@@ -8,16 +12,19 @@ import {
   WrapperGlobal,
   Title
 } from './styles';
+import theme from '../../../global/styles/theme';
 
+import { Feather } from '@expo/vector-icons';
 
 interface InputProps extends TextInputProps {
   control: Control | any;
   name: string;
   title: string;
+  nameIcon: any;
 }
 
 
-export function Input ({ control, title, name, ...rest}: InputProps) {
+export function Input ({ control, title, name, nameIcon, ...rest}: InputProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [isErrored, setIsErrored] = useState(false);
   
@@ -39,13 +46,21 @@ export function Input ({ control, title, name, ...rest}: InputProps) {
           control={control}
           name={name}
           render={({ field: { onChange, value}}) => (
-            <Container
-              onChangeText={onChange}
-              value={value} 
-              onFocus={handleInputFocus}
-              onBlur={handleInputBlur}
-              {...rest}
-            />
+            <>
+              <Feather 
+                name={nameIcon} 
+                size={24} 
+                color={theme.colors.primary} 
+                style={{ marginRight: 5}}
+              />
+              <Container
+                onChangeText={onChange}
+                value={value} 
+                onFocus={handleInputFocus}
+                onBlur={handleInputBlur}
+                {...rest}
+              />
+            </>
           )}
       />
       </WrapperInput>

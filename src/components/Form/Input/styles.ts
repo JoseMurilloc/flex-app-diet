@@ -13,16 +13,17 @@ export const WrapperGlobal = styled.View`
 
 export const Title = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
-  font-size: ${({theme}) => theme.sizes.large}px;
-  color: ${({theme}) => theme.colors.text};
+  font-size: ${({theme}) => theme.sizes.default}px;
+  color: ${({theme}) => theme.colors.description};
 `;
 
 export const WrapperInput = styled.View<WrapperInputProps>`
   width: 100%;
   height: 50px;
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 7px 0px 7px 12px;
   background-color: ${({theme}) => theme.colors.card};
+  background-color: #f1f1fc;
   
   flex-direction: row;
   align-items: center;
