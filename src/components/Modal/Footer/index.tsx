@@ -8,6 +8,8 @@ import {
 } from './styles';
 import { FooterProps } from './types';
 
+
+// Discursion if really necessary it's component case not implement footer to around modal
 export function Footer({ 
   handleSubmit, 
   handleAddFoodInMeal,

@@ -35,6 +35,8 @@ import { RegisterFoodModal } from "../../components/Modal/RegisterFoodModal";
 import { getTotalCaloriesInMacros } from "../../commons/getTotalCaloriesInMacros";
 import { useToast } from "../../contexts/toast";
 
+import firestore from '@react-native-firebase/firestore';
+
 export function MountDish() {
 
   const {control, handleSubmit} = useForm<FormData>();
@@ -51,7 +53,7 @@ export function MountDish() {
   const {showToast} = useToast()
 
   const [foodsOfSearch, setFoodsOfSearch] = 
-    useState<Food[]>([]);
+    useState<any[]>([]);
 
 
   const route = useRoute()
@@ -74,21 +76,28 @@ export function MountDish() {
       return Alert.alert('Digite um alimento para podemos procurar 😅')
     }
 
-    try {
-      setFoodsOfSearch([])
-      setLoading(true);
+    setFoodsOfSearch([])
+    setLoading(true);
 
-      const response = await api
-        .get<Food[]>(`/foods?nameFood_like=${search}`);
-      
-      setFoodsOfSearch(response.data)
-      setTitle('Resultado da busca')
-    } catch {
-      showToast("error", `Problema interno`)
-    } finally {
-      setLoading(false);
-      setFirstSearch(false);
-    }
+    
+    firestore()
+      .collection("foods")
+      .orderBy('nameFood')
+      .startAt(search)
+      .endAt(search+'\uf8ff')
+      .get()
+      .then(querySnapshot => {
+        const foods = querySnapshot.docs.map(doc => doc.data())
+        setFoodsOfSearch(foods)
+        setTitle('Resultado da busca')
+      })
+      .catch(() => {
+        showToast("error", `Problema interno`)
+      })
+      .finally(() => {
+        setLoading(false);
+        setFirstSearch(false);
+      })
   }
 
   const handleMessageWarn = () => {
