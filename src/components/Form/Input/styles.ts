@@ -1,13 +1,14 @@
 import styled, { css } from 'styled-components/native';
 
 type WrapperInputProps = {
-  isFocused: boolean;
+  isFocused?: boolean;
   isErrored: boolean;
 }
 
 export const WrapperGlobal = styled.View`
   width: 100%;
-  height: 50px;
+  height: 75px;
+  justify-content: space-between;
 `;
 
 

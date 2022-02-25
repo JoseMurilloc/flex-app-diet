@@ -1,5 +1,6 @@
 import React, { 
   useCallback, 
+  useEffect, 
   useMemo,
   useState 
 } from 'react';
@@ -21,23 +22,24 @@ interface InputProps extends TextInputProps {
   name: string;
   title: string;
   nameIcon: any;
+  errors: any;
 }
 
 
-export function Input ({ control, title, name, nameIcon, ...rest}: InputProps) {
+export function Input ({ errors, control, title, name, nameIcon, ...rest}: InputProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [isErrored, setIsErrored] = useState(false);
   
   const handleInputFocus = useCallback(() => setIsFocused(true), []);
   const handleInputBlur = useCallback(() => setIsFocused(false), []);
 
-  const { formState: { errors } } = useForm()
-
-  const haveError = useMemo(() => errors.length > 0, [errors])
+  useEffect(() => {
+    setIsErrored(!!errors)
+  }, [errors])
 
   return (
     <WrapperGlobal>
-      <Title>{haveError ? `${title} *` : title}</Title>
+      <Title>{title}</Title>
       <WrapperInput 
         isFocused={isFocused}
         isErrored={isErrored}
@@ -50,7 +52,7 @@ export function Input ({ control, title, name, nameIcon, ...rest}: InputProps) {
               <Feather 
                 name={nameIcon} 
                 size={24} 
-                color={theme.colors.primary} 
+                color={isErrored ? theme.colors.status.error : theme.colors.primary} 
                 style={{ marginRight: 5}}
               />
               <Container
