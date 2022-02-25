@@ -5,7 +5,6 @@ import {
   TitleToday,
   WelcomeMessage,
   Wrapper,
-  ButtonAddMeal,
   WrapperCardsMeal,
   WrapperScreen,
   MenuMeal
@@ -25,6 +24,7 @@ import { WarnMessageScreen } from '../../components/WarnMessageScreen';
 import { Meal } from './types';
 import { fetchingMealOnlyFood } from '../../commons/fetchingMealOnlyFood';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { ButtonAddMeal } from '../../components/ButtonAddMeal';
 
 export function Home () {
   const [openMenuMeal, setOpenMenuMeal] = useState(false);
@@ -115,23 +115,9 @@ export function Home () {
       <MenuMeal>
         <ButtonAddMeal
           onPress={() => handleMenuOptionsIsOpen()}
-          style={!openMenuMeal && { marginBottom: 100 }}
-        >
-          {openMenuMeal ? (
-            <AntDesign 
-              name="down"
-              size={24}
-              color="#FFF" 
-            />
-          ) : (
-            <Entypo 
-              name="plus"
-              size={24} 
-              color="#FFFFFF" 
-              onPress={handleOpenMenu}
-            />
-          )}
-        </ButtonAddMeal>
+          handleOpenMenu={handleOpenMenu}
+          openMenuMeal={openMenuMeal}
+        />
         {openMenuMeal 
           && <CardOptionsMeal setOpenMenuMeal={setOpenMenuMeal} />}
       </MenuMeal>

@@ -54,17 +54,6 @@ export const TitleToday = styled.Text`
 `;
 
 
-export const ButtonAddMeal = styled.TouchableOpacity`
-  background-color: ${({theme}) => theme.colors.primary};
-  width: 65px;
-  height: 65px;
-  border-radius: 40px;
-
-  justify-content: center;
-  align-items: center;
-  margin-right: 19px;
-`;
-
 export const MenuMeal = styled.View`
   position: absolute;
   bottom: 0;
