@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { getHeightStatusBar } from '../../../commons/getHeightStatusBar';
 import { Input } from '../../../components/Form/Input';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -12,6 +11,7 @@ import {
   ButtonContinue,
   ButtonContinueText,
   ButtonBack,
+  ErrorMessage
 } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
@@ -20,6 +20,8 @@ import { useTheme } from 'styled-components/native';
 import auth from '@react-native-firebase/auth';
 import { useToast } from '../../../contexts/toast';
 import AppLoading from 'expo-app-loading';
+import { schemaOfRegister } from './validation';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 
 
@@ -31,7 +33,9 @@ type FormRegisterUser = {
 
 export function Register() {
   const navigation = useNavigation();
-  const {control, handleSubmit} = useForm()
+  const {control, handleSubmit, formState: { errors }} = useForm({
+    resolver: yupResolver(schemaOfRegister)
+  })
   const { showToast } = useToast()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -43,10 +47,10 @@ export function Register() {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => showToast('success', 'Conta criada com sucesso'))
+      //@ts-ignore
       .then(() => navigation.navigate({ name: "AboutYou"}))
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false))
-    // @ts-ignore
   };
 
   return (
@@ -63,8 +67,9 @@ export function Register() {
       </Header>
 
       <Form>
-        <View style={{width: '100%', marginBottom: 30}}>
+        <View style={{width: '100%'}}>
           <Input
+            errors={errors.email}
             title="E-mail"
             nameIcon="mail"
             placeholder="john@gmail.com"
@@ -73,10 +78,12 @@ export function Register() {
             name="email"
             keyboardType="email-address"
           /> 
+           <ErrorMessage>{errors.email?.message}</ErrorMessage>
         </View>
 
-        <View style={{width: '100%', marginBottom: 30}}>
+        <View style={{width: '100%'}}>
           <Input
+            errors={errors.password}
             nameIcon="lock"
             title="Senha"
             name="password"
@@ -85,10 +92,12 @@ export function Register() {
             autoCorrect={false}
             control={control}
           />
+           <ErrorMessage>{errors.password?.message}</ErrorMessage>
         </View>
 
         <View style={{width: '100%'}}>
           <Input
+            errors={errors.confirmationPassword}
             nameIcon="lock"
             title="Confirmação de senha"
             name="confirmationPassword"
@@ -97,6 +106,7 @@ export function Register() {
             autoCorrect={false}
             control={control}
           />
+          <ErrorMessage>{errors.confirmationPassword?.message}</ErrorMessage>
         </View>
 
 

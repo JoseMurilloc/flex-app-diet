@@ -11,6 +11,12 @@ export const Container = styled.SafeAreaView`
   background-color: ${({theme}) => theme.colors.background};
 `;
 
+export const ErrorMessage = styled.Text`
+  font-family: ${({theme}) => theme.fonts.bold};
+  font-size: ${({theme}) => theme.sizes.default}px;
+  color: ${({theme}) => theme.colors.status.error};
+`;
+
 
 export const Header = styled.View`
   width: 100%;
