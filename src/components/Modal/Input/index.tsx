@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { TextInputProps } from 'react-native';
 
 import { 
@@ -9,6 +9,7 @@ import {
 } from './styles';
 
 import { Controller, Control } from "react-hook-form";
+import { TextInput } from 'react-native';
 
 interface InputProps extends TextInputProps {
   control: Control | any;
@@ -16,10 +17,18 @@ interface InputProps extends TextInputProps {
   title: string;
 }
 
-export function Input ({ name, control, title, ...rest}: InputProps) {
+export const Input = forwardRef(({ name, control, title, ...rest}: InputProps, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const handleInputFocus = useCallback(() => setIsFocused(true), []);
   const handleInputBlur = useCallback(() => setIsFocused(false), []);
+
+  const inputRef = useRef<TextInput>(null);
+
+  useImperativeHandle(ref, () => ({
+    focusNextInput() {
+      inputRef.current?.focus();
+    }
+  }))
 
 
   return (
@@ -34,6 +43,7 @@ export function Input ({ name, control, title, ...rest}: InputProps) {
           name={name}
           render={({ field: { onChange, value }}) => (
             <Container 
+              ref={inputRef}
               onChangeText={onChange}
               value={value}
               onFocus={handleInputFocus}
@@ -45,4 +55,4 @@ export function Input ({ name, control, title, ...rest}: InputProps) {
     </WrapperInput>
     </WrapperGlobal>
   );
-}
+})

@@ -1,3 +1,4 @@
+import { TextInput } from 'react-native';
 import styled, { css } from 'styled-components/native';
 
 type WrapperInputProps = {
@@ -35,7 +36,7 @@ export const WrapperInput = styled.View<WrapperInputProps>`
   `}
 `;
 
-export const Container = styled.TextInput.attrs(props => ({}))`
+export const Container = styled(TextInput).attrs(props => ({}))`
   width: 100%;
   height: 100%;
 `;
