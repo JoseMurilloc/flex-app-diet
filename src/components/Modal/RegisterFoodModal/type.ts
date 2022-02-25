@@ -14,6 +14,7 @@ export type FormRegisterData = {
   nameBrand: string,
   cabos: number,
   fat: number,
+  servingSize: string,
   metric: string,
   protein: number,
 }

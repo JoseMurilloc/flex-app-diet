@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { View } from 'react-native';
+import React, { useCallback, useState, useRef } from 'react';
+import { TextInput, View } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import Modal from "react-native-modal";
 import { PickerMetric } from '../../Modal/Picker';
@@ -23,10 +23,23 @@ import { Input } from '../../Modal/Input';
 import { api } from '../../../services/api';
 import { useToast } from '../../../contexts/toast';
 
+import firestore from '@react-native-firebase/firestore'
+
 export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
 
   const {control, handleSubmit, setValue, reset} = useForm<any>();
   const [isFocused, setIsFocused] = useState(false);
+  
+  
+  const nameNameInputRef = useRef<any>(null)
+  const nameBrandInputRef = useRef<any>(null)
+  const servingSizeInputRef = useRef<any>()
+  const numberServingInputRef = useRef<any>()
+  const carbsInputRef = useRef<any>()
+  const proteinInputRef = useRef<any>()
+  const fatInputRef = useRef<any>()
+
+
   const {showToast} = useToast()
 
   const handleInputFocus = useCallback(() => setIsFocused(true), []);
@@ -34,29 +47,39 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
 
   const handleConfirmRegisterFood = useCallback(async(data: FormRegisterData) => {
     
-    const {cabos, protein, fat} = data;
+    const {cabos, protein, fat, nameBrand} = data;
 
-    const food = {
+    let food = {
       nameFood: data.description,
-      nameBrand: data.nameBrand,
+      nameBrand,
       infoNutritional: {
-        servingSize: data.metric,
+        servingSize: data.servingSize,
         numberServing: data.numberServing,
         carbs: cabos,
         protein,
         fat
       }
     }
+    
+    console.log(food)
 
-    try {
-      await api.post('/foods', { ...food });
-      showToast("success", "Alimento cadastrado com sucesso")
-    } catch {
-      showToast('error', 'Error interno tente novamente');
-    } finally {
-      state.setModalRegisterFood(false);
-      reset();
-    }
+    firestore()
+      .collection('foods')
+      .add({
+        ...food,
+        created_at: firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        showToast("success", "Alimento cadastrado com sucesso 👏")
+      })
+      .catch(() => {
+        showToast('error', 'Error interno tente novamente por favor 😅');
+      })
+      .finally(() => {
+        state.setModalRegisterFood(false);
+        reset();
+      })
+     
   }, [])
 
   return (
@@ -76,7 +99,7 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
                   control={control}
                   name="description"
                   render={({ field: { onChange, value }}) => (
-                    <InputDescription 
+                    <InputDescription
                       placeholder="Descrição"
                       autoCorrect={false} 
                       value={value}
@@ -84,6 +107,9 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
                       isFocused={isFocused}
                       onFocus={handleInputFocus}
                       onBlur={handleInputBlur}
+                      onSubmitEditing={() => 
+                        nameBrandInputRef.current?.focusNextInput()
+                      }
                    />
                   )}
                 />
@@ -92,34 +118,42 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
                 <WrapperInputsLine>
                   <GenericWrapperInput style={{width: 100}}>
                     <Input
+                      ref={nameBrandInputRef}
                       title="Marca"
-                      name="brand"
+                      name="nameBrand"
                       control={control}
                       placeholder="Digite aqui"
                       keyboardType="default"
                       autoCorrect={false}
+                      onSubmitEditing={() => 
+                        numberServingInputRef.current?.focusNextInput()
+                      }
                     />
                   </GenericWrapperInput>
                   <GenericWrapperInput style={{width: 120}}>
                     <PickerMetric
                       title="Métrica"
-                      name="metric"
+                      name="servingSize"
                       control={control}
                       enabled={true}
                       onValueChange={((itemValue: any, itemIndex: number) => {
-                        setValue("metric", itemValue)
+                        setValue("servingSize", itemValue)
                       })}
                     />
                   </GenericWrapperInput>
 
                   <GenericWrapperInput style={{width: 100}}>
                     <Input
+                      ref={numberServingInputRef}
                       title="Porção"
                       name="numberServing"
                       control={control}
                       placeholder="Digite aqui"
                       keyboardType="numeric"
                       autoCorrect={false}
+                      onSubmitEditing={() => 
+                        carbsInputRef.current?.focusNextInput()
+                      }
                     />
                   </GenericWrapperInput>
 
@@ -135,33 +169,43 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
                 <WrapperInputsLine>
                   <GenericWrapperInput style={{width: 100}}>
                     <Input
+                      ref={carbsInputRef}
                       title="Carbo"
                       name="cabos"
                       control={control}
                       placeholder="Digite aqui"
                       keyboardType="numeric"
                       autoCorrect={false}
+                      onSubmitEditing={() => 
+                        proteinInputRef.current?.focusNextInput()
+                      }
                     />
                   </GenericWrapperInput>
                   <GenericWrapperInput style={{width: 120}}>
                     <Input
+                      ref={proteinInputRef}
                       title="Proteína"
                       name="protein"
                       control={control}
                       placeholder="Digite aqui"
                       keyboardType="numeric"
                       autoCorrect={false}
+                      onSubmitEditing={() => 
+                        fatInputRef.current?.focusNextInput()
+                      }
                     />
                   </GenericWrapperInput>
 
                   <GenericWrapperInput style={{width: 100}}>
                     <Input
+                      ref={fatInputRef}
                       title="Gordura"
                       name="fat"
                       control={control}
                       placeholder="Digite aqui"
                       keyboardType="numeric"
                       autoCorrect={false}
+                      onSubmitEditing={handleSubmit(handleConfirmRegisterFood)}
                     />
                   </GenericWrapperInput>
                 </WrapperInputsLine>
