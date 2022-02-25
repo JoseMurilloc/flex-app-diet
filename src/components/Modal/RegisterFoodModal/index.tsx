@@ -12,7 +12,6 @@ import {
   WrapperInputsLine,
   ContentForm,
   WrapperInputDescription,
-  InputDescription,
   InfoNutritional,
   InfoNutritionalText,
   InfoNutritionalLine,
@@ -24,14 +23,14 @@ import { api } from '../../../services/api';
 import { useToast } from '../../../contexts/toast';
 
 import firestore from '@react-native-firebase/firestore'
+import { InputDescription } from '../../Form/Input/InputDescription';
 
 export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
 
   const {control, handleSubmit, setValue, reset} = useForm<any>();
-  const [isFocused, setIsFocused] = useState(false);
   
   
-  const nameNameInputRef = useRef<any>(null)
+  const nameFoodInputRef = useRef<any>(null)
   const nameBrandInputRef = useRef<any>(null)
   const servingSizeInputRef = useRef<any>()
   const numberServingInputRef = useRef<any>()
@@ -42,15 +41,12 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
 
   const {showToast} = useToast()
 
-  const handleInputFocus = useCallback(() => setIsFocused(true), []);
-  const handleInputBlur = useCallback(() => setIsFocused(false), []);
-
   const handleConfirmRegisterFood = useCallback(async(data: FormRegisterData) => {
     
-    const {cabos, protein, fat, nameBrand} = data;
+    const {cabos, protein, fat, nameBrand, nameFood} = data;
 
     let food = {
-      nameFood: data.description,
+      nameFood,
       nameBrand,
       infoNutritional: {
         servingSize: data.servingSize,
@@ -95,24 +91,16 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
             <Form>
               <ContentForm>
                 <WrapperInputDescription>
-                <Controller
-                  control={control}
-                  name="description"
-                  render={({ field: { onChange, value }}) => (
-                    <InputDescription
-                      placeholder="Descrição"
-                      autoCorrect={false} 
-                      value={value}
-                      onChangeText={onChange}
-                      isFocused={isFocused}
-                      onFocus={handleInputFocus}
-                      onBlur={handleInputBlur}
-                      onSubmitEditing={() => 
-                        nameBrandInputRef.current?.focusNextInput()
-                      }
-                   />
-                  )}
-                />
+                  <InputDescription
+                    ref={nameFoodInputRef}
+                    control={control} 
+                    name="nameFood"
+                    placeholder="Descrição"
+                    autoCorrect={false} 
+                    onSubmitEditing={() => 
+                      nameBrandInputRef.current?.focusNextInput()
+                    }
+                  />
                 </WrapperInputDescription>
 
                 <WrapperInputsLine>
