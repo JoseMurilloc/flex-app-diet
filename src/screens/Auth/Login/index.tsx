@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { View } from 'react-native';
-import { getHeightStatusBar } from '../../../commons/getHeightStatusBar';
+import { Text, View } from 'react-native';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Input } from '../../../components/Form/Input';
 import { 
   Container,
@@ -13,10 +13,12 @@ import {
   ButtonSignUp,
   ButtonSignUpText,
   DescriptionHeader,
+  ErrorMessage
 } from './styles';
 import { useForm } from "react-hook-form";
 import auth from '@react-native-firebase/auth';
 import { useToast } from '../../../contexts/toast';
+import { schemaOfLogin } from './validation';
 
 export type FormLoginData = {
   email: string,
@@ -26,7 +28,9 @@ export type FormLoginData = {
 export function Login() {
   const navigation = useNavigation();
 
-  const { control, handleSubmit } = useForm<any>();
+  const { control, handleSubmit, formState: { errors } } = useForm<any>({
+    resolver: yupResolver(schemaOfLogin)
+  });
   const { showToast } = useToast()
 
   async function handleLogin(formData: FormLoginData) {
@@ -50,7 +54,7 @@ export function Login() {
       </Header>
 
       <Form>
-        <View style={{width: '100%', marginBottom: 30}}>
+        <View style={{width: '100%'}}>
           <Input
             control={control}
             nameIcon="mail"
@@ -59,10 +63,12 @@ export function Login() {
             placeholder="john@gmail.com"
             autoCorrect={false}
             keyboardType="email-address"
+            errors={errors.email}
           /> 
+          <ErrorMessage>{errors.email?.message}</ErrorMessage>
         </View>
 
-        <View style={{width: '100%', marginBottom: 50}}>
+        <View style={{width: '100%'}}>
           <Input
             control={control}
             nameIcon="lock"
@@ -71,7 +77,9 @@ export function Login() {
             placeholder="Senha"
             secureTextEntry={true}
             autoCorrect={false}
+            errors={errors.password}
           />
+          <ErrorMessage>{errors.password?.message}</ErrorMessage>
         </View>
 
         <ButtonLogin onPress={handleSubmit(handleLogin)}>

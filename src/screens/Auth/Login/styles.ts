@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 
+
 export const Container = styled.SafeAreaView`
   flex: 1;
   padding: 0 24px;
@@ -11,6 +12,11 @@ export const Container = styled.SafeAreaView`
   background-color: ${({theme}) => theme.colors.background};
 `;
 
+export const ErrorMessage = styled.Text`
+  font-family: ${({theme}) => theme.fonts.bold};
+  font-size: ${({theme}) => theme.sizes.default}px;
+  color: ${({theme}) => theme.colors.status.error};
+`;
 
 export const Header = styled.View`
   width: 100%;
@@ -38,6 +44,7 @@ export const ButtonLogin = styled.TouchableOpacity`
   background-color: ${({theme}) => theme.colors.primary};
   height: 50px;
   margin-bottom: 15px;
+  margin-top: 15px;
 
   align-items: center;
   justify-content: center;
