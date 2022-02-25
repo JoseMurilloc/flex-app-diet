@@ -21,7 +21,7 @@ interface InputProps extends TextInputProps {
   control: Control | any;
   name: string;
   title: string;
-  nameIcon: any;
+  nameIcon?: any;
   errors: any;
 }
 
@@ -49,12 +49,12 @@ export function Input ({ errors, control, title, name, nameIcon, ...rest}: Input
           name={name}
           render={({ field: { onChange, value}}) => (
             <>
-              <Feather 
+              { nameIcon && <Feather 
                 name={nameIcon} 
                 size={24} 
                 color={isErrored ? theme.colors.status.error : theme.colors.primary} 
                 style={{ marginRight: 5}}
-              />
+              />}
               <Container
                 onChangeText={onChange}
                 value={value} 

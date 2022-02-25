@@ -26,10 +26,9 @@ import { useToast } from '../../../contexts/toast';
 
 export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
 
-  const {control, handleSubmit, setValue} = useForm<any>();
-  const [amount, setAmount] = useState(
-    String(food.infoNutritional.numberServing)
-  );
+  const {control, handleSubmit, setValue, formState: { errors }} = useForm<any>();
+  const [amount, setAmount] = useState('');
+
   const {addFood, data: {foods}} = useMeal();
   const {showToast} = useToast();
 
@@ -55,7 +54,7 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
 
     try {
       
-      const existInDish = foods.find(foodInDish => foodInDish.id === food.id)
+      const existInDish = foods.find(foodInDish => foodInDish.nameFood === food.nameFood)
 
       if (existInDish) {
         Alert.alert(`${food.nameFood} Já esta no seu prato 😬`)
@@ -71,6 +70,10 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
       showToast('error', 'Alimento não inserido, por favor tente novamente')
     }
   }, [food, amount, foods])
+
+  useEffect(() => {
+    if (state.isVisible) setAmount(String(food.infoNutritional.numberServing))
+  }, [state.isVisible])
 
   return (
     <View>
@@ -88,18 +91,19 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
                   <GenericWrapperInput style={{width: 144,  marginRight: 16}}>
                     <PickerMetric
                       title="Métrica"
-                      name="metric"
+                      name="servingSize"
                       control={control}
                       enabled={false}
                       food={food}
                       onValueChange={((itemValue: any, itemIndex: number) => {
-                        setValue("metric", itemValue)
+                        setValue("servingSize", itemValue)
                       })}
                     />
                   </GenericWrapperInput>
 
                   <GenericWrapperInput style={{width: 144}}>
                     <Input
+                      errors={errors.numberServing}
                       control={control}
                       name="numberServing"
                       autoFocus
@@ -109,6 +113,7 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
                       placeholder="ex: 150"
                       keyboardType="numeric"
                       autoCorrect={false}
+                      onSubmitEditing={handleSubmit(handleAddFoodInMeal)}
                     />
                   </GenericWrapperInput>
                 </WrapperAmountMetric>
