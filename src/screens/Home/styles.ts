@@ -22,20 +22,11 @@ export const Container = styled.View`
 `;
 
 export const Header = styled.View`
-  /* background-color: #E8BFB755; */
   min-height:${useStatusBarHeight(77)}px;
   width: 100%;
   padding-top: 42px;
   padding-bottom: 21px;
 `;
-
-export const WelcomeMessage = styled.Text`
-  margin-top: 6px;
-  font-family: ${({theme}) => theme.fonts.regular};
-  font-size: ${({theme}) => theme.sizes.large}px;
-  color: ${({theme}) => theme.colors.text};
-`;
-
 
 
 export const Wrapper = styled.View<WrapperProps>`

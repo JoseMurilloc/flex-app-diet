@@ -3,28 +3,26 @@ import {
   Container,
   Header,
   TitleToday,
-  WelcomeMessage,
   Wrapper,
   WrapperCardsMeal,
   WrapperScreen,
-  MenuMeal
+  MenuMeal,
 } from './styles';
 import WeekList from '../../components/WeekList';
 import { GraphicMetricCalories } from '../../components/GraphicMetricCalories';
 import { Macro } from '../../components/GraphicMetricCalories/types';
 
-import { Entypo } from '@expo/vector-icons'; 
-import { AntDesign } from '@expo/vector-icons';
 
 import { CardMeal } from '../../components/CardMeal';
 
 import { CardOptionsMeal } from '../../components/CardOptionsMeal';
-import { FlatList, Image } from 'react-native';
+import { FlatList } from 'react-native';
 import { WarnMessageScreen } from '../../components/WarnMessageScreen';
 import { Meal } from './types';
 import { fetchingMealOnlyFood } from '../../commons/fetchingMealOnlyFood';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { ButtonAddMeal } from '../../components/ButtonAddMeal';
+import { SimpleLineIcons } from '@expo/vector-icons';
 
 export function Home () {
   const [openMenuMeal, setOpenMenuMeal] = useState(false);
@@ -54,6 +52,7 @@ export function Home () {
     setOpenMenuMeal(state => !state);
   }
 
+  // Added where i am using `false` when implementation meal in firebase 
   const isWarnNotFoods = useCallback(()=> !(meals.length > 0), [meals])
 
   return (
@@ -61,18 +60,8 @@ export function Home () {
       <Container>
         <Header>
           <TouchableWithoutFeedback>
-            <Image 
-              source={require("../../assets/profile.jpeg")}
-              width={24}
-              height={24}
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 20,
-              }}
-            />
+            <SimpleLineIcons name="menu" size={24} color="black" />
           </TouchableWithoutFeedback>
-          <WelcomeMessage>Olá, Murillo 👏</WelcomeMessage>
           <Wrapper 
             marginTop={21} 
             marginBottom={11} 
@@ -85,7 +74,7 @@ export function Home () {
           <TitleToday>Hoje</TitleToday>
           <GraphicMetricCalories data={macros}/>
         </Wrapper>
-        {isWarnNotFoods() ? (
+        {false ? (
           <Wrapper marginTop={0} marginBottom={0} isCenter={true}>
             <WarnMessageScreen 
               messageMain="Sem refeições adicionadas"
@@ -95,15 +84,16 @@ export function Home () {
         ) : (
           <WrapperCardsMeal>
             <FlatList 
-              data={meals}
+              data={[0,1,3]}
               showsVerticalScrollIndicator={false}
-              keyExtractor={meal => meal.nameMeal}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={item => String(item)}
               renderItem={({item: meal}) => (
                 <CardMeal
-                  key={meal.nameMeal} 
-                  nameMeal={meal.nameMeal}
-                  caloriesTotal={meal.caloriesTotal}
-                  Icon={meal.Icon}
+                  key={meal} 
+                  nameMeal="Café da manha"
+                  caloriesTotal={200.52}
                 />
               )}
             />

@@ -10,13 +10,9 @@ export const Container = styled(MotiView).attrs(props => ({
   position: relative;
 
   background-color: ${({theme}) => theme.colors.card};
+  background-color: #f1f1f1;
   width: 100%;
-  padding: 0 16px;
-
-  border-top-right-radius: 16px;
-  border-top-left-radius: 16px;
-  border-color: ${({theme}) => lighten(0.3, theme.colors.primary)};
-  border-width: 0.8px;
+  padding: 0 16px; 
 `;
 
 export const Header = styled.View`

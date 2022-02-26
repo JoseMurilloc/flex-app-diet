@@ -18,6 +18,7 @@ export function CardOptionsMeal({setOpenMenuMeal}: CardOptionsMealProps) {
   // 🔴 changed type string to [OPtionsType]
   function handleNavigatedToMountDish(idMeal: string) {
     setOpenMenuMeal(state => !state);
+    //@ts-ignore
     navigation.navigate('MountDish', { idMeal })
   }
 
