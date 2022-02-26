@@ -52,7 +52,6 @@ export function Home () {
     setOpenMenuMeal(state => !state);
   }
 
-  // Added where i am using `false` when implementation meal in firebase 
   const isWarnNotFoods = useCallback(()=> !(meals.length > 0), [meals])
 
   return (
@@ -74,7 +73,7 @@ export function Home () {
           <TitleToday>Hoje</TitleToday>
           <GraphicMetricCalories data={macros}/>
         </Wrapper>
-        {false ? (
+        {isWarnNotFoods() ? (
           <Wrapper marginTop={0} marginBottom={0} isCenter={true}>
             <WarnMessageScreen 
               messageMain="Sem refeições adicionadas"
