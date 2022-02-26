@@ -5,6 +5,7 @@ export default {
     text: '#404040',
     description: '#787878',
     card: '#F3F3F3',
+    border: 'rgba(222, 222, 222, .7)',
     calorie: '#EEAC2B',
     status: {
       error: '#F93131',
