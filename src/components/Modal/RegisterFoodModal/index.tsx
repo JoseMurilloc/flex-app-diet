@@ -57,8 +57,6 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
       }
     }
     
-    console.log(food)
-
     firestore()
       .collection('foods')
       .add({

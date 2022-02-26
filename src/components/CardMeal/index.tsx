@@ -16,17 +16,21 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
-import { SvgProps } from "react-native-svg";
 import theme from "../../global/styles/theme";
 import { FlatList } from "react-native";
+
+export type FoodItem = {
+  amountServing: number;
+  food: any;
+}
 
 type CardMealProps = {
   nameMeal: string;
   caloriesTotal: number;
-  Icon?: React.FC<SvgProps>;
+  foods?: Array<FoodItem>
 }
 
-export function CardMeal({ nameMeal, caloriesTotal, Icon }: CardMealProps) {
+export function CardMeal({ nameMeal, caloriesTotal }: CardMealProps) {
   return (
     <Container>
       <Header style={{borderBottomWidth: 0.5}}>

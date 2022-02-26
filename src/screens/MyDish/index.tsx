@@ -26,6 +26,9 @@ import { useNavigation } from "@react-navigation/native";
 import { useToast } from "../../contexts/toast";
 
 
+import firestore from '@react-native-firebase/firestore'
+import { typesMealToName } from "../../commons/typesMealToName";
+
 interface FoodFormatted extends Food {
   totalCaloriesConsumePortion: string;
 }
@@ -79,18 +82,33 @@ export function MyDish() {
   
   async function handleSubmitMeal() {
     try { 
-      const id = meal.idMeal
-      const {data: Meal} = await api.get(`/meals/${id}`)   
-      await api.put(`/meals/${id}`, {
-        ...Meal, 
-        caloriesTotal, 
-        foods: [...foods]
-      })
 
-      removeAllFoodsOfMeal()
+      if (!meal.idMeal) return;
 
-      navigation.navigate({ name: "Home"})
-      showToast("success", "Refeição feita com sucesso")
+      
+      const formData = {
+        type: meal.idMeal,
+        nameMeal: typesMealToName[meal.idMeal],
+        caloriesTotal,
+        foods,
+        created_at: firestore.FieldValue.serverTimestamp()
+      }
+      
+      
+      firestore()
+        .collection('meals')
+        .add(formData)
+        .then(() => {
+          showToast("success", "Refeição feita com sucesso")
+          // @ts-ignore
+          navigation.navigate({ name: "Home"})
+        })
+        .catch(err => console.log(err))
+
+      
+      // removeAllFoodsOfMeal()
+      // @ts-ignore
+      // navigation.navigate({ name: "Home"})
     } catch {
       console.log('error')
     }

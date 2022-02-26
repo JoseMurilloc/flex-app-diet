@@ -2,8 +2,8 @@ export type MealDTO = {
   type: string;
   nameMeal: string;
   caloriesTotal: number;
-  foods: {
+  foods: Array<{
     amountServing: number;
     food: any;
-  }
+  }>
 }

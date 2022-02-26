@@ -18,20 +18,27 @@ import { CardMeal } from '../../components/CardMeal';
 import { CardOptionsMeal } from '../../components/CardOptionsMeal';
 import { FlatList } from 'react-native';
 import { WarnMessageScreen } from '../../components/WarnMessageScreen';
-import { Meal } from './types';
-import { fetchingMealOnlyFood } from '../../commons/fetchingMealOnlyFood';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { ButtonAddMeal } from '../../components/ButtonAddMeal';
 import { SimpleLineIcons } from '@expo/vector-icons';
 
+import firestore from '@react-native-firebase/firestore'
+import { MealDTO } from '../../dtos/MealDTO';
+
 export function Home () {
   const [openMenuMeal, setOpenMenuMeal] = useState(false);
-  const [meals, setMeals] = useState<Meal[]>([]);
+  const [meals, setMeals] = useState<MealDTO[]>([]);
   
 
   async function handleLoadAllMeal() {
-    const mealsFetching = await fetchingMealOnlyFood()
-    setMeals(mealsFetching)
+    firestore()
+      .collection('meals')
+      .get()
+      .then(querySnapshot => 
+        querySnapshot.docs.map(doc => doc.data() as MealDTO)
+      )
+      .then(meals => setMeals(meals))     
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
@@ -83,16 +90,15 @@ export function Home () {
         ) : (
           <WrapperCardsMeal>
             <FlatList 
-              data={[0,1,3]}
+              data={meals}
               showsVerticalScrollIndicator={false}
               horizontal
               showsHorizontalScrollIndicator={false}
-              keyExtractor={item => String(item)}
+              keyExtractor={meal => String(meal.nameMeal)}
               renderItem={({item: meal}) => (
                 <CardMeal
-                  key={meal} 
-                  nameMeal="Café da manha"
-                  caloriesTotal={200.52}
+                  nameMeal={meal.nameMeal}
+                  caloriesTotal={meal.caloriesTotal}
                 />
               )}
             />

@@ -11,4 +11,4 @@ export type FoodDTO = {
   created_at: Date;
 }
 
-type ServingSize = ["Unit", "Gram", "Spoon", "Ml"]
+type ServingSize = ["unit", "gram", "spoon", "ml"]
