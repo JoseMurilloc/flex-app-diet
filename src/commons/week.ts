@@ -7,13 +7,13 @@ export type Week = {
 }
 
 export const week: Week[] = [
-  { day: 'Domingo-feira', active: false }, // 0
+  { day: 'Domingo', active: false }, // 0
   { day: 'Segunda-feira', active: false },
   { day: 'Terça-feira', active: false },
   { day: 'Quarta-feira', active: false },
   { day: 'Quinta-feira', active: false },
   { day: 'Sexta-feira', active: false },
-  { day: 'Sábado-feira', active: false }, // 6
+  { day: 'Sábado', active: false }, // 6
 ]
 
 export function getCardAllDays(currentDate: Date): Week[] {
