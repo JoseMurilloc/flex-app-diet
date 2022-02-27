@@ -67,7 +67,7 @@ export function Home () {
   }
  
   const isWarnNotFoods = useCallback(()=> 
-    !meals.length, [meals]
+    (!meals.length) && isLoading, [meals]
   )
 
   return (
