@@ -24,13 +24,17 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 
 import firestore from '@react-native-firebase/firestore'
 import { MealDTO } from '../../dtos/MealDTO';
+import { LoadAnimated } from '../../components/LoadAnimated';
 
 export function Home () {
   const [openMenuMeal, setOpenMenuMeal] = useState(false);
   const [meals, setMeals] = useState<MealDTO[]>([]);
+  const [isLoading, setIsLoading] = useState(false)
   
 
   async function handleLoadAllMeal() {
+    setIsLoading(true)
+
     firestore()
       .collection('meals')
       .get()
@@ -39,6 +43,9 @@ export function Home () {
       )
       .then(meals => setMeals(meals))     
       .catch(err => console.log(err))
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   useEffect(() => {
@@ -58,8 +65,10 @@ export function Home () {
   const handleMenuOptionsIsOpen = () => {
     setOpenMenuMeal(state => !state);
   }
-
-  const isWarnNotFoods = useCallback(()=> !(meals.length > 0), [meals])
+ 
+  const isWarnNotFoods = useCallback(()=> 
+    !meals.length, [meals]
+  )
 
   return (
     <WrapperScreen>
@@ -80,13 +89,8 @@ export function Home () {
           <TitleToday>Hoje</TitleToday>
           <GraphicMetricCalories data={macros}/>
         </Wrapper>
-        {isWarnNotFoods() ? (
-          <Wrapper marginTop={0} marginBottom={0} isCenter={true}>
-            <WarnMessageScreen 
-              messageMain="Sem refeições adicionadas"
-              messageDescription="Comece a adicionar refeições clicando no botão a baixo"
-            />
-          </Wrapper>
+        {isLoading ? (
+          <LoadAnimated />
         ) : (
           <WrapperCardsMeal>
             <FlatList 
@@ -99,10 +103,21 @@ export function Home () {
                 <CardMeal
                   nameMeal={meal.nameMeal}
                   caloriesTotal={meal.caloriesTotal}
+                  hourConsumed={meal.created_at}
+                  foods={meal.foods}
                 />
               )}
             />
           </WrapperCardsMeal>
+        )}
+
+        {isWarnNotFoods() && (
+          <Wrapper marginTop={0} marginBottom={0} isCenter={true}>
+            <WarnMessageScreen 
+              messageMain="Sem refeições adicionadas"
+              messageDescription="Comece a adicionar refeições clicando no botão a baixo"
+            />
+        </Wrapper>
         )}
         
       </Container>
