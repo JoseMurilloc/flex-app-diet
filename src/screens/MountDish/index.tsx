@@ -16,9 +16,8 @@ import { InputSearch } from "../../components/Form/InputSearch";
 import { CardFood } from "../../components/CardFood";
 import { Header } from '../../components/Header';
 
-import { ActivityIndicator, Alert, FlatList } from "react-native";
+import { Alert, FlatList } from "react-native";
 import { Food, FormData, ParamsRouter } from "./types";
-import { api } from "../../services/api";
 import theme from "../../global/styles/theme";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
@@ -36,6 +35,7 @@ import { getTotalCaloriesInMacros } from "../../commons/getTotalCaloriesInMacros
 import { useToast } from "../../contexts/toast";
 
 import firestore from '@react-native-firebase/firestore';
+import { LoadAnimated } from "../../components/LoadAnimated";
 
 export function MountDish() {
 
@@ -173,11 +173,7 @@ export function MountDish() {
 
         <WrapperCardFood>
           {loading ? (
-            <ActivityIndicator 
-              color={theme.colors.primary} 
-              size="large" 
-              style={{ flex: 1, justifyContent: "flex-start"}} 
-            />
+            <LoadAnimated />
           ): (
             <FlatList
               showsVerticalScrollIndicator={false}
