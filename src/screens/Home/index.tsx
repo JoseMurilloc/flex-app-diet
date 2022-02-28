@@ -39,7 +39,9 @@ export function Home () {
       .collection('meals')
       .get()
       .then(querySnapshot => 
-        querySnapshot.docs.map(doc => doc.data() as MealDTO)
+        querySnapshot.docs.map(doc => {
+          return {...doc.data(), id: doc.id } as MealDTO
+        })
       )
       .then(meals => setMeals(meals))     
       .catch(err => console.log(err))
@@ -69,6 +71,10 @@ export function Home () {
   const isWarnNotFoods = useCallback(()=> 
     (!meals.length) && isLoading, [meals]
   )
+  const updatedMeals = (id: string) => {
+    const mealsUpdate = meals.filter(meal => meal.id !== id)
+    setMeals(mealsUpdate)
+  } 
 
   return (
     <WrapperScreen>
@@ -89,6 +95,16 @@ export function Home () {
           <TitleToday>Hoje</TitleToday>
           <GraphicMetricCalories data={macros}/>
         </Wrapper>
+
+        {isWarnNotFoods() && (
+          <Wrapper marginTop={0} marginBottom={0} isCenter={true}>
+            <WarnMessageScreen 
+              messageMain="Sem refeições adicionadas"
+              messageDescription="Comece a adicionar refeições clicando no botão a baixo"
+            />
+        </Wrapper>
+        )}
+        
         {isLoading ? (
           <LoadAnimated />
         ) : (
@@ -101,6 +117,8 @@ export function Home () {
               keyExtractor={meal => String(meal.nameMeal)}
               renderItem={({item: meal}) => (
                 <CardMeal
+                  id={meal.id}
+                  updatedMeals={updatedMeals}
                   nameMeal={meal.nameMeal}
                   caloriesTotal={meal.caloriesTotal}
                   hourConsumed={meal.created_at}
@@ -109,15 +127,6 @@ export function Home () {
               )}
             />
           </WrapperCardsMeal>
-        )}
-
-        {isWarnNotFoods() && (
-          <Wrapper marginTop={0} marginBottom={0} isCenter={true}>
-            <WarnMessageScreen 
-              messageMain="Sem refeições adicionadas"
-              messageDescription="Comece a adicionar refeições clicando no botão a baixo"
-            />
-        </Wrapper>
         )}
         
       </Container>

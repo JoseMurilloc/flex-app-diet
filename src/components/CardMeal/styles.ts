@@ -1,7 +1,11 @@
 import { lighten } from "polished";
+import { RectButton } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
-export const Container = styled.View`
+export const Container = styled.TouchableOpacity.attrs(props => ({
+  activeOpacity: 1
+}))`
+  position: relative;
   width: 250px;
   max-height: 350px;
   
@@ -74,3 +78,30 @@ export const FoodText = styled.Text`
   font-family: ${({theme}) => theme.fonts.regular};
   font-size: ${({theme}) => theme.sizes.default + 2}px;
 `;
+
+export const Menu = styled.View`
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px 16px; 
+
+  width: 89px;
+  max-height: 110px;
+  z-index: 1000;
+
+  border-radius: 10px;
+
+  background: white;
+  background-color: ${({theme}) => lighten(0.18, theme.colors.primary)};
+`;
+
+export const ButtonMenu = styled.TouchableOpacity`
+  margin-bottom: 12px;
+`; 
+
+export const ButtonMenuOption = styled.Text`
+  font-family: ${({theme}) => theme.fonts.regular};
+  font-size: ${({theme}) => theme.sizes.large}px;
+  color: ${({theme}) => theme.colors.text};
+  color: white;
+`; 

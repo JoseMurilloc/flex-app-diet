@@ -1,9 +1,10 @@
+import { Food } from "../contexts/meals/types";
+
 export type MealDTO = {
+  id: string;
   type: string;
   nameMeal: string;
   caloriesTotal: number;
-  foods: Array<{
-    amountServing: number;
-    food: any;
-  }>
+  created_at: any;
+  foods: Array<Food>
 }
