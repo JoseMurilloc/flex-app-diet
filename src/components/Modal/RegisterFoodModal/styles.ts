@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components/native';
 export const ContainerModal = styled.View`
   background-color: #FFF; 
   width: 100%;
-  height: 450px;
+  height: 500px;
   border-radius: 15px;
 `;
 
@@ -53,14 +53,16 @@ export const ContentForm = styled.View`
   padding: 20px 19px 0px 16px;
 `;
 
-export const GenericWrapperInput = styled.View``;
+export const GenericWrapperInput = styled.View`
+  width: 100%;
+  height: 100%;
+`;
 
 export const WrapperInputsLine = styled.View`
   width: 100%;
-  height: 85px;
+  height: 105px;
   flex-direction: row;
   justify-content: space-between;
-  /* background-color: rgba(255, 32, 255, 0.4); */
 `;
 
 export const ContainerMacro = styled.View`

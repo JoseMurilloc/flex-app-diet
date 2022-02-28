@@ -19,15 +19,19 @@ import {
 import { Footer } from '../../Modal/Footer';
 import { FormRegisterData, RegisterFoodModalProps } from './type';
 import { Input } from '../../Modal/Input';
-import { api } from '../../../services/api';
 import { useToast } from '../../../contexts/toast';
 
 import firestore from '@react-native-firebase/firestore'
 import { InputDescription } from '../../Form/Input/InputDescription';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { schema } from './validation';
+import { ErrorMessage } from '../../ErrorMessage';
 
 export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
 
-  const {control, handleSubmit, setValue, reset} = useForm<any>();
+  const {control, handleSubmit, setValue, reset, formState: { errors }} = useForm<any>({
+    resolver: yupResolver(schema)
+  });
   
   
   const nameFoodInputRef = useRef<any>(null)
@@ -42,6 +46,8 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
   const {showToast} = useToast()
 
   const handleConfirmRegisterFood = useCallback(async(data: FormRegisterData) => {
+
+    console.log("Vamos isso passou pela verificação")
     
     const {cabos, protein, fat, nameBrand, nameFood} = data;
 
@@ -94,6 +100,7 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
               <ContentForm>
                 <WrapperInputDescription>
                   <InputDescription
+                    errors={errors.nameFood}
                     ref={nameFoodInputRef}
                     control={control} 
                     name="nameFood"
@@ -103,11 +110,13 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
                       nameBrandInputRef.current?.focusNextInput()
                     }
                   />
+                   <ErrorMessage text={errors.nameFood?.message} />
                 </WrapperInputDescription>
 
                 <WrapperInputsLine>
                   <GenericWrapperInput style={{width: 100}}>
                     <Input
+                      errors={errors.nameBrand}
                       ref={nameBrandInputRef}
                       title="Marca"
                       name="nameBrand"
@@ -119,6 +128,7 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
                         numberServingInputRef.current?.focusNextInput()
                       }
                     />
+                    <ErrorMessage text={errors.nameBrand?.message} />
                   </GenericWrapperInput>
                   <GenericWrapperInput style={{width: 120}}>
                     <PickerMetric
@@ -134,6 +144,7 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
 
                   <GenericWrapperInput style={{width: 100}}>
                     <Input
+                      errors={errors.numberServing}   
                       ref={numberServingInputRef}
                       title="Porção"
                       name="numberServing"
@@ -145,6 +156,7 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
                         carbsInputRef.current?.focusNextInput()
                       }
                     />
+                     <ErrorMessage text={errors.numberServing?.message} />
                   </GenericWrapperInput>
 
                 </WrapperInputsLine>
@@ -159,6 +171,7 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
                 <WrapperInputsLine>
                   <GenericWrapperInput style={{width: 100}}>
                     <Input
+                      errors={errors.cabos}
                       ref={carbsInputRef}
                       title="Carbo"
                       name="cabos"
@@ -170,9 +183,11 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
                         proteinInputRef.current?.focusNextInput()
                       }
                     />
+                     <ErrorMessage text={errors.cabos?.message} />
                   </GenericWrapperInput>
                   <GenericWrapperInput style={{width: 120}}>
                     <Input
+                      errors={errors.protein}
                       ref={proteinInputRef}
                       title="Proteína"
                       name="protein"
@@ -184,10 +199,12 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
                         fatInputRef.current?.focusNextInput()
                       }
                     />
+                     <ErrorMessage text={errors.protein?.message} />
                   </GenericWrapperInput>
 
                   <GenericWrapperInput style={{width: 100}}>
                     <Input
+                      errors={errors.fat}
                       ref={fatInputRef}
                       title="Gordura"
                       name="fat"
@@ -197,6 +214,7 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
                       autoCorrect={false}
                       onSubmitEditing={handleSubmit(handleConfirmRegisterFood)}
                     />
+                    <ErrorMessage text={errors.fat?.message}/>
                   </GenericWrapperInput>
                 </WrapperInputsLine>
               </ContentForm>
