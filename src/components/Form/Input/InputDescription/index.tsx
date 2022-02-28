@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { TextInput, TextInputProps } from 'react-native';
 import { Container } from './styles';
@@ -6,7 +6,7 @@ import { Container } from './styles';
 interface InputProps extends TextInputProps {
   control: Control | any;
   name: string;
-  errors?: any;
+  errors: any;
 }
 
 
@@ -26,24 +26,29 @@ export const InputDescription = forwardRef(({ name, control, errors, ...rest}: I
     }
   }))
 
+  useEffect(() => {
+    setIsErrored(!!errors)
+  }, [errors])
+
 
   return (
     <Controller
-        control={control}
-        name={name}
-        render={({ field: { onChange, value }}) => (
-          <Container
-            ref={inputRef}
-            placeholder="Descrição"
-            autoCorrect={false} 
-            value={value}
-            onChangeText={onChange}
-            isFocused={isFocused}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            {...rest}
-        />
-        )}
+      control={control}
+      name={name}
+      render={({ field: { onChange, value }}) => (
+        <Container
+          isErrored={isErrored}
+          ref={inputRef}
+          placeholder="Descrição"
+          autoCorrect={false} 
+          value={value}
+          onChangeText={onChange}
+          isFocused={isFocused}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          {...rest}
       />
+      )}
+    />
   );
 })

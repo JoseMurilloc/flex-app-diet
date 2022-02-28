@@ -3,7 +3,7 @@ import styled, { css } from "styled-components/native";
 
 interface InputDescriptionProps extends TextInputProps {
   isFocused: boolean;
-  isErrored?: boolean;  
+  isErrored: boolean;  
 }
 
 export const Container = styled.TextInput<InputDescriptionProps>`
@@ -11,8 +11,15 @@ export const Container = styled.TextInput<InputDescriptionProps>`
   border-bottom-width: 1px;
   padding-bottom: 3px;
   
-  ${({isFocused}) => isFocused ? css`
+  ${props => props.isFocused ? css`
     border-bottom-color:  ${({theme}) => theme.colors.primary};  
+  ` : css`
+    border-bottom-color:  ${({theme}) => theme.colors.card};
+  `}
+
+  ${props => props.isErrored ? css`
+    border-bottom-color:  ${({theme}) => theme.colors.status.error};
+    border-bottom-width: 1.5px;  
   ` : css`
     border-bottom-color:  ${({theme}) => theme.colors.card};
   `}
