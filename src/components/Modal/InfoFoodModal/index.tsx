@@ -17,11 +17,12 @@ import {
   WrapperAmountMetric,
   ContainerMacro,
   ContainerCalorieTotal,
-  ContentForm
+  ContentForm,
 } from './styles';
 import { InfoFoodModalProps } from './types';
 import { Footer } from '../../Modal/Footer';
 import { useToast } from '../../../contexts/toast';
+import { ErrorMessage } from '../../ErrorMessage';
 
 
 export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
@@ -75,6 +76,8 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
     if (state.isVisible) setAmount(String(food.infoNutritional.numberServing))
   }, [state.isVisible])
 
+  const isErrorContainAmount = useMemo(() => !amount.length, [amount])
+
   return (
     <View>
       <Modal 
@@ -103,7 +106,7 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
 
                   <GenericWrapperInput style={{width: 144}}>
                     <Input
-                      errors={errors.numberServing}
+                      errors={isErrorContainAmount ? isErrorContainAmount : errors.numberServing}
                       control={control}
                       name="numberServing"
                       autoFocus
@@ -115,6 +118,9 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
                       autoCorrect={false}
                       onSubmitEditing={handleSubmit(handleAddFoodInMeal)}
                     />
+                    {isErrorContainAmount && 
+                      <ErrorMessage text="Campo Obrigatório"/> 
+                    }
                   </GenericWrapperInput>
                 </WrapperAmountMetric>
 

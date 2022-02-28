@@ -34,7 +34,7 @@ export const GenericWrapperInput = styled.View``;
 
 export const WrapperAmountMetric = styled.View`
   width: 100%;
-  height: 85px;
+  height: 95px;
   flex-direction: row;
 `;
 
