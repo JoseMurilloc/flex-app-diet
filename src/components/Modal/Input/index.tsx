@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { TextInputProps } from 'react-native';
 
 import { 
@@ -15,14 +15,23 @@ interface InputProps extends TextInputProps {
   control: Control | any;
   name: string;
   title: string;
+  errors: any;
 }
 
-export const Input = forwardRef(({ name, control, title, ...rest}: InputProps, ref) => {
+export const Input = forwardRef(({ errors, name, control, title, ...rest}: InputProps, ref) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [isErrored, setIsErrored] = useState(false);
+  
   const handleInputFocus = useCallback(() => setIsFocused(true), []);
   const handleInputBlur = useCallback(() => setIsFocused(false), []);
 
   const inputRef = useRef<TextInput>(null);
+
+
+  useEffect(() => {
+    setIsErrored(!!errors)
+  }, [errors])
+
 
   useImperativeHandle(ref, () => ({
     focusNextInput() {
@@ -36,7 +45,7 @@ export const Input = forwardRef(({ name, control, title, ...rest}: InputProps, r
       <Title>{title}</Title>
       <WrapperInput 
         isFocused={isFocused}
-        isErrored={false}
+        isErrored={isErrored}
       >
         <Controller
           control={control}

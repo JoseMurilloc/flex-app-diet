@@ -8,7 +8,7 @@ type WrapperInputProps = {
 
 export const WrapperGlobal = styled.View`
   width: 100%;
-  height: 50px;
+  height: 68%;
 `;
 
 export const Title = styled.Text`
@@ -34,9 +34,18 @@ export const WrapperInput = styled.View<WrapperInputProps>`
     border-color: ${({theme}) => theme.colors.card};
     border-width: 0.5px;
   `}
+
+    
+  ${props => props.isErrored ? css`
+    border-color: ${({theme}) => theme.colors.status.error};
+    border-width: 1px;
+  ` : css`
+    border-color: ${({theme}) => theme.colors.card};
+    border-width: 0.5px;
+  `}
 `;
 
-export const Container = styled(TextInput).attrs(props => ({}))`
+export const Container = styled.TextInput`
   width: 100%;
   height: 100%;
 `;
