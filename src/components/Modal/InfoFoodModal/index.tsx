@@ -18,11 +18,15 @@ import {
   ContainerMacro,
   ContainerCalorieTotal,
   ContentForm,
+  Footer,
+  FooterButtons,
+  FooterButtonCancel,
+  FooterButtonCancelText
 } from './styles';
 import { InfoFoodModalProps } from './types';
-import { Footer } from '../../Modal/Footer';
 import { useToast } from '../../../contexts/toast';
 import { ErrorMessage } from '../../ErrorMessage';
+import { Button } from '../../Button';
 
 
 export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
@@ -30,7 +34,7 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
   const {control, handleSubmit, setValue, formState: { errors }} = useForm<any>();
   const [amount, setAmount] = useState('');
 
-  const {addFood, data: {foods}} = useMeal();
+  const {addFoodInDish, data: {dish}} = useMeal();
   const {showToast} = useToast();
 
   const caloriesTotalFood = useMemo(
@@ -55,7 +59,7 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
 
     try {
       
-      const existInDish = foods.find(foodInDish => foodInDish.nameFood === food.nameFood)
+      const existInDish = dish.find(foodInDish => foodInDish.nameFood === food.nameFood)
 
       if (existInDish) {
         Alert.alert(`${food.nameFood} Já esta no seu prato 😬`)
@@ -63,14 +67,14 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
       }
 
 
-      await addFood({...food, amount: Number(amount)})
+      await addFoodInDish({...food, amount: Number(amount)})
       state.setModalInfoFood(false);
       showToast('success', `${food.nameFood} já está no prato`)
 
     } catch {
       showToast('error', 'Alimento não inserido, por favor tente novamente')
     }
-  }, [food, amount, foods])
+  }, [food, amount, dish])
 
   useEffect(() => {
     if (state.isVisible) setAmount(String(food.infoNutritional.numberServing))
@@ -147,11 +151,21 @@ export function InfoFoodModal({ state, food }: InfoFoodModalProps) {
                 </ContainerCalorieTotal>
               </ContentForm>
 
-              <Footer 
-                handleSubmit={handleSubmit} 
-                handleAddFoodInMeal={handleAddFoodInMeal}
-                setModalInfoFood={state.setModalInfoFood}
-              />
+              <Footer>
+                <FooterButtons>
+                  <FooterButtonCancel 
+                    onPress={() => state.setModalInfoFood(false)}
+                  >
+                    <FooterButtonCancelText>
+                      Cancelar
+                    </FooterButtonCancelText>
+                  </FooterButtonCancel>
+                  <Button
+                    onPress={handleSubmit(handleAddFoodInMeal)}
+                    buttonText="Cadastrar" 
+                  />
+                </FooterButtons>
+              </Footer>
             </Form>
         </ContainerModal>
       </Modal>

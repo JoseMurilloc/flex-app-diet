@@ -15,8 +15,11 @@ import {
   InfoNutritional,
   InfoNutritionalText,
   InfoNutritionalLine,
+  Footer,
+  FooterButtons,
+  FooterButtonCancel,
+  FooterButtonCancelText
 } from './styles';
-import { Footer } from '../../Modal/Footer';
 import { FormRegisterData, RegisterFoodModalProps } from './type';
 import { Input } from '../../Modal/Input';
 import { useToast } from '../../../contexts/toast';
@@ -26,6 +29,7 @@ import { InputDescription } from '../../Form/Input/InputDescription';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from './validation';
 import { ErrorMessage } from '../../ErrorMessage';
+import { Button } from '../../Button';
 
 export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
 
@@ -219,11 +223,21 @@ export function RegisterFoodModal({ state }: RegisterFoodModalProps) {
                 </WrapperInputsLine>
               </ContentForm>
 
-              <Footer 
-                handleSubmit={handleSubmit} 
-                handleConfirmRegisterFood={handleConfirmRegisterFood}
-                setModalInfoFood={state.setModalRegisterFood} 
-              />
+              <Footer>
+                <FooterButtons>
+                  <FooterButtonCancel 
+                    onPress={() => state.setModalRegisterFood(false)}
+                  >
+                    <FooterButtonCancelText>
+                      Cancelar
+                    </FooterButtonCancelText>
+                  </FooterButtonCancel>
+                  <Button
+                    onPress={handleSubmit(handleConfirmRegisterFood)}
+                    buttonText="Cadastrar" 
+                  />
+                </FooterButtons>
+              </Footer>
             </Form>
         </ContainerModal>
       </Modal>
