@@ -24,6 +24,7 @@ import { Alert, FlatList, TouchableOpacity } from "react-native";
 import { Food } from "../../contexts/meals/types";
 import firestore from '@react-native-firebase/firestore';
 import { useToast } from "../../contexts/toast";
+import { useMeal } from "../../contexts/meals";
 
 
 type CardMealProps = {
@@ -45,6 +46,7 @@ export function CardMeal({
 }: CardMealProps) {
 
   const { showToast } = useToast()
+  const { handleDeleteMeal, removedMeals } = useMeal()
 
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -72,25 +74,14 @@ export function CardMeal({
         text: 'Sim',
         style: 'destructive',
         onPress: () => {
-          handleDeleteMeal();
-          updatedMeals(id)
+          handleDeleteMeal(id)
+          removedMeals(id)
         },
       },
     ],
   )
 
-  function handleDeleteMeal() {
-    firestore()
-      .collection("meals")
-      .doc(id)
-      .delete()
-      .then(() => {
-        showToast('success', 'Cartão da refeição removido com sucesso')
-      })
-      .catch(() => {
-        showToast('error', 'Error no servidor, tente novamente 😅')
-      })
-  }
+  
 
   return (
     <Container onPress={handleShowMenu}>

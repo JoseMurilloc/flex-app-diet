@@ -22,7 +22,7 @@ export function Header({titleHeader}: HeaderProps) {
   const navigation = useNavigation();
   const {STATUSBAR_HEIGHT} = getHeightStatusBar()
 
-  const {data: {foods}, removeAllFoodsOfMeal} = useMeal();
+  const {data: {dish}, removeAllFoodsOfDish} = useMeal();
 
 
   const alertUnmountDish = () => Alert.alert(
@@ -38,7 +38,7 @@ export function Header({titleHeader}: HeaderProps) {
         text: 'Sim',
         style: 'destructive',
         onPress: () => {
-          removeAllFoodsOfMeal();
+          removeAllFoodsOfDish();
           navigation.goBack();
         },
       },
@@ -47,7 +47,7 @@ export function Header({titleHeader}: HeaderProps) {
 
 
   function handleBackStack() {
-    if (titleHeader === 'Montar prato' && foods.length > 0) {
+    if (titleHeader === 'Montar prato' && dish.length > 0) {
       alertUnmountDish();
     } else {
       navigation.goBack()

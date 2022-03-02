@@ -49,7 +49,7 @@ export function MountDish() {
   const [title, setTitle] = useState('Meu histórico');
  
 
-  const {addKeyMeal} = useMeal();
+  const {updatedTypeOfMeal} = useMeal();
   const {showToast} = useToast()
 
   const [foodsOfSearch, setFoodsOfSearch] = 
@@ -63,7 +63,7 @@ export function MountDish() {
 
   useEffect(() => {
     try {
-      addKeyMeal(idMeal);
+      updatedTypeOfMeal(idMeal);
     } catch {
       showToast("error", "Problema interno")
     }

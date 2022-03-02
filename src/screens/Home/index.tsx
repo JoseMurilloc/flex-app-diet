@@ -22,36 +22,23 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { ButtonAddMeal } from '../../components/ButtonAddMeal';
 import { SimpleLineIcons } from '@expo/vector-icons';
 
-import firestore from '@react-native-firebase/firestore'
-import { MealDTO } from '../../dtos/MealDTO';
 import { LoadAnimated } from '../../components/LoadAnimated';
+import { useMeal } from '../../contexts/meals';
 
 export function Home () {
   const [openMenuMeal, setOpenMenuMeal] = useState(false);
-  const [meals, setMeals] = useState<MealDTO[]>([]);
   const [isLoading, setIsLoading] = useState(false)
-  
 
-  async function handleLoadAllMeal() {
-    setIsLoading(true)
-
-    firestore()
-      .collection('meals')
-      .get()
-      .then(querySnapshot => 
-        querySnapshot.docs.map(doc => {
-          return {...doc.data(), id: doc.id } as MealDTO
-        })
-      )
-      .then(meals => setMeals(meals))     
-      .catch(err => console.log(err))
-      .finally(() => {
-        setIsLoading(false)
-      })
-  }
+  const {
+    handleLoadAllMeal, 
+    updatedMeals, 
+    data: { meals }
+  } = useMeal();
 
   useEffect(() => {
+    setIsLoading(true);
     handleLoadAllMeal();
+    setIsLoading(false);
   }, [])
   
   const macros: Macro[] = [
@@ -71,10 +58,7 @@ export function Home () {
   const isWarnNotFoods = useCallback(()=> 
     (!meals.length) && isLoading, [meals]
   )
-  const updatedMeals = (id: string) => {
-    const mealsUpdate = meals.filter(meal => meal.id !== id)
-    setMeals(mealsUpdate)
-  } 
+ 
 
   return (
     <WrapperScreen>

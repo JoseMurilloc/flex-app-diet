@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { MealDTO } from "../../dtos/MealDTO";
 
 export type OptionsMeal = "breakfast" | "morningSpeedboat" | "lunch" | "afternoonSnack" | "dinner"
 
@@ -16,22 +17,27 @@ export interface Food {
 }
 
 export interface MealData {
-  idMeal: OptionsMeal | null;
+  type: OptionsMeal | null;
 }
 
-export type FoodData = Food[]
 
 export interface MealProviderProps {
   children: ReactNode;
 }
 
 type Data = {
-  foods: FoodData;
+  dish: Food[];
   meal: MealData;
+  meals: MealDTO[]
 }
 export interface MealContextData {
   data: Data;
-  addFood: (food: Food) => Promise<void>;
-  removeAllFoodsOfMeal: () => void;
-  addKeyMeal: (idMeal: OptionsMeal) => void;
+  addFoodInDish: (food: Food) => Promise<void>;
+  removeAllFoodsOfDish: () => void;
+  updatedTypeOfMeal: (type: OptionsMeal) => void;
+  handleLoadAllMeal(): Promise<void>;
+  handleSubmitMeal(caloriesTotal: string): Promise<void>;
+  updatedMeals: (id: string) => void;
+  removedMeals: (id: string) => void;
+  handleDeleteMeal: (id: string) => Promise<void>;
 }

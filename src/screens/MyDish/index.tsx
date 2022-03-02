@@ -26,25 +26,23 @@ import { useNavigation } from "@react-navigation/native";
 import { useToast } from "../../contexts/toast";
 
 
-import firestore from '@react-native-firebase/firestore'
-import { typesMealToName } from "../../commons/typesMealToName";
-
 interface FoodFormatted extends Food {
   totalCaloriesConsumePortion: string;
 }
 
 export function MyDish() {
 
-  const {data: {foods, meal}, removeAllFoodsOfMeal} = useMeal();
+  const {data: {dish}, handleSubmitMeal} = useMeal();
   const {showToast} = useToast();
 
   const navigation = useNavigation();
 
   const existFoodInDish = useMemo(
-    () => foods.length < 1,
-    [foods]
+    () => dish.length < 1,
+    [dish]
   );
   const [foodFormatted, setFoodFormatted] = useState<FoodFormatted[]>([])
+  const [active, setActive] = useState(true)
 
   const caloriesTotal = useMemo(() => {
     let total = 
@@ -68,7 +66,7 @@ export function MyDish() {
   }
 
   useEffect(() => {
-    const parserFood = foods.map(food => {
+    const parserFood = dish.map(food => {
       return {
         ...food,
         totalCaloriesConsumePortion: handleCaloriesTotal(food)
@@ -76,43 +74,8 @@ export function MyDish() {
     })
 
     setFoodFormatted(parserFood)
-  } , [foods])
+  } , [dish])
 
-
-  
-  async function handleSubmitMeal() {
-    try { 
-
-      if (!meal.idMeal) return;
-
-      
-      const formData = {
-        type: meal.idMeal,
-        nameMeal: typesMealToName[meal.idMeal],
-        caloriesTotal,
-        foods,
-        created_at: firestore.FieldValue.serverTimestamp()
-      }
-      
-      
-      firestore()
-        .collection('meals')
-        .add(formData)
-        .then(() => {
-          showToast("success", "Refeição feita com sucesso")
-          // @ts-ignore
-          navigation.navigate({ name: "Home"})
-        })
-        .catch(err => console.log(err))
-
-      
-      // removeAllFoodsOfMeal()
-      // @ts-ignore
-      // navigation.navigate({ name: "Home"})
-    } catch {
-      console.log('error')
-    }
-  }
   
   return (
     <>
@@ -155,8 +118,11 @@ export function MyDish() {
             <CalorieTotal caloriesTotal={caloriesTotal} />
             <WrapperButton>
               <Button 
+                active={active}
                 buttonText="Adicionar refeição"
-                onPress={handleSubmitMeal}
+                onPress={() =>  {
+                  handleSubmitMeal(caloriesTotal)                    
+                }}
               />
             </WrapperButton>
           </>
